@@ -13,7 +13,7 @@
 
 #include <stdio.h> // A supprimer !
 
-int			mandelbrot(t_wind *w);
+int			fractal(t_wind *w);
 int			fract_ol(char *filename);
 t_wind		create_new_window(char *title, int width, int height);
 int			create_new_img(t_wind *w);

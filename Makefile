@@ -2,7 +2,7 @@
 
 NAME=fract_ol
 SRC=	main.c \
-		mandelbrot.c \
+		fractal.c \
 		fract_ol.c \
 		create_new_window.c \
 		create_new_img.c \

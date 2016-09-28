@@ -12,8 +12,6 @@ static int		set_parameters(t_wind *w)
 	w->p.graphic_mode = 2; // Mode filaire par défault (touche nombre pour changer)
 	w->p.view_mode = 3; // Mode para par défault (touche F2/F3 pour changer)
 	w->p.accentuation = 1;// On peut mettre une accentuation à 10 pour compenser les maps avec des petits chiffres ;). Default = 1
-	w->p.angle_projpara = 30;
-	w->p.size_square = 30;
 
 	w->p.rot.x = 0; // Rotation x par défault
 	w->p.rot.y = 0; // Rotation x par défault
