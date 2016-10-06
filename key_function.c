@@ -117,26 +117,49 @@ int		key_function(int keycode, t_wind *w)
 	return (0);
 }
 
-/*
-static int		my_mouse_function(int keycode, t_wind *w)
+int		mouse_function(int button, int x, int y, t_wind *w)
 {
-»···ft_putnbr(w->point.x);
-»···ft_putendl("Keyevent");
-»···ft_putnbr(keycode);
-»···ft_putchar('\n');
-	*/
-	//if (keycode == 1 && w->point.x >= 0) // fleche gauche
-		//ft_putendl("clic gauche");//w->point.x -= 5;
+	ft_putnbr(w->point.x);
+	ft_putchar('\n');
+	ft_putendl("button");
+	ft_putnbr(button);
+	ft_putchar('\n');
+	ft_putnbr(x);
+	ft_putchar('\n');
+	ft_putnbr(y);
+	ft_putchar('\n');
+	ft_putstr("zoom:");
+	ft_putnbr(w->p.fr.zoom);
+	ft_putchar('\n');
+
+	//We set the mouse value
+	w->p.fr.mouse_x = x;
+	w->p.fr.mouse_y = y;
 	/*
-»···else if (keycode == 65363 && w->point.x < w->width) // fleche droite
-»···»···w->point.x += 5;
-»···else if (keycode == 65362 && w->point.x >= 0) // fleche haut
-»···»···w->point.y -= 5;
-»···else if (keycode == 65364 && w->point.x < w->height) // fleche bas
-»···»···w->point.y += 5;
-»···*/
+	w->p.fr.x1 = x - w->p.fr.h;
+	w->p.fr.x2 = x + w->p.fr.h;
+	w->p.fr.y1 = y - w->p.fr.h;
+	w->p.fr.y2 = y + w->p.fr.h;
+	*/
+	if (button == 4)//Zoom molette
+	{
+		//ft_putendl("haut");
+		w->p.fr.zoom *= 1.2; //We need to multiply by two
+		w->p.fr.it_max *= 1.2;//And add 50 incrementation
+		w->p.fr.h += 0.1;//coupe l'image zoome
+	}
+	if (button == 5)
+	{
+		//ft_putendl("bas");
+		w->p.fr.zoom /= 1.2;
+		w->p.fr.it_max /= 1.2;
+		w->p.fr.h -= 0.1;
+	}
+	mlx_destroy_image(w->mlx, w->img.ptr_img);
+	create_new_img(w);
+	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr_img, w->img.x, w->img.y);
+	//ft_putnbr(w->point.y);
 	//ft_putnbr(w->point.y);
 	//mlx_pixel_put(w->mlx, w->win, w->point.x, w->point.y, w->point.color);
-	/*
-»···return (0);
-}*/
+	return (0);
+}

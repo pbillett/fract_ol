@@ -2,17 +2,73 @@
 # ifndef STRUCT_H
 # define STRUCT_H
 
+typedef struct		s_fractal
+{
+	char			*name;
+	float			x;
+	float			y;
+	int				img_x;
+	int				img_y;
+	float			x1;
+	float			x2;
+	float			y1;
+	float			y2;
+	float			range_x;
+	float			range_y;
+	int				zoom;
+	int				it_max;
+	float			c_r; //Nbr complexe
+	float			c_i; //Nbr complexe
+	float			z_r; //Nbr z
+	float			z_i; //Nbr z
+	char			*hexa_bg;//Color
+	float			h; //zoom inv
+	int				mouse_x;
+	int				mouse_y;
+	float			mouse_xf;
+	float			mouse_yf;
+}					t_fractal;
+
+typedef struct		s_rgbcolor
+{
+	int				r;
+	int				g;
+	int				b;
+}					t_rgbcolor;
+
+typedef struct		s_colorpalette
+{
+	char			*hexa_bot; //Color bottom in hexa
+	char			*hexa_mid;
+	char			*hexa_top;
+	char			*hexa_axle;
+	t_rgbcolor		bot; // Color in rgb
+	t_rgbcolor		mid;
+	t_rgbcolor		top;
+	int				lowl; //Level of affection for color
+	int				midl;
+	int				topl;
+	int				z;//dot height of field
+	int				zd;//dot height of field dst
+	int				min;//Min Level for percent of color
+	int				max;//Max level
+}					t_colorpalette;
+
 typedef struct		s_line
 {
 	float			x;
 	float			y;
+	float			z;//For height per color
 	int				xdest;
 	int				ydest;
+	int				zdest;
 	int				sign_x;
 	int				sign_y;
+	int				sign_z;
 	float			bigdiff;
 	float			diff_x;
 	float			diff_y;
+	float			diff_z;
 }					t_line;
 
 typedef struct		s_dpoint
@@ -29,6 +85,14 @@ typedef struct		s_point
 	int				z;
 	size_t			color;
 }					t_point;
+
+typedef struct		s_fillsquare
+{
+	t_point			p;
+	t_point			pr;
+	t_point			pd;
+	t_point			pdi;
+}					t_fillsquare;
 
 typedef struct		s_browsefile
 {
@@ -72,7 +136,13 @@ typedef struct		s_params
 	int				graphic_mode; //Mode dot/wireframe/fill
 	int				view_mode; //Mode para/iso
 	int				dot; //point centre carre
-	char			*filename;
+	int				insert;
+	int				boolaxle;
+	int				help;
+	t_colorpalette	color;
+	int				keycode;
+	int				keypress;
+	t_fractal		fr;
 }					t_params;
 
 typedef struct		s_rotaxle
@@ -81,8 +151,8 @@ typedef struct		s_rotaxle
 	t_point			pd_x;
 	t_point			p_y;
 	t_point			pd_y;
-	t_point			p_z;
-	t_point			pd_z;
+	t_point			oldp_x;
+	t_point			oldp_y;
 }					t_rotaxle;
 
 typedef struct		s_wind

@@ -1,64 +1,85 @@
 #include "fract_ol.h"
 
+static void		calc_imgsize(t_wind *w)
+{
+	w->p.fr.img_x = (w->p.fr.x2 - w->p.fr.x1) * w->p.fr.zoom;
+	w->p.fr.img_y = (w->p.fr.y2 - w->p.fr.y1) * w->p.fr.zoom;
+	printf("img_x: %d\n", w->p.fr.img_x);
+	printf("img_y: %d\n", w->p.fr.img_y);
+}
+
+static void		set_nbrcomplexandz(t_wind *w)
+{
+	if (ft_strcmp(w->p.fr.name, "julia") == 0)
+	{
+		w->p.fr.c_r = 0.285;
+		w->p.fr.c_i = 0.01;
+		w->p.fr.z_r = w->p.fr.x/w->p.fr.zoom + w->p.fr.x1;
+		w->p.fr.z_i = w->p.fr.y/w->p.fr.zoom + w->p.fr.y1;
+	}
+	else
+	{
+		w->p.fr.c_r = w->p.fr.x/w->p.fr.zoom + w->p.fr.x1;
+		w->p.fr.c_i = w->p.fr.y/w->p.fr.zoom + w->p.fr.y1;
+		w->p.fr.z_r = 0;
+		w->p.fr.z_i = 0;
+	}
+}
+
 int			fractal(t_wind *w)
 {
-	float x;
-	float y;
-	// on définit la zone que l'on dessine. Ici, la fractale en entière
-	float x1 = -2.1;
-	float x2 = 0.6;
-	float y1 = -1.2;
-	float y2 = 1.2;
-	int zoom = 100; // pour une distance de 1 sur le plan, on a 100 pixels sur l'image
-	int it_max = 50;
-	// on calcule la taille de l'image :
-	int image_x = (x2 - x1) * zoom;
-	int image_y = (y2 - y1) * zoom;
 	float tmp;
-	float c_r;
-	float c_i;
-	float z_r;
-	float z_i;
 	float i;
-	ft_putnbr(w->img.size_line);
-	ft_putchar('\n');
-	ft_putnbr(w->img.octet_per_pixel);
-	ft_putchar('\n');
-	ft_putnbr(image_x);
-	ft_putchar('\n');
-	ft_putnbr(image_y);
-	ft_putchar('\n');
-	x = 0;
-	while (x < image_x)
+	if (w->p.fr.zoom != 100)
+	{//Mise a jour avec la position avec la souris
+		//printf("mouse_x: %d\n", w->p.fr.mouse_x);
+		//printf("mouse_y: %d\n", w->p.fr.mouse_y);
+		w->p.fr.mouse_xf = ((float)w->p.fr.mouse_x/100);
+		w->p.fr.mouse_yf = ((float)w->p.fr.mouse_y/100);
+		printf("mouse_xf: %f\n", w->p.fr.mouse_xf);
+		printf("mouse_yf: %f\n", w->p.fr.mouse_yf);
+		//w->p.fr.h = 0.1;
+		printf("h: %f\n", w->p.fr.h);
+		/*
+		w->p.fr.range_x = w->p.fr.x2 - w->p.fr.x1;
+		w->p.fr.range_y = w->p.fr.y2 - w->p.fr.y1;
+		w->p.fr.x1 = w->p.fr.mouse_xf - w->p.fr.range_x;
+		w->p.fr.x2 = w->p.fr.range_x - w->p.fr.mouse_xf;
+		w->p.fr.y1 = w->p.fr.mouse_yf - w->p.fr.range_y;
+		w->p.fr.y2 = w->p.fr.range_y - w->p.fr.mouse_yf;
+		*/
+		w->p.fr.x1 = w->p.fr.mouse_xf - w->p.fr.h;
+		w->p.fr.x2 = w->p.fr.mouse_xf + w->p.fr.h;
+		w->p.fr.y1 = w->p.fr.mouse_yf - w->p.fr.h;
+		w->p.fr.y2 = w->p.fr.mouse_yf + w->p.fr.h;
+		printf("x1: %f\n", w->p.fr.x1);
+		printf("x2: %f\n", w->p.fr.x2);
+		printf("y1: %f\n", w->p.fr.y1);
+		printf("y2: %f\n", w->p.fr.y2);
+	}
+	calc_imgsize(w);
+	w->p.fr.x = 0;
+	while (w->p.fr.x < w->p.fr.img_x)
 	{
-		y = 0;
-		while (y < image_y)
+		w->p.fr.y = 0;
+		while (w->p.fr.y < w->p.fr.img_y)
 		{
-			c_r = x/zoom + x1;
-			c_i = y/zoom + y1;
-			//printf("c_r: %.2f\n", x/zoom + x1);
-			//printf("c_i: %.2f\n", y/zoom + y1);
-			//sleep(5);
-			z_r = 0;
-			z_i = 0;
+			set_nbrcomplexandz(w);
 			i = 0;
-			while ((z_r*z_r + z_i*z_i) < 4 && i < it_max)
+			while ((w->p.fr.z_r*w->p.fr.z_r + w->p.fr.z_i*w->p.fr.z_i) < 4 && i < w->p.fr.it_max)
 			{
-				tmp = z_r;
-				z_r = (z_r*z_r - z_i*z_i) + c_r;
-				z_i = 2*tmp*z_i + c_i;
-				//printf("tmp: %.2f\n", tmp);
-				//printf("z_r: %.2f\n", z_r);
-				//printf("z_i: %.2f\n", z_i);
-				i = i+1;
+				tmp = w->p.fr.z_r;
+				w->p.fr.z_r = (w->p.fr.z_r*w->p.fr.z_r - w->p.fr.z_i*w->p.fr.z_i) + w->p.fr.c_r;
+				w->p.fr.z_i = 2*tmp*w->p.fr.z_i + w->p.fr.c_i;
+				i++;
 			}
-			//dessiner pixel de coordonnées(x;y)
-			if (i == it_max)
-				mlx_pixel_put(w->mlx, w->win, x, y, 0x00FFFFFF);
-			//*(w->img.pxl_ptr+(int)(y*(w->img.size_line))+(int)(x*(w->img.octet_per_pixel))) = (int)"0x00FFFFFF";
-			y++;
+			if (i == w->p.fr.it_max)
+				draw_point(w, w->p.fr.x, w->p.fr.y, 0);
+			else
+				draw_point(w, w->p.fr.x, w->p.fr.y, i);
+			w->p.fr.y++;
 		}
-		x++;
+		w->p.fr.x++;
 	}
 	return (0);
 }
