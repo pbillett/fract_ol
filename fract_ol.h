@@ -16,6 +16,7 @@
 void		draw_point(t_wind *w, int x, int y, int z);
 void		set_julia(t_wind *w);
 void		set_mandelbrot(t_wind *w);
+void		calc_imgsize(t_wind *w);
 int			fractal(t_wind *w);
 int			fract_ol(char *filename);
 t_wind		create_new_window(char *title, int width, int height);

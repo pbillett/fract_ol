@@ -128,8 +128,11 @@ int		mouse_function(int button, int x, int y, t_wind *w)
 	ft_putchar('\n');
 	ft_putnbr(y);
 	ft_putchar('\n');
-	ft_putstr("zoom:");
-	ft_putnbr(w->p.fr.zoom);
+	ft_putstr("zoom_x:");
+	ft_putnbr(w->p.fr.zoom_x);
+	ft_putchar('\n');
+	ft_putstr("zoom_y:");
+	ft_putnbr(w->p.fr.zoom_y);
 	ft_putchar('\n');
 
 	//We set the mouse value
@@ -144,15 +147,17 @@ int		mouse_function(int button, int x, int y, t_wind *w)
 	if (button == 4)//Zoom molette
 	{
 		//ft_putendl("haut");
-		w->p.fr.zoom *= 1.2; //We need to multiply by two
-		w->p.fr.it_max *= 1.2;//And add 50 incrementation
+		w->p.fr.zoom_x *= 1.2; //We need to multiply by two
+		w->p.fr.zoom_y *= 1.2; //We need to multiply by two
+		w->p.fr.it_max += 50;//And add 50 incrementation
 		w->p.fr.h += 0.1;//coupe l'image zoome
 	}
 	if (button == 5)
 	{
 		//ft_putendl("bas");
-		w->p.fr.zoom /= 1.2;
-		w->p.fr.it_max /= 1.2;
+		w->p.fr.zoom_x /= 1.2;
+		w->p.fr.zoom_y /= 1.2;
+		w->p.fr.it_max -= 50;
 		w->p.fr.h -= 0.1;
 	}
 	mlx_destroy_image(w->mlx, w->img.ptr_img);

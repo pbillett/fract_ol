@@ -20,8 +20,8 @@ void		set_julia(t_wind *w)
 
 static int		set_parameters(t_wind *w)
 {
-	w->img.width = 800;
-	w->img.height = 600;
+	w->img.width = 270;
+	w->img.height = 240;
 
 	w->img.x_centerpoint = 500;
 	w->img.y_centerpoint = 370;
@@ -71,17 +71,19 @@ int				fract_ol(char *fracname)
 {
 	t_wind		w;
 
-	w.width = 800;
-	w.height = 600;
+	w.width = 270;
+	w.height = 240;
 	w = create_new_window("42 minilibx", w.width, w.height);
 	set_parameters(&w);
 	if (ft_strcmp(fracname, "julia") == 0)
 		set_julia(&w);
 	else
 		set_mandelbrot(&w);
-	w.p.fr.zoom = 100;//Zoom et nbr iteration
+	w.p.fr.zoom_x = 100;//Zoom et nbr iteration
+	w.p.fr.zoom_y = 100;//Zoom et nbr iteration
 	w.p.fr.it_max = 50;//Define at startup
-	w.p.fr.h = 0.1;//Define at startup
+	w.p.fr.h = 0;//Define at startup
+	calc_imgsize(&w);
 	create_new_img(&w);
 	mlx_put_image_to_window(w.mlx, w.win, w.img.ptr_img, w.img.x, w.img.y);
 	mlx_key_hook(w.win, key_function, &w);

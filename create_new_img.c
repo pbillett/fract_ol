@@ -8,13 +8,13 @@ int		create_new_img(t_wind *w)
 	w->img.octet_per_pixel = w->img.bits_per_pixel/8;
 	if (w->p.view_mode == 2)
 	{
-		ft_putstr("julia");
+		ft_putendl("julia");
 		w->p.fr.name = "julia";
 		set_julia(w);
 	}
 	else if (w->p.view_mode == 3)
 	{
-		ft_putstr("mandelbrot");
+		ft_putendl("mandelbrot");
 		w->p.fr.name = "mandelbrot";
 		set_mandelbrot(w);
 	}
