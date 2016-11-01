@@ -79,8 +79,7 @@ int				fract_ol(char *fracname)
 		set_julia(&w);
 	else
 		set_mandelbrot(&w);
-	w.p.fr.zoom_x = 100;//Zoom et nbr iteration
-	w.p.fr.zoom_y = 100;//Zoom et nbr iteration
+	w.p.fr.zoom = 100;//Zoom et nbr iteration
 	w.p.fr.it_max = 50;//Define at startup
 	w.p.fr.h = 0;//Define at startup
 	calc_imgsize(&w);
