@@ -1,5 +1,6 @@
 
 
+UNAME := $(shell uname)
 NAME=fract_ol
 SRC=	main.c \
 		draw_point.c \
@@ -7,22 +8,30 @@ SRC=	main.c \
 		fract_ol.c \
 		create_new_window.c \
 		create_new_img.c \
-		matrice_rotation.c \
-		draw_line.c \
 		key_function.c
 OBJ=${SRC:.c=.o}
-LIB= -L libft -lft
+
+ifeq ($(UNAME), Darwin) # MAC
+MINILIBX= make -C minilibx_macos
+LIB= -lm -L libft -lft
+LIB2= -L minilibx_macos -L/usr/local/lib/ -I/usr/local/include
+LIB3= -lmlx -framework OpenGL -framework AppKit
+FLAG= -Wall -Werror -Wextra
+endif
+ifeq ($(UNAME), Linux) # LINUX :
+MINILIBX= make -C minilibx
+LIB= -lm -L libft -lft
 LIB2= -L minilibx -lmlx
 LIB3= -L /usr/include/X11/ -lXext -lX11
-FLAG= -Wall -Werror -Wextra #Linux
-#FLAG=-Wall -Werror -Wextra -lmlx -framework OpenGL -framework AppKit #MAC
+FLAG= -Wall -Werror -Wextra
+endif
 
 all: $(NAME)
 
 $(NAME):	$(SRC)
 	make -C libft
-	make -C minilibx
-	gcc $(FLAG) -o $(NAME) $(SRC) -lm  $(LIB) $(LIB2) $(LIB3)
+	$(MINILIBX)
+	gcc $(FLAG) -o $(NAME) $(SRC) $(LIB) $(LIB2) $(LIB3)
 
 clean:
 	rm -rf $(OBJ)

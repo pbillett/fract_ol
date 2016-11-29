@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsub.c                                        :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/07 16:15:07 by pbillett          #+#    #+#             */
-/*   Updated: 2016/11/01 19:56:58 by pbillett         ###   ########.fr       */
+/*   Created: 2016/10/18 14:17:15 by pbillett          #+#    #+#             */
+/*   Updated: 2016/10/18 17:32:06 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-char		*ft_strsub(char const *s, unsigned int start, size_t len)
+char		*ft_strrev(char *str)
 {
-	size_t	i;
-	char	*newstr;
+	int		i;
+	int		a;
+	char	c;
 
-	i = 0;
-	if (!(s))
-		return (NULL);
-	newstr = (char *)malloc((len + 1) * sizeof(*s));
-	if (newstr == NULL)
-		return (NULL);
-	while (i < len)
+	a = 0;
+	i = ft_strlen(str);
+	i--;
+	while (i >= a)
 	{
-		newstr[i] = s[start + i];
-		i++;
+		c = str[i];
+		str[i] = str[a];
+		str[a] = c;
+		a++;
+		i--;
 	}
-	newstr[i] = '\0';
-	return (newstr);
+	return (str);
 }

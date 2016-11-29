@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsub.c                                        :+:      :+:    :+:   */
+/*   ft_is_prime.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/07 16:15:07 by pbillett          #+#    #+#             */
-/*   Updated: 2016/11/01 19:56:58 by pbillett         ###   ########.fr       */
+/*   Created: 2016/10/18 19:19:04 by pbillett          #+#    #+#             */
+/*   Updated: 2016/10/18 19:22:55 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
-
-char		*ft_strsub(char const *s, unsigned int start, size_t len)
+int			ft_is_prime(int n)
 {
-	size_t	i;
-	char	*newstr;
+	int		i;
 
-	i = 0;
-	if (!(s))
-		return (NULL);
-	newstr = (char *)malloc((len + 1) * sizeof(*s));
-	if (newstr == NULL)
-		return (NULL);
-	while (i < len)
+	i = 2;
+	while (i < n)
 	{
-		newstr[i] = s[start + i];
+		if ((n % i) == 0)
+			return (0);
 		i++;
 	}
-	newstr[i] = '\0';
-	return (newstr);
+	return (1);
 }

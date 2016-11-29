@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsub.c                                        :+:      :+:    :+:   */
+/*   ft_add_prime_sum.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/07 16:15:07 by pbillett          #+#    #+#             */
-/*   Updated: 2016/11/01 19:56:58 by pbillett         ###   ########.fr       */
+/*   Created: 2016/10/18 19:20:04 by pbillett          #+#    #+#             */
+/*   Updated: 2016/10/18 19:23:16 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-char		*ft_strsub(char const *s, unsigned int start, size_t len)
+int			ft_add_prime_sum(int nbr)
 {
-	size_t	i;
-	char	*newstr;
+	int		tot;
 
-	i = 0;
-	if (!(s))
-		return (NULL);
-	newstr = (char *)malloc((len + 1) * sizeof(*s));
-	if (newstr == NULL)
-		return (NULL);
-	while (i < len)
+	tot = 0;
+	while (nbr > 1)
 	{
-		newstr[i] = s[start + i];
-		i++;
+		if (ft_is_prime(nbr) == 1)
+			tot += nbr;
+		nbr--;
 	}
-	newstr[i] = '\0';
-	return (newstr);
+	return (tot);
 }

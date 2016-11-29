@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 12:11:15 by pbillett          #+#    #+#             */
-/*   Updated: 2016/02/24 20:24:36 by pbillett         ###   ########.fr       */
+/*   Updated: 2016/11/01 19:57:12 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ int					ft_toupper(int c);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
+int					ft_is_prime(int n);
+int					ft_add_prime_sum(int nbr);
+char				*ft_strrev(char *str);
 
 void				ft_putchar(char c);
 void				ft_putchar_fd(char c, int fd);
