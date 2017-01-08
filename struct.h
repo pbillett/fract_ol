@@ -71,6 +71,8 @@ typedef struct		s_line
 	float			diff_x;
 	float			diff_y;
 	float			diff_z;
+	int				midx;
+	int				midy;
 }					t_line;
 
 typedef struct		s_dpoint
@@ -87,6 +89,13 @@ typedef struct		s_point
 	int				z;
 	size_t			color;
 }					t_point;
+
+typedef struct		s_triangle
+{
+	t_point			dl;
+	t_point			dr;
+	t_point			dt;
+}					t_triangle;
 
 typedef struct		s_fillsquare
 {

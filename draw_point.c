@@ -1,57 +1,5 @@
 #include "fract_ol.h"
 
-// http://www.findsourcecode.com/c-programming/convert-hexadecimal-into-integer-in-c-programming/
-int				hextoint(char *s)
-{
-	int			i;
-	int			numb;
-	int			tot;
-
-	i = 0;
-	if (s[i] == '0')
-	{
-		i++;
-		if (s[i] == 'X' || s[i] == 'x')
-			i++;
-	}
-
-	numb = 0;
-	tot = 0;
-	while (s[i])
-	{
-		if (s[i] >= '0' && s[i] <= '9')
-			numb = s[i] - '0';
-		else if (s[i] >= 'a' && s[i] <= 'f')
-			numb = s[i] - 'a' + 10;
-		else if (s[i] >= 'A' && s[i] <= 'F')
-			numb = s[i] - 'A' + 10;
-		else
-		{
-			ft_putstr("error");
-			return (0);
-		}
-		tot = 16 * tot + numb;
-		i++;
-	}
-	return (tot);
-}
-
-t_rgbcolor		hexatorgb(char *hexcolor)
-{
-	t_rgbcolor	rgbcolor;
-	char		*R;
-	char		*G;
-	char		*B;
-
-	B = ft_strjoin("0x", ft_strsub(hexcolor, 2, 2));
-	G = ft_strjoin("0x", ft_strsub(hexcolor, 4, 2));
-	R = ft_strjoin("0x", ft_strsub(hexcolor, 6, 2));
-	rgbcolor.r = hextoint(R);
-	rgbcolor.g = hextoint(G);
-	rgbcolor.b = hextoint(B);
-	return (rgbcolor);
-}
-
 t_rgbcolor			get_inbetweencolor(t_rgbcolor start, t_rgbcolor end, t_wind *w, int z)
 {
 	int			percent;
@@ -92,7 +40,7 @@ t_rgbcolor			get_inbetweencolor(t_rgbcolor start, t_rgbcolor end, t_wind *w, int
 	ft_putchar('\n');*/
 	return (col);
 }
-
+/*
 t_rgbcolor			get_color(t_wind *w, int z)
 {
 	t_rgbcolor	color;
@@ -120,20 +68,27 @@ t_rgbcolor			get_color(t_wind *w, int z)
 		color = hexatorgb(w->p.color.hexa_top);
 		//color = hexatorgb("0x9E11BF"); //Get color from standard affectation
 	return (color);
-}
+}*/
 
-void			draw_point(t_wind *w, int x, int y, int z)
+void			draw_point(t_wind *w, int x, int y, char *hexacolor)
 {
 	t_rgbcolor	rgbcolor;
 
-	//if (w->p.boolaxle == 1)
-	rgbcolor = hexatorgb(w->p.fr.hexa_bg); //Get color from standard affectation
-	//else
-		//rgbcolor = get_color(w, z); //Get color from color palette
-	//SPLIT D'UN FORMAT CLASSIQUE DE HEXCOLOR ("0xFFFFFF") -> Attention en l'ordre est en little endian cependant! (donc inversé!) (car on est sur un x86))
+	rgbcolor = hexatorgb(hexacolor);
+	*(w->img.pxl_ptr + (y * w->img.size_line) +
+	(x * w->img.octet_per_pixel)) = rgbcolor.r;
+	*(w->img.pxl_ptr + (y * w->img.size_line) +
+	(x * w->img.octet_per_pixel) + 1) = rgbcolor.g;
+	*(w->img.pxl_ptr + (y * w->img.size_line) +
+	(x * w->img.octet_per_pixel) + 2) = rgbcolor.b;
+}
+
+void			draw_pointf(t_wind *w, int x, int y, int z)
+{
+	t_rgbcolor	rgbcolor;
+
+	rgbcolor = hexatorgb(w->p.fr.hexa_bg);
 	*(w->img.pxl_ptr + (y * w->img.size_line) + (x * w->img.octet_per_pixel)) = (z*255)/w->p.fr.it_max;
 	*(w->img.pxl_ptr + (y * w->img.size_line) + (x * w->img.octet_per_pixel) + 1) = rgbcolor.g;
 	*(w->img.pxl_ptr + (y * w->img.size_line) + (x * w->img.octet_per_pixel) + 2) = rgbcolor.r;
-	//*(w->img.pxl_ptr + (y * w->img.size_line) + (x * w->img.octet_per_pixel) + 2) = rgbcolor.b;
-	//*(w->img.pxl_ptr + (y * w->img.size_line) + (x)) = 125; //Alpha 50%. Alpha 100%=0. Alpha 0%=255.
 }

@@ -13,7 +13,7 @@
 
 #include <stdio.h> // A supprimer !
 
-void		draw_point(t_wind *w, int x, int y, int z);
+void		draw_pointf(t_wind *w, int x, int y, int z);
 void		set_julia(t_wind *w);
 void		set_mandelbrot(t_wind *w);
 void		calc_imgsize(t_wind *w);
@@ -31,5 +31,11 @@ int			mouse_function(int button, int x, int y, t_wind *w);
 int			expose_hook(t_wind *w);
 t_point		matrice_rotation(t_point p, t_point angle, t_dpoint r_angle);
 void		color_line(int num1, int num2, size_t *color);
+void		draw_point(t_wind *w, int x, int y, char *hexacolor);
+int			triangle_sierpinski_main(t_wind *w);
+int			draw_2dline(t_wind *w, t_point p, t_point pd, char *hexacolor);
+t_line		set_parameters_tline(t_line v);
+t_line		convert_3ddot_to2dline(t_point p, t_point pd);
+t_rgbcolor	hexatorgb(char *hexcolor);
 
 #endif

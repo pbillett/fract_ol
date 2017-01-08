@@ -8,7 +8,11 @@ SRC=	main.c \
 		fract_ol.c \
 		create_new_window.c \
 		create_new_img.c \
-		key_function.c
+		key_function.c \
+		triangle_sierpinski.c \
+		draw_line.c \
+		rgbtohexa.c \
+		set_parameters_tline.c
 OBJ=${SRC:.c=.o}
 
 ifeq ($(UNAME), Darwin) # MAC

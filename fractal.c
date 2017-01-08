@@ -112,9 +112,9 @@ int			fractal(t_wind *w)
 				i++;
 			}
 			if (i == w->p.fr.it_max)
-				draw_point(w, w->p.fr.x, w->p.fr.y, 0);
+				draw_pointf(w, w->p.fr.x, w->p.fr.y, 0);
 			else
-				draw_point(w, w->p.fr.x, w->p.fr.y, i);
+				draw_pointf(w, w->p.fr.x, w->p.fr.y, i);
 			w->p.fr.y++;
 		}
 		w->p.fr.x++;

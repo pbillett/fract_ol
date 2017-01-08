@@ -6,20 +6,19 @@ int		create_new_img(t_wind *w)
 	w->img.pxl_ptr = mlx_get_data_addr(w->img.ptr_img, &w->img.bits_per_pixel, &w->img.size_line, &w->img.endian_type);
 	//printf("bits_per_pixel: %d\nsize_line: %d\nendian_type: %d\n", w->img.bits_per_pixel, w->img.size_line, w->img.endian_type);
 	w->img.octet_per_pixel = w->img.bits_per_pixel/8;
-	/*
-	if (w->p.view_mode == 2)
+	ft_putendl("create_new_img func");
+	ft_putnbr(w->p.view_mode);
+	ft_putstr("\n");
+	if (w->p.view_mode == 2 || w->p.view_mode == 3)
 	{
-		ft_putendl("julia");
-		w->p.fr.name = "julia";
-		set_julia(w);
+		ft_putendl("julia or mandelbrot");
+		fractal(w);
 	}
-	else if (w->p.view_mode == 3)
+	else if (w->p.view_mode == 4)
 	{
-		ft_putendl("mandelbrot");
-		w->p.fr.name = "mandelbrot";
-		set_mandelbrot(w);
-	}*/
-	fractal(w);
+		ft_putendl("triangle_sierpinski_main");
+		triangle_sierpinski_main(w);
+	}
 	return (0);
 }
 
