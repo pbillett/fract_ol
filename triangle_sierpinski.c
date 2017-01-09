@@ -73,9 +73,22 @@ static void			triangle_sierpinski(t_wind *w, double x, double y, double a, int n
 int triangle_sierpinski_main(t_wind *w)
 {
 	unsigned long n;
-	n = 5;
+	//n = 5; // level of detail
+	ft_putstr("w->p.fr.zoom:");
+	ft_putnbr(w->p.fr.zoom);
+	ft_putstr("\n");
+	ft_putstr("w->p.fr.it_max:");
+	ft_putnbr(w->p.fr.it_max);
+	ft_putstr("\n");
+	ft_putstr("w->img.width:");
+	ft_putnbr(w->img.width);
+	ft_putstr("\n");
+	ft_putstr("w->img.height:");
+	ft_putnbr(w->img.height);
+	ft_putstr("\n");
+	n = w->p.fr.it_max;
 	//ft_putendl("before triangle_sierpinski");
-	triangle_sierpinski(w, OX, OY+TY, TX, (int)n);
+	triangle_sierpinski(w, OX, OY + w->img.height, w->img.width, (int)n);
 	//ft_putendl("after triangle_sierpinski");
 	return 0;
 }

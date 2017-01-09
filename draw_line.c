@@ -75,7 +75,8 @@ int			draw_2dline(t_wind *w, t_point p, t_point pd, char *hexacolor)
 			v.y += (v.sign_y * (v.diff_y / v.bigdiff));
 		if (v.z != v.zdest)
 			v.z += (v.sign_z * (v.diff_z / v.bigdiff));
-		draw_point(w, rint(v.x), rint(v.y), hexacolor);
+		if (dot_in_window(w, rint(v.x), rint(v.y)) == 1)
+			draw_point(w, rint(v.x), rint(v.y), hexacolor);
 		//cond_getpoint_draw(w, v);
 	}
 	return (0);

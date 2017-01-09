@@ -82,6 +82,8 @@ static void		set_fracparameters(t_wind *w)
 	{
 		w->img.width = 758;
 		w->img.height = 655;
+		w->p.fr.zoom = 100;//Zoom et nbr iteration
+		w->p.fr.it_max = 1;//Define at startup
 	}
 }
 

@@ -117,8 +117,14 @@ int		key_function(int keycode, t_wind *w)
 	return (0);
 }
 
-int		mouse_function(int button, int x, int y, t_wind *w)
+int			mouse_function(int button, int x, int y, t_wind *w)
 {
+	/*
+	int		mem_x;
+	int		mem_y;
+
+	mem_x = 0;
+	mem_y = 0;*/
 	ft_putchar('\n');
 	ft_putstr("button:");
 	ft_putnbr(button);
@@ -139,13 +145,30 @@ int		mouse_function(int button, int x, int y, t_wind *w)
 	*/
 	if (button == 4)//Zoom molette
 	{
-		before_zoom(w);
-		w->p.fr.zoom *= 2; //We need to multiply by two
-		ft_putstr("zoom:");
-		ft_putnbr(w->p.fr.zoom);
-		ft_putchar('\n');
-		w->p.fr.it_max += 50;//And add 50 incrementation
-		after_zoom(w);
+		if (w->p.view_mode == 2 || w->p.view_mode == 3)
+		{
+			before_zoom(w);
+			w->p.fr.zoom *= 2; //We need to multiply by two
+			ft_putstr("zoom:");
+			ft_putnbr(w->p.fr.zoom);
+			ft_putchar('\n');
+			w->p.fr.it_max += 50;//And add 50 incrementation
+			after_zoom(w);
+		}
+		else
+		{
+			w->p.fr.it_max += 1; // to incremtente details
+
+			// On récupere le déclage depuis le coin en haut à gauche
+			/*mem_x = w->img.width / 2;
+			mem_y = w->img.height / 2;
+			// On applique le decalage depuis le coin en haut à gauche
+			w->img.x -= mem_x;
+			w->img.y -= mem_y;*/
+
+			w->img.width *= 2;
+			w->img.height *= 2;
+		}
 	}
 	if (button == 5)
 	{
@@ -158,7 +181,14 @@ int		mouse_function(int button, int x, int y, t_wind *w)
 			ft_putstr("zoom:");
 			ft_putnbr(w->p.fr.zoom);
 			ft_putchar('\n');
-			w->p.fr.it_max -= 50;
+			if (w->p.view_mode == 2 || w->p.view_mode == 3)
+				w->p.fr.it_max -= 50;//And add 50 incrementation
+			else
+			{
+				w->p.fr.it_max -= 1;//And add 50 incrementation
+				w->img.width /= 2;
+				w->img.height /= 2;
+			}
 			after_zoom(w);
 		}
 	}
