@@ -119,8 +119,8 @@ int		key_function(int keycode, t_wind *w)
 
 int			mouse_function(int button, int x, int y, t_wind *w)
 {
-	/*
-	int		mem_x;
+	
+	/*int		mem_x;
 	int		mem_y;
 
 	mem_x = 0;
@@ -147,13 +147,11 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 	{
 		if (w->p.view_mode == 2 || w->p.view_mode == 3)
 		{
-			before_zoom(w);
-			w->p.fr.zoom *= 2; //We need to multiply by two
-			ft_putstr("zoom:");
-			ft_putnbr(w->p.fr.zoom);
-			ft_putchar('\n');
+			//before_zoom(w);
+			w->p.fr.zoomf += w->p.fr.zoominit/w->p.fr.zoomfactor; //We need to multiply by two
+			printf("zoomf:%.2f\n", w->p.fr.zoomf);
 			w->p.fr.it_max += 50;//And add 50 incrementation
-			after_zoom(w);
+			//after_zoom(w);
 		}
 		else
 		{
@@ -166,8 +164,8 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 			w->img.x -= mem_x;
 			w->img.y -= mem_y;*/
 
-			w->img.width *= 2;
-			w->img.height *= 2;
+			/*w->img.width *= 2;
+			w->img.height *= 2;*/
 		}
 	}
 	if (button == 5)
@@ -176,11 +174,9 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 			set_mandelbrot(w);
 		else
 		{
-			before_zoom(w);
-			w->p.fr.zoom = w->p.fr.zoom/2;
-			ft_putstr("zoom:");
-			ft_putnbr(w->p.fr.zoom);
-			ft_putchar('\n');
+			//before_zoom(w);
+			w->p.fr.zoomf -= w->p.fr.zoominit/w->p.fr.zoomfactor; //We need to multiply by two
+			printf("zoomf:%.2f\n", w->p.fr.zoomf);
 			if (w->p.view_mode == 2 || w->p.view_mode == 3)
 				w->p.fr.it_max -= 50;//And add 50 incrementation
 			else
@@ -189,7 +185,7 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 				w->img.width /= 2;
 				w->img.height /= 2;
 			}
-			after_zoom(w);
+			//after_zoom(w);
 		}
 	}
 	mlx_destroy_image(w->mlx, w->img.ptr_img);

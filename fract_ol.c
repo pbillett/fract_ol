@@ -3,10 +3,14 @@
 void		set_mandelbrot(t_wind *w)
 {
 	w->p.fr.name = "mandelbrot";
-	w->p.fr.x1 = -2.1;
+	/*w->p.fr.x1 = -2.1;
 	w->p.fr.x2 = 0.6;
 	w->p.fr.y1 = -1.2;
-	w->p.fr.y2 = 1.2;
+	w->p.fr.y2 = 1.2;*/
+	w->p.fr.x1 = - (float)(w->img.width / 2) / 100;
+	w->p.fr.x2 = (float)(w->img.width / 2) / 100;
+	w->p.fr.y1 = - (float)(w->img.height / 2) / 100;
+	w->p.fr.y2 = (float)(w->img.height / 2) / 100;
 }
 
 void		set_julia(t_wind *w)
@@ -67,13 +71,15 @@ static void		set_fracparameters(t_wind *w)
 {
 	if (w->p.view_mode == 2 || w->p.view_mode == 3)
 	{
-		w->img.width = 270;
-		w->img.height = 240;
+		w->img.width = 540;
+		w->img.height = 480;
 		if (w->p.view_mode == 2)
 			set_mandelbrot(w);
 		else if (w->p.view_mode == 3)
 			set_julia(w);
-		w->p.fr.zoom = 100;//Zoom et nbr iteration
+		w->p.fr.zoominit = 100;// Base number of Zoom
+		w->p.fr.zoomfactor = 1;//precision of Zoom (100 is really high, 1 is really low)
+		w->p.fr.zoomf = w->p.fr.zoominit;//Zoom et nbr iteration
 		w->p.fr.it_max = 50;//Define at startup
 		w->p.fr.h = 0;//Define at startup
 		calc_imgsize(w);
@@ -97,8 +103,8 @@ static void			set_winsize(t_wind *w, char *fracname)
 	}
 	else
 	{
-		w->width = 270;
-		w->height = 240;
+		w->width = 540;
+		w->height = 480;
 	}
 }
 

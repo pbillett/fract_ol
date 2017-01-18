@@ -15,9 +15,14 @@ typedef struct		s_fractal
 	float			y2;
 	float			range_x;
 	float			range_y;
+	int				zoominit;
 	int				zoom;
+	float			zoomf;
+	float			zoomfactor;
 	int				zoom_x;
 	int				zoom_y;
+	float			centerp_x;
+	float			centerp_y;
 	int				it_max;
 	float			c_r; //Nbr complexe
 	float			c_i; //Nbr complexe
