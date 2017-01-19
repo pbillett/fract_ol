@@ -10,13 +10,12 @@ void		calc_imgsize(t_wind *w)
 
 static void		set_nbrcomplexandz(t_wind *w)
 {
-	w->p.fr.range_x = w->p.fr.x2 - w->p.fr.x1;
-	w->p.fr.range_y = w->p.fr.y2 - w->p.fr.y1;
 	if (ft_strcmp(w->p.fr.name, "julia") == 0)
 	{
 		w->p.fr.c_r = 0.285;
 		w->p.fr.c_i = 0.01;
-		w->p.fr.z_r = w->p.fr.x/w->p.fr.zoomf + (w->p.fr.x1 - (w->p.fr.zoomfactor * w->p.fr.img_x));
+		//w->p.fr.z_r = w->p.fr.x/w->p.fr.zoomf + (w->p.fr.x1 - (w->p.fr.zoomfactor * w->p.fr.img_x));
+		w->p.fr.z_r = w->p.fr.x/w->p.fr.zoomf + w->p.fr.x1;
 		w->p.fr.z_i = w->p.fr.y/w->p.fr.zoomf + w->p.fr.y1;
 	}
 	else if (ft_strcmp(w->p.fr.name, "newton") == 0)
@@ -45,6 +44,8 @@ int			before_zoom(t_wind *w)
 	// in range coordonnates (x1-x2, y1-y2)
 	w->p.fr.mouse_xf = ((float)w->p.fr.mouse_x/100);
 	w->p.fr.mouse_yf = ((float)w->p.fr.mouse_y/100);
+	w->p.fr.range_x = w->p.fr.x2 - w->p.fr.x1;
+	w->p.fr.range_y = w->p.fr.y2 - w->p.fr.y1;
 	w->p.fr.centerp_x = w->p.fr.x1 + (w->p.fr.range_x / 2);
 	w->p.fr.centerp_y = w->p.fr.y1 + (w->p.fr.range_y / 2);
 
