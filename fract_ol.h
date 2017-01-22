@@ -28,6 +28,7 @@ int			before_zoom(t_wind *w);
 int			after_zoom(t_wind *w);
 int			key_function(int keycode, t_wind *w);
 int			mouse_function(int button, int x, int y, t_wind *w);
+int			mouse_motion_function(int x, int y, t_wind *w);
 int			expose_hook(t_wind *w);
 t_point		matrice_rotation(t_point p, t_point angle, t_dpoint r_angle);
 void		color_line(int num1, int num2, size_t *color);

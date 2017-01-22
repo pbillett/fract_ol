@@ -9,6 +9,7 @@ SRC=	main.c \
 		create_new_window.c \
 		create_new_img.c \
 		key_function.c \
+		mouse_function.c \
 		triangle_sierpinski.c \
 		draw_line.c \
 		rgbtohexa.c \

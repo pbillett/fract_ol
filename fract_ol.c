@@ -1,5 +1,10 @@
 #include "fract_ol.h"
 
+#define MOTIONNOTIFY		6
+#define BUTTONMOTIONMASK	(1L<<13)
+#define POINTERMOTIONMASK	(1L<<6)
+#define NOEVENTMASK			0L
+
 void		set_mandelbrot(t_wind *w)
 {
 	w->p.fr.name = "mandelbrot";
@@ -16,10 +21,14 @@ void		set_mandelbrot(t_wind *w)
 void		set_julia(t_wind *w)
 {
 	w->p.fr.name = "julia";
-	w->p.fr.x1 = -1;
+	/*w->p.fr.x1 = -1;
 	w->p.fr.x2 = 1;
 	w->p.fr.y1 = -1.2;
-	w->p.fr.y2 = 1.2;
+	w->p.fr.y2 = 1.2;*/
+	w->p.fr.x1 = - (float)(w->img.width / 2) / 100;
+	w->p.fr.x2 = (float)(w->img.width / 2) / 100;
+	w->p.fr.y1 = - (float)(w->img.height / 2) / 100;
+	w->p.fr.y2 = (float)(w->img.height / 2) / 100;
 }
 
 static int		set_parameters(t_wind *w)
@@ -64,6 +73,10 @@ static int		set_parameters(t_wind *w)
 	//Position of image in window
 	w->img.x = 0;
 	w->img.y = 0;
+
+	// Position of Mouse by Default
+	w->p.fr.mouse_x = 0;
+	w->p.fr.mouse_y = 0;
 	return (0);
 }
 
@@ -130,8 +143,10 @@ int				fract_ol(char *fracname)
 	create_new_img(&w);
 	mlx_put_image_to_window(w.mlx, w.win, w.img.ptr_img, w.img.x, w.img.y);
 	mlx_key_hook(w.win, key_function, &w);
-	mlx_expose_hook(w.win, expose_hook, &w);
 	mlx_mouse_hook(w.win, mouse_function, &w);
+	mlx_hook(w.win, MOTIONNOTIFY, POINTERMOTIONMASK, mouse_motion_function, &w);
+	//mlx_loop_hook(w.mlx, mouse_motion_function, &w);
+	mlx_expose_hook(w.win, expose_hook, &w);
 	mlx_loop(w.mlx);
 	return (0);
 }
