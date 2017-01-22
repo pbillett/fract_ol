@@ -47,7 +47,10 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 			//w->p.fr.x2 -= 1;
 			//w->p.fr.zoomf += w->p.fr.zoominit/w->p.fr.zoomfactor; //We need to multiply by two
 			//before_zoom(w);
-			printf("zoomf:%.2f\n", w->p.fr.zoomf);
+			//printf("zoomf:%.2f\n", w->p.fr.zoomf);
+			ft_putendl("zoomf: ");
+			ft_putnbr((int)w->p.fr.zoomf);
+			ft_putendl("\n");
 			w->p.fr.it_max += 50;//And add 50 incrementation
 			//after_zoom(w);
 		}
@@ -74,7 +77,10 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 		{
 			//before_zoom(w);
 			w->p.fr.zoomf -= w->p.fr.zoominit/w->p.fr.zoomfactor; //We need to multiply by two
-			printf("zoomf:%.2f\n", w->p.fr.zoomf);
+			//printf("zoomf:%.2f\n", w->p.fr.zoomf);
+			ft_putendl("zoomf: ");
+			ft_putnbr((int)w->p.fr.zoomf);
+			ft_putendl("\n");
 			if (w->p.view_mode == 2 || w->p.view_mode == 3)
 				w->p.fr.it_max -= 50;//And add 50 incrementation
 			else

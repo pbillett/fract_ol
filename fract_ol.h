@@ -7,6 +7,7 @@
 #include "libft/libft.h"
 #include "minilibx/mlx.h"
 #include "struct.h"
+#include "keymacro.h"
 #include <math.h>
 #include <stdlib.h>
 #include <unistd.h>
