@@ -12,12 +12,12 @@ int		key_function(int keycode, t_wind *w)
 	ft_putnbr(keycode);
 	ft_putchar('\n');
 	// ECHAP (to quit)
-	if (keycode == 65307)
+	if (keycode == EXIT)
 		exit(0);
 	// VUE
-	if (keycode == 65471)//F2 Vue Isometrique
+	if (keycode == F2)//F2 Vue Isometrique
 		w->p.view_mode = 2; // Mode iso par défault (touche F2/F3 pour changer)
-	else if (keycode == 65472)//F3 Vue Parallèle
+	else if (keycode == F3)//F3 Vue Parallèle
 		w->p.view_mode = 3; // Mode iso par défault (touche F2/F3 pour changer)
 	// COULEURS
 	mlx_destroy_image(w->mlx, w->img.ptr_img);
