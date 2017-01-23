@@ -144,7 +144,8 @@ int				fract_ol(char *fracname)
 	mlx_put_image_to_window(w.mlx, w.win, w.img.ptr_img, w.img.x, w.img.y);
 	mlx_key_hook(w.win, key_function, &w);
 	mlx_mouse_hook(w.win, mouse_function, &w);
-	mlx_hook(w.win, MOTIONNOTIFY, POINTERMOTIONMASK, mouse_motion_function, &w);
+	if (w.p.view_mode == 3)
+		mlx_hook(w.win, MOTIONNOTIFY, POINTERMOTIONMASK, mouse_motion_function, &w);
 	//mlx_loop_hook(w.mlx, mouse_motion_function, &w);
 	mlx_expose_hook(w.win, expose_hook, &w);
 	mlx_loop(w.mlx);

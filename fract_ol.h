@@ -4,8 +4,8 @@
 #ifndef FRACT_OL
 
 # define FRACT_OL
-#include "libft/libft.h"
-#include "minilibx/mlx.h"
+#include "libft/inc/libft.h"
+#include "libft/inc/minilibx/mlx.h"
 #include "struct.h"
 #include "keymacro.h"
 #include <math.h>

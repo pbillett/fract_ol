@@ -2,8 +2,8 @@
 
 void		calc_imgsize(t_wind *w)
 {
-	w->p.fr.img_x = (w->p.fr.x2 - w->p.fr.x1) * 100;
-	w->p.fr.img_y = (w->p.fr.y2 - w->p.fr.y1) * 100;
+	w->p.fr.img_x = (w->p.fr.x2 - w->p.fr.x1) * w->p.fr.zoomf;
+	w->p.fr.img_y = (w->p.fr.y2 - w->p.fr.y1) * w->p.fr.zoomf;
 	printf("img_x calc: %d\n", w->p.fr.img_x);
 	printf("img_y calc: %d\n", w->p.fr.img_y);
 }
@@ -98,10 +98,10 @@ int			fractal(t_wind *w)
 	w->p.fr.centerp_y = w->p.fr.y1 + (w->p.fr.range_y / 2);
 	//calc_imgsize(w);
 	//before_zoom(w);
-	/*printf("x1: %f\n", w->p.fr.x1);
+	printf("x1: %f\n", w->p.fr.x1);
 	printf("x2: %f\n", w->p.fr.x2);
 	printf("y1: %f\n", w->p.fr.y1);
-	printf("y2: %f\n", w->p.fr.y2);*/
+	printf("y2: %f\n", w->p.fr.y2);
 	w->p.fr.x = 0;
 	while (w->p.fr.x < w->p.fr.img_x)
 	{

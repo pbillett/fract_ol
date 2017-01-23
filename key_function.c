@@ -11,15 +11,12 @@ int		key_function(int keycode, t_wind *w)
 	ft_putendl("Keyevent");
 	ft_putnbr(keycode);
 	ft_putchar('\n');
-	// ECHAP (to quit)
 	if (keycode == EXIT)
 		exit(0);
-	// VUE
 	if (keycode == F2)//F2 Vue Isometrique
 		w->p.view_mode = 2; // Mode iso par défault (touche F2/F3 pour changer)
 	else if (keycode == F3)//F3 Vue Parallèle
 		w->p.view_mode = 3; // Mode iso par défault (touche F2/F3 pour changer)
-	// COULEURS
 	mlx_destroy_image(w->mlx, w->img.ptr_img);
 	create_new_img(w);
 	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr_img, w->img.x, w->img.y);
@@ -43,8 +40,16 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 	{
 		if (w->p.view_mode == 2 || w->p.view_mode == 3)
 		{
-			//w->p.fr.x1 += 1;
-			//w->p.fr.x2 -= 1;
+			w->p.fr.zoomf += w->p.fr.zoominit/w->p.fr.zoomfactor; //We need to multiply by two
+			w->p.fr.x1 = w->p.fr.x1 / 2;
+			w->p.fr.y1 = w->p.fr.y1 / 2;
+			w->p.fr.x2 = w->p.fr.x2 / 2;
+			w->p.fr.y2 = w->p.fr.y2 / 2;
+			/*
+			w->p.fr.x1 = w->p.fr.x1 / 2 + ((((float)w->p.fr.mouse_x/w->p.fr.img_x) * w->p.fr.range_x) - (w->p.fr.range_x/2));
+			w->p.fr.y1 = w->p.fr.y1 / 2 + ((((float)w->p.fr.mouse_y/w->p.fr.img_y) * w->p.fr.range_y)/2);
+			w->p.fr.x1 = w->p.fr.x2 / 2 + ((((float)w->p.fr.mouse_x/w->p.fr.img_x) * w->p.fr.range_x)/2);
+			w->p.fr.y2 = w->p.fr.y2 / 2 - ((((float)w->p.fr.mouse_y/w->p.fr.img_y) * w->p.fr.range_y)/2);*/
 			//w->p.fr.zoomf += w->p.fr.zoominit/w->p.fr.zoomfactor; //We need to multiply by two
 			//before_zoom(w);
 			//printf("zoomf:%.2f\n", w->p.fr.zoomf);
@@ -76,6 +81,10 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 		else
 		{
 			//before_zoom(w);
+			w->p.fr.x1 = (w->p.fr.x1 * 2);
+			w->p.fr.y1 = (w->p.fr.y1 * 2);
+			w->p.fr.x2 = (w->p.fr.x2 * 2);
+			w->p.fr.y2 = (w->p.fr.y2 * 2);
 			w->p.fr.zoomf -= w->p.fr.zoominit/w->p.fr.zoomfactor; //We need to multiply by two
 			//printf("zoomf:%.2f\n", w->p.fr.zoomf);
 			ft_putendl("zoomf: ");

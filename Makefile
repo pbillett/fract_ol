@@ -17,15 +17,15 @@ SRC=	main.c \
 OBJ=${SRC:.c=.o}
 
 ifeq ($(UNAME), Darwin) # MAC
-MINILIBX= make -C minilibx_macos
+MINILIBX= make -C libft/inc/minilibx_macos
 LIB= -lm -L libft -lft
-LIB2= -L minilibx_macos -L/usr/local/lib/ -I/usr/local/include
+LIB2= -L libft/inc/minilibx_macos -L/usr/local/lib/ -I/usr/local/include
 LIB3= -lmlx -framework OpenGL -framework AppKit
 FLAG= -Wall -Werror -Wextra
 KEY= 1
 endif
 ifeq ($(UNAME), Linux) # LINUX :
-MINILIBX= make -C minilibx
+MINILIBX= make -C libft/inc/minilibx
 LIB= -lm -L libft -lft
 LIB2= -L minilibx -lmlx
 LIB3= -L /usr/include/X11/ -lXext -lX11
