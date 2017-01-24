@@ -6,7 +6,7 @@
 #    By: pbillett <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/26 14:11:23 by pbillett          #+#    #+#              #
-#    Updated: 2017/01/23 16:27:03 by pbillett         ###   ########.fr        #
+#    Updated: 2017/01/24 15:55:40 by pbillett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,8 +70,6 @@ SRC= src/ft_lstiter.c \
 	src/ft_putchar_fd.c \
 	src/ft_strdup.c \
 	src/ft_strnew.c \
-	src/ft_squared.c \
-	src/ft_pythagore.c \
 	src/get_next_line.c
 CFLAGS= -Wall -Werror -Wextra
 SRCDIR= src
@@ -83,17 +81,20 @@ CC= gcc
 all:	$(NAME)
 
 $(OBJ): $(OBJDIR)/%.o : $(SRCDIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 #$(BINDIR)/$(NAME): $(OBJ)
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
+	@echo "Compiled $(NAME) successfully!"
 
 clean:
-	rm -rf $(OBJ)
+	@rm -rf $(OBJ)
+	@echo "Fclean done successfully!"
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
+	@echo "Clean done successfully!"
 
 re: fclean all

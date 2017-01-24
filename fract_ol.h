@@ -39,5 +39,6 @@ int			draw_2dline(t_wind *w, t_point p, t_point pd, char *hexacolor);
 t_line		set_parameters_tline(t_line v);
 t_line		convert_3ddot_to2dline(t_point p, t_point pd);
 t_rgbcolor	hexatorgb(char *hexcolor);
+void		ft_refresh_view(t_wind *w);
 
 #endif

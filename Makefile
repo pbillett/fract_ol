@@ -22,6 +22,7 @@ LIB= -lm -L libft -lft
 LIB2= -L libft/inc/minilibx_macos -L/usr/local/lib/ -I/usr/local/include
 LIB3= -lmlx -framework OpenGL -framework AppKit
 FLAG= -Wall -Werror -Wextra
+CLEAN= make clean -C libft/inc/minilibx_macos/
 KEY= 1
 endif
 ifeq ($(UNAME), Linux) # LINUX :
@@ -30,6 +31,7 @@ LIB= -lm -L libft -lft
 LIB2= -L minilibx -lmlx
 LIB3= -L /usr/include/X11/ -lXext -lX11
 FLAG= -Wall -Werror -Wextra
+CLEAN= make clean -C libft/inc/minilibx/
 KEY= 2
 endif
 
@@ -47,6 +49,7 @@ clean:
 fclean: clean
 	rm -rf $(NAME)
 	make fclean -C libft
+	$(CLEAN)
 
 re: fclean all
 

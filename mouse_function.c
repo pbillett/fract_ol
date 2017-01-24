@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 15:31:52 by pbillett          #+#    #+#             */
-/*   Updated: 2016/12/27 15:37:43 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/01/24 16:18:43 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,24 +98,27 @@ static void	fc_bt1_mousemove(int x, int y, t_wind *w)
 	}
 }
 i*/
-int			mouse_motion_function(int x, int y, t_wind *w)
+
+void				ft_refresh_view(t_wind *w)
 {
-	//static int		prev_mouse_x;
-	//static int		prev_mouse_y;
-
-	//ft_putstr("before\n");
-	//if (w->p.fr.mouse_x != x || w->p.fr.mouse_y != y)
-	//{
-	w->p.fr.mouse_x = x;
-	w->p.fr.mouse_y = y;
-
-
 	mlx_destroy_image(w->mlx, w->img.ptr_img);
-	//ft_putstr("mid\n");
 	create_new_img(w);
-	//fractal(w);
-	//ft_putstr("next\n");
 	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr_img, w->img.x, w->img.y);
-	//ft_putstr("end\n");
+}
+
+int					mouse_motion_function(int x, int y, t_wind *w)
+{
+	static int		i;
+
+	if (!i)
+		i = 0;
+	if (i == 3) // Screen actualisation only each 3 times, to have faster response
+	{
+		w->p.fr.mouse_x = x;
+		w->p.fr.mouse_y = y;
+		ft_refresh_view(w);
+		i = 0;
+	}
+	i++;
 	return (0);
 }
