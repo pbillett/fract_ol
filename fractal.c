@@ -28,8 +28,8 @@ static void		set_nbrcomplexandz(t_wind *w)
 	else if (ft_strcmp(w->p.fr.name, "mandelbrot") == 0)
 	{
 		//w->p.fr.c_r = w->p.fr.x/w->p.fr.zoomf + w->p.fr.x1 + w->p.fr.saveprevrange_x;
-		w->p.fr.c_r = w->p.fr.x/w->p.fr.zoomf + w->p.fr.x1;
-		w->p.fr.c_i = w->p.fr.y/w->p.fr.zoomf + w->p.fr.y1;
+		w->p.fr.c_r = w->p.fr.x * w->p.fr.zoomf + w->p.fr.x1;
+		w->p.fr.c_i = w->p.fr.y * w->p.fr.zoomf + w->p.fr.y1;
 		w->p.fr.z_r = 0;
 		w->p.fr.z_i = 0;
 		//printf("c_r: %f\n", w->p.fr.c_r);

@@ -90,9 +90,9 @@ static void		set_fracparameters(t_wind *w)
 			set_mandelbrot(w);
 		else if (w->p.view_mode == 3)
 			set_julia(w);
-		w->p.fr.zoominit = 100;// Base number of Zoom
-		w->p.fr.zoomfactor = 1;//precision of Zoom (100 is really high, 1 is really low)
-		w->p.fr.zoomf = w->p.fr.zoominit;//Zoom et nbr iteration
+		//w->p.fr.zoominit = 100;// Base number of Zoom
+		//w->p.fr.zoomfactor = 1;//precision of Zoom (100 is really high, 1 is really low)
+		w->p.fr.zoomf = 1;//Zoom et nbr iteration
 		w->p.fr.it_max = 50;//Define at startup
 		w->p.fr.h = 0;//Define at startup
 		calc_imgsize(w);
@@ -101,7 +101,7 @@ static void		set_fracparameters(t_wind *w)
 	{
 		w->img.width = 758;
 		w->img.height = 655;
-		w->p.fr.zoom = 100;//Zoom et nbr iteration
+		w->p.fr.zoom = 1;//Zoom et nbr iteration
 		w->p.fr.it_max = 1;//Define at startup
 	}
 }
