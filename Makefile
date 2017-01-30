@@ -28,7 +28,7 @@ endif
 ifeq ($(UNAME), Linux) # LINUX :
 MINILIBX= make -C libft/inc/minilibx
 LIB= -lm -L libft -lft
-LIB2= -L minilibx -lmlx
+LIB2= -L libft/inc/minilibx -lmlx
 LIB3= -L /usr/include/X11/ -lXext -lX11
 FLAG= -Wall -Werror -Wextra
 CLEAN= make clean -C libft/inc/minilibx/
@@ -49,7 +49,7 @@ clean:
 fclean: clean
 	rm -rf $(NAME)
 	make fclean -C libft
-	$(CLEAN)
+	#$(CLEAN)
 
 re: fclean all
 

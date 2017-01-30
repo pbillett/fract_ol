@@ -38,9 +38,11 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 	w->p.fr.mouse_y = y;
 	if (button == 4)//Zoom molette
 	{
+		printf("c_r: %f\n", w->p.fr.c_r);
+		printf("c_i: %f\n", w->p.fr.c_i);
 		if (w->p.view_mode == 2 || w->p.view_mode == 3)
 		{
-			w->p.fr.zoomf--;
+			w->p.fr.zoomf += 0.1;
 			/*ft_putendl("1) decalage du curseur de la souris au centre:");
 			w->p.fr.x1 = w->p.fr.x1 + ((((float)w->p.fr.mouse_x/w->p.fr.img_x) * w->p.fr.range_x) - (w->p.fr.range_x /2));
 			w->p.fr.y1 = w->p.fr.y1 + ((((float)w->p.fr.mouse_y/w->p.fr.img_y) * w->p.fr.range_y) - (w->p.fr.range_y /2));
@@ -80,10 +82,10 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 			w->p.fr.y2 = w->p.fr.y2 / 2 - ((((float)w->p.fr.mouse_y/w->p.fr.img_y) * w->p.fr.range_y)/2);*/
 			//w->p.fr.zoomf += w->p.fr.zoominit/w->p.fr.zoomfactor; //We need to multiply by two
 			//before_zoom(w);
-			//printf("zoomf:%.2f\n", w->p.fr.zoomf);
-			ft_putendl("zoomf: ");
+			printf("zoomf:%.2f\n", w->p.fr.zoomf);
+			/*ft_putendl("zoomf: ");
 			ft_putnbr((int)w->p.fr.zoomf);
-			ft_putendl("\n");
+			ft_putendl("\n");*/
 			w->p.fr.it_max += 50;//And add 50 incrementation
 			//after_zoom(w);
 		}
@@ -109,15 +111,16 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 		else
 		{
 			//before_zoom(w);
-			w->p.fr.x1 = (w->p.fr.x1 * 2);
+			/*w->p.fr.x1 = (w->p.fr.x1 * 2);
 			w->p.fr.y1 = (w->p.fr.y1 * 2);
 			w->p.fr.x2 = (w->p.fr.x2 * 2);
-			w->p.fr.y2 = (w->p.fr.y2 * 2);
-			w->p.fr.zoomf -= w->p.fr.zoominit/w->p.fr.zoomfactor; //We need to multiply by two
-			//printf("zoomf:%.2f\n", w->p.fr.zoomf);
-			ft_putendl("zoomf: ");
+			w->p.fr.y2 = (w->p.fr.y2 * 2);*/
+			w->p.fr.zoomf -= 0.1; //We need to multiply by two
+			//w->p.fr.zoomf -= w->p.fr.zoominit/w->p.fr.zoomfactor; //We need to multiply by two
+			printf("zoomf:%.2f\n", w->p.fr.zoomf);
+			/*ft_putendl("zoomf: ");
 			ft_putnbr((int)w->p.fr.zoomf);
-			ft_putendl("\n");
+			ft_putendl("\n");*/
 			if (w->p.view_mode == 2 || w->p.view_mode == 3)
 				w->p.fr.it_max -= 50;//And add 50 incrementation
 			else

@@ -2,8 +2,8 @@
 
 void		calc_imgsize(t_wind *w)
 {
-	w->p.fr.img_x = (w->p.fr.x2 - w->p.fr.x1) * w->p.fr.zoomf;
-	w->p.fr.img_y = (w->p.fr.y2 - w->p.fr.y1) * w->p.fr.zoomf;
+	w->p.fr.img_x = (w->p.fr.x2 - w->p.fr.x1) * (w->p.fr.zoomf * 100);
+	w->p.fr.img_y = (w->p.fr.y2 - w->p.fr.y1) * (w->p.fr.zoomf * 100);
 	printf("img_x calc: %d\n", w->p.fr.img_x);
 	printf("img_y calc: %d\n", w->p.fr.img_y);
 }
@@ -22,18 +22,18 @@ static void		set_nbrcomplexandz(t_wind *w)
 		w->p.fr.c_r = ((float)w->p.fr.mouse_y/(float)w->p.fr.img_y) * 0.5; //Cx =  0.3 valeur max
 		w->p.fr.c_i = ((float)w->p.fr.mouse_x/(float)w->p.fr.img_x) * 0.02; // Cy = 0.02 valeur max
 		//w->p.fr.z_r = w->p.fr.x/w->p.fr.zoomf + (w->p.fr.x1 - (w->p.fr.zoomfactor * w->p.fr.img_x));
-		w->p.fr.z_r = w->p.fr.x/w->p.fr.zoomf + w->p.fr.x1;
-		w->p.fr.z_i = w->p.fr.y/w->p.fr.zoomf + w->p.fr.y1;
+		w->p.fr.z_r = w->p.fr.x/(w->p.fr.zoomf * 100) + w->p.fr.x1;
+		w->p.fr.z_i = w->p.fr.y/(w->p.fr.zoomf * 100) + w->p.fr.y1;
 	}
 	else if (ft_strcmp(w->p.fr.name, "mandelbrot") == 0)
 	{
 		//w->p.fr.c_r = w->p.fr.x/w->p.fr.zoomf + w->p.fr.x1 + w->p.fr.saveprevrange_x;
-		w->p.fr.c_r = w->p.fr.x * w->p.fr.zoomf + w->p.fr.x1;
-		w->p.fr.c_i = w->p.fr.y * w->p.fr.zoomf + w->p.fr.y1;
+		w->p.fr.c_r = (w->p.fr.x / (w->p.fr.zoomf * 100)) + w->p.fr.x1 + (float)(w->p.fr.zoomf / 100);
+		w->p.fr.c_i = w->p.fr.y / (w->p.fr.zoomf * 100) + w->p.fr.y1 + (w->p.fr.zoomf / 100);
 		w->p.fr.z_r = 0;
 		w->p.fr.z_i = 0;
-		//printf("c_r: %f\n", w->p.fr.c_r);
-		//printf("c_i: %f\n", w->p.fr.c_i);
+		/*printf("c_r: %f\n", w->p.fr.c_r);
+		printf("c_i: %f\n", w->p.fr.c_i);*/
 	}
 }
 
