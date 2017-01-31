@@ -28,8 +28,8 @@ static void		set_nbrcomplexandz(t_wind *w)
 	else if (ft_strcmp(w->p.fr.name, "mandelbrot") == 0)
 	{
 		//w->p.fr.c_r = w->p.fr.x/w->p.fr.zoomf + w->p.fr.x1 + w->p.fr.saveprevrange_x;
-		w->p.fr.c_r = (w->p.fr.x / (w->p.fr.zoomf * 100)) + w->p.fr.x1 + (float)(w->p.fr.zoomf / 100);
-		w->p.fr.c_i = w->p.fr.y / (w->p.fr.zoomf * 100) + w->p.fr.y1 + (w->p.fr.zoomf / 100);
+		w->p.fr.c_r = w->p.fr.x / 100 + w->p.fr.x1;
+		w->p.fr.c_i = w->p.fr.y / 100 + w->p.fr.y1;
 		w->p.fr.z_r = 0;
 		w->p.fr.z_i = 0;
 		/*printf("c_r: %f\n", w->p.fr.c_r);
@@ -103,10 +103,10 @@ int			fractal(t_wind *w)
 	printf("y1: %f\n", w->p.fr.y1);
 	printf("y2: %f\n", w->p.fr.y2);
 	w->p.fr.x = 0;
-	while (w->p.fr.x < w->p.fr.img_x)
+	while (w->p.fr.x < w->width)
 	{
 		w->p.fr.y = 0;
-		while (w->p.fr.y < w->p.fr.img_y)
+		while (w->p.fr.y < w->height)
 		{
 			set_nbrcomplexandz(w);
 			i = 0;
@@ -117,13 +117,14 @@ int			fractal(t_wind *w)
 				w->p.fr.z_i = 2*tmp*w->p.fr.z_i + w->p.fr.c_i;
 				i++;
 			}
+			//draw_pointf(w, w->p.fr.x, w->p.fr.y, 0xFFFFFF);
 			if (i == w->p.fr.it_max)
 				draw_pointf(w, w->p.fr.x, w->p.fr.y, 0);
 			else
 				draw_pointf(w, w->p.fr.x, w->p.fr.y, i);
-			w->p.fr.y++;
+			w->p.fr.y += 1 + w->p.fr.stepy;
 		}
-		w->p.fr.x++;
+		w->p.fr.x += 1 + w->p.fr.stepx;
 	}
 	/*printf("pos x souris: %d\n", w->p.fr.mouse_x);
 	printf("pos y souris: %d\n", w->p.fr.mouse_y);

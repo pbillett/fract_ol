@@ -19,6 +19,9 @@ typedef struct		s_fractal
 	int				zoom;
 	float			zoomf;
 	float			zoomfactor;
+	float			step;
+	float			stepx;
+	float			stepy;
 	int				zoom_x;
 	int				zoom_y;
 	float			centerp_x;
