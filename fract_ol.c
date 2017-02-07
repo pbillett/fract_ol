@@ -93,8 +93,11 @@ static void		set_fracparameters(t_wind *w)
 		//w->p.fr.zoominit = 100;// Base number of Zoom
 		//w->p.fr.zoomfactor = 1;//precision of Zoom (100 is really high, 1 is really low)
 		w->p.fr.zoomf = 1;//Zoom et nbr iteration
+		w->p.fr.zoom = 100;//Zoom et nbr iteration
 		w->p.fr.it_max = 50;//Define at startup
 		w->p.fr.h = 0;//Define at startup
+		w->p.fr.stepx = 1;
+		w->p.fr.stepy = 1;
 		calc_imgsize(w);
 	}
 	else

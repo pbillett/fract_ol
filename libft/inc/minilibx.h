@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:25:32 by pbillett          #+#    #+#             */
-/*   Updated: 2017/01/19 17:13:29 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/02/07 13:57:02 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void			ft_listofnodes_free(t_listofnodes *lst);
 t_point			*ft_pointnew(int x, int y, int z);
 void			ft_listofnodes_free(t_listofnodes *lstnodes);
 t_line			ft_conv_tpoint_to_tline_coord(t_point p);
+float			ft_squared(float n);
 
 #endif

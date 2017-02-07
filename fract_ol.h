@@ -6,6 +6,7 @@
 # define FRACT_OL
 #include "libft/inc/libft.h"
 #include "libft/inc/minilibx/mlx.h"
+//#include "libft/inc/minilibx_struct.h"
 #include "struct.h"
 #include "keymacro.h"
 #include <math.h>

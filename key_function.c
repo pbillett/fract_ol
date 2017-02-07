@@ -42,9 +42,12 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 		printf("c_i: %f\n", w->p.fr.c_i);
 		if (w->p.view_mode == 2 || w->p.view_mode == 3)
 		{
+			w->p.fr.zoom += 10;
 			w->p.fr.zoomf += 0.1;
-			w->p.fr.stepx = ((w->p.fr.x2 - w->p.fr.x1) * 100) / w->width;
-			w->p.fr.stepy = ((w->p.fr.y2 - w->p.fr.y1) * 100) / w->height;
+			w->p.fr.stepx = ((w->p.fr.x2 - w->p.fr.x1) * (100 * w->p.fr.zoomf)) / w->width;
+			w->p.fr.stepy = ((w->p.fr.y2 - w->p.fr.y1) * (100 * w->p.fr.zoomf)) / w->height;
+			//w->p.fr.stepx = 30;
+			//w->p.fr.stepy = 30;
 			printf("stepx: %.3f, stepy: %.3f\n", w->p.fr.stepx, w->p.fr.stepy);
 			/*ft_putendl("1) decalage du curseur de la souris au centre:");
 			w->p.fr.x1 = w->p.fr.x1 + ((((float)w->p.fr.mouse_x/w->p.fr.img_x) * w->p.fr.range_x) - (w->p.fr.range_x /2));
