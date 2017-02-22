@@ -1,11 +1,28 @@
 #include "fract_ol.h"
 
+// http://sdz.tdct.org/sdz/dessiner-la-fractale-de-mandelbrot.html
+// https://www.codeproject.com/Articles/7513/Mandelbrot-Set-for-C
+
 void		calc_imgsize(t_wind *w)
 {
-	w->p.fr.img_x = (w->p.fr.x2 - w->p.fr.x1) * (w->p.fr.zoomf * 100);
-	w->p.fr.img_y = (w->p.fr.y2 - w->p.fr.y1) * (w->p.fr.zoomf * 100);
+	w->p.fr.img_x = (w->p.fr.x2 - w->p.fr.x1) * (w->p.fr.zoomf);
+	w->p.fr.img_y = (w->p.fr.y2 - w->p.fr.y1) * (w->p.fr.zoomf);
 	printf("img_x calc: %d\n", w->p.fr.img_x);
 	printf("img_y calc: %d\n", w->p.fr.img_y);
+}
+
+double interpolate(double start, double end, double interpolation)
+{
+    return start + ((end - start) * interpolation);
+}
+
+void applyZoom(t_fractal* e, double mouseRe, double mouseIm, double zoomFactor)
+{
+	double interpolation = 1.0 / zoomFactor;
+	e->Re.min = interpolate(mouseRe, e->Re.min, interpolation);
+	e->Im.min = interpolate(mouseIm, e->Im.min, interpolation);
+	e->Re.max = interpolate(mouseRe, e->Re.max, interpolation);
+	e->Im.max = interpolate(mouseIm, e->Im.max, interpolation);
 }
 
 static void		set_nbrcomplexandz(t_wind *w)
@@ -30,8 +47,8 @@ static void		set_nbrcomplexandz(t_wind *w)
 		//w->p.fr.c_r = w->p.fr.x/w->p.fr.zoomf + w->p.fr.x1 + w->p.fr.saveprevrange_x;
 		//http://stackoverflow.com/questions/41796832/smooth-zoom-with-mouse-in-mandelbrot-set-c?rq=1
 		//http://stackoverflow.com/questions/14097559/zooming-in-on-mandelbrot-set-fractal-in-java
-		w->p.fr.c_r = (w->p.fr.x / w->p.fr.zoom) + w->p.fr.x1 - (w->p.fr.range_x/4);
-		w->p.fr.c_i = (w->p.fr.y / w->p.fr.zoom) + w->p.fr.y1;
+		w->p.fr.c_r = (w->p.fr.x / w->p.fr.zoomf) + w->p.fr.x1;
+		w->p.fr.c_i = (w->p.fr.y / w->p.fr.zoomf) + w->p.fr.y1;
 		w->p.fr.z_r = 0;
 		w->p.fr.z_i = 0;
 		/*printf("c_r: %f\n", w->p.fr.c_r);
@@ -39,56 +56,12 @@ static void		set_nbrcomplexandz(t_wind *w)
 	}
 }
 
-int			before_zoom(t_wind *w)
-{
-	printf("img_x: %d\n", w->p.fr.img_x);
-	printf("img_y: %d\n", w->p.fr.img_y);
-
-	//On recadre en déclant le pointeur de la souris au centre:
-	w->p.fr.x1 = w->p.fr.x1 + (w->p.fr.range_x/4);
-	w->p.fr.y1 = w->p.fr.y1 + (w->p.fr.range_x/4);
-	//w->p.fr.x1 = w->p.fr.x1 + ((((float)w->p.fr.mouse_x/w->p.fr.img_x) * w->p.fr.range_x));
-	//w->p.fr.y1 = w->p.fr.y1 + ((((float)w->p.fr.mouse_y/w->p.fr.img_y) * w->p.fr.range_y));
-	w->p.fr.x2 = w->p.fr.x1 - w->p.fr.range_x/4;
-	w->p.fr.y2 = w->p.fr.y1 - w->p.fr.range_y/4;
-
-	printf("pos x souris: %f\n", (float)w->p.fr.mouse_x/w->p.fr.img_x);
-	return (0);
-}
-
-int			after_zoom(t_wind *w)
-{
-	//float	tmp_range_x;
-	//float	tmp_range_y;
-
-	//Redefinition du range:
-	//w->p.fr.range_x = w->p.fr.x2 - w->p.fr.x1;
-	//w->p.fr.range_y = w->p.fr.y2 - w->p.fr.y1;
-
-	// Zoom relatif (par rapport au point en haut à gauche)
-	// (Compensation du zoomx2 en gérant avec le range/2 pour les valeurs x2 et y2.
-	// PS: (Pour voir le zoom progressif mettre range/5.)
-	//w->p.fr.x2 = w->p.fr.x2 - (w->p.fr.range_x/2);
-	//w->p.fr.y2 = w->p.fr.y2 - (w->p.fr.range_y/2);
-	printf("pos img x: %d\n", w->img.x);
-	printf("pos img y: %d\n", w->img.y);
-
-	//Reutilisation du range de départ (nécessaire pour le Redécalage):
-	//Redécalage en haut à gauche, au début du point
-	//du précédent cadre. (soit - pos souris)
-	//w->p.fr.x1 = w->p.fr.x1 - w->p.fr.range_x/2;
-	w->p.fr.x1 = w->p.fr.x1 - ((((float)w->p.fr.mouse_x/w->p.fr.img_x) * w->p.fr.range_x)/2);
-	w->p.fr.y1 = w->p.fr.y1 - ((((float)w->p.fr.mouse_y/w->p.fr.img_y) * w->p.fr.range_y)/2);
-	//Puis on recale les coin x2 et y2 aussi pour éviter le décalge
-	//w->p.fr.x2 = w->p.fr.x1 + w->p.fr.range_x;
-	//w->p.fr.y2 = w->p.fr.y1 + w->p.fr.range_y;
-	return (0);
-}
-
 int			fractal(t_wind *w)
 {
 	float tmp;
 	float i;
+	double intigralX;
+	double intigralY;
 
 	// Set range and mouse position 
 	// in range coordonnates (x1-x2, y1-y2)
@@ -104,12 +77,17 @@ int			fractal(t_wind *w)
 	printf("x2: %f\n", w->p.fr.x2);
 	printf("y1: %f\n", w->p.fr.y1);
 	printf("y2: %f\n", w->p.fr.y2);
-	w->p.fr.x = 0;
+	intigralX = (w->p.fr.range_x / w->width);
+	intigralY = (w->p.fr.range_y / w->height);
+	printf("intigralY: %f\n", intigralY);
+	printf("intigralX: %f\n", intigralX);
+
+	w->p.fr.x = w->p.fr.x1; // set start to x min;
 	/*w->p.fr.stepx = 1;
 	w->p.fr.stepy = 1;*/
 	while (w->p.fr.x < w->width)
 	{
-		w->p.fr.y = 0;
+		w->p.fr.y = w->p.fr.y1; // set start to y min;
 		while (w->p.fr.y < w->height)
 		{
 			set_nbrcomplexandz(w);
@@ -121,15 +99,14 @@ int			fractal(t_wind *w)
 				w->p.fr.z_i = 2*tmp*w->p.fr.z_i + w->p.fr.c_i;
 				i++;
 			}
-			//draw_pointf(w, w->p.fr.x, w->p.fr.y, 0xFFFFFF);
 			if (i == w->p.fr.it_max)
 				draw_pointf(w, w->p.fr.x, w->p.fr.y, 0);
 			else
 				draw_pointf(w, w->p.fr.x, w->p.fr.y, i);
-			w->p.fr.y += 1;
+			w->p.fr.y += (intigralY * 100);
 			//w->p.fr.y += w->p.fr.stepy;
 		}
-		w->p.fr.x += 1;
+		w->p.fr.x += (intigralX * 100);
 		//w->p.fr.x += w->p.fr.stepx;
 	}
 	/*printf("pos x souris: %d\n", w->p.fr.mouse_x);
