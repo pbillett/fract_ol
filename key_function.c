@@ -33,122 +33,48 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 	ft_putchar('\n');
 	ft_putnbr(y);
 	ft_putchar('\n');
-	//We set the mouse value
+
+	//We set the mouse value to able to zoom from current mouse point position
 	w->p.fr.mouse_x = x;
 	w->p.fr.mouse_y = y;
+
+	printf("c_r: %f\n", w->p.fr.c_r);
+	printf("c_i: %f\n", w->p.fr.c_i);
+	printf("mouse_x: %d\n", w->p.fr.mouse_x);
+	printf("mouse_y: %d\n", w->p.fr.mouse_y);
+	double mouseRe = (double)w->p.fr.mouse_x / (w->width / (w->p.fr.x2 - w->p.fr.x1)) + w->p.fr.x1;
+	double mouseIm = (double)w->p.fr.mouse_y / (w->height / (w->p.fr.y2 - w->p.fr.y1)) + w->p.fr.y1;
+	printf("mouseRe: %f\n", mouseRe);
+	printf("mouseRe: %f\n", mouseIm);
+
 	if (button == 4)//Zoom molette
 	{
-		printf("c_r: %f\n", w->p.fr.c_r);
-		printf("c_i: %f\n", w->p.fr.c_i);
 		if (w->p.view_mode == 2 || w->p.view_mode == 3)
 		{
-			double mouseRe = (double)w->p.fr.mouse_x / (w->width / (w->p.fr.->Re.max - e->Re.min)) + e->Re.min;
-			double mouseIm = (double)w->p.fr.mouse_y / (w->height / (e->Im.max - e->Im.min)) + e->Im.min;
 			w->p.fr.zoomf += 10;
-
-			applyZoom(w->p.fr, mouseRe, mouseIm, w->p.fr.zoomf);
-			//w->p.fr.zoom += 10;
-			/*w->p.fr.x1 = w->p.fr.x1 - w->p.fr.h;
-			w->p.fr.x2 = w->p.fr.x2 + w->p.fr.h;
-			w->p.fr.y1 = w->p.fr.y1 - w->p.fr.h;
-			w->p.fr.y2 = w->p.fr.y2 + w->p.fr.h;*/
-
-			/*w->p.fr.x1 = w->p.fr.x - w->p.fr.h;
-			w->p.fr.x2 = w->p.fr.x + w->p.fr.h;
-			w->p.fr.y1 = w->p.fr.y - w->p.fr.h;
-			w->p.fr.y2 = w->p.fr.y + w->p.fr.h;*/
-			//w->p.fr.stepx = ((w->p.fr.x2 - w->p.fr.x1) * (100 * w->p.fr.zoomf)) / w->width;
-			//w->p.fr.stepy = ((w->p.fr.y2 - w->p.fr.y1) * (100 * w->p.fr.zoomf)) / w->height;
-			//w->p.fr.stepx = 30;
-			//w->p.fr.stepy = 30;
-			//printf("stepx: %.3f, stepy: %.3f\n", w->p.fr.stepx, w->p.fr.stepy);
-			/*ft_putendl("1) decalage du curseur de la souris au centre:");
-			w->p.fr.x1 = w->p.fr.x1 + ((((float)w->p.fr.mouse_x/w->p.fr.img_x) * w->p.fr.range_x) - (w->p.fr.range_x /2));
-			w->p.fr.y1 = w->p.fr.y1 + ((((float)w->p.fr.mouse_y/w->p.fr.img_y) * w->p.fr.range_y) - (w->p.fr.range_y /2));
-			w->p.fr.x2 = w->p.fr.x1 + w->p.fr.range_x;
-			w->p.fr.y2 = w->p.fr.y1 + w->p.fr.range_y;*/
-			//ft_refresh_view(w);
-			//sleep(1);
-			/*
-			ft_putendl("2) zoom proportionnel par rapport au centre:");
-			w->p.fr.zoomf += w->p.fr.zoominit/w->p.fr.zoomfactor; //We need to multiply by two
-			w->p.fr.x1 = w->p.fr.x1 / 2;
-			w->p.fr.y1 = w->p.fr.y1 / 2;
-			w->p.fr.x2 = w->p.fr.x2 / 2;
-			w->p.fr.y2 = w->p.fr.y2 / 2;
-			w->p.fr.range_x = w->p.fr.x2 - w->p.fr.x1;
-			w->p.fr.range_y = w->p.fr.y2 - w->p.fr.y1;*/
-			//calc_imgsize(w);
-			/*w->p.fr.x2 = w->p.fr.x2 / 2;
-			w->p.fr.y2 = w->p.fr.y2 / 2;*/
-			//ft_refresh_view(w);
-			/*sleep(1);
-			*/
-			/*
-			ft_putendl("3) decalage du centre sur le point de la souris:");
-			w->p.fr.x1 = w->p.fr.x1 - ((((float)w->p.fr.mouse_x/w->p.fr.img_x) * w->p.fr.range_x) - (w->p.fr.range_x /2));
-			w->p.fr.y1 = w->p.fr.y1 - ((((float)w->p.fr.mouse_y/w->p.fr.img_y) * w->p.fr.range_y) - (w->p.fr.range_y /2));
-			printf("x1:: %.2f\n", w->p.fr.x1);
-			printf("y1:: %.2f\n", w->p.fr.y1);
-			w->p.fr.x2 = w->p.fr.x1 + w->p.fr.range_x;
-			w->p.fr.y2 = w->p.fr.y1 + w->p.fr.range_y;*/
-			//ft_refresh_view(w);
-			//sleep(1);
-			/*
-			w->p.fr.x1 = w->p.fr.x1 / 2 + ((((float)w->p.fr.mouse_x/w->p.fr.img_x) * w->p.fr.range_x) - (w->p.fr.range_x/2));
-			w->p.fr.y1 = w->p.fr.y1 / 2 + ((((float)w->p.fr.mouse_y/w->p.fr.img_y) * w->p.fr.range_y)/2);
-			w->p.fr.x1 = w->p.fr.x2 / 2 + ((((float)w->p.fr.mouse_x/w->p.fr.img_x) * w->p.fr.range_x)/2);
-			w->p.fr.y2 = w->p.fr.y2 / 2 - ((((float)w->p.fr.mouse_y/w->p.fr.img_y) * w->p.fr.range_y)/2);*/
-			//w->p.fr.zoomf += w->p.fr.zoominit/w->p.fr.zoomfactor; //We need to multiply by two
-			//before_zoom(w);
+			// Zoom in(1.1 value)
+			apply_zoom(&w->p.fr, mouseRe, mouseIm, w->p.fr.zoomf/100);
 			printf("zoomf:%.2f\n", w->p.fr.zoomf);
-			/*ft_putendl("zoomf: ");
-			ft_putnbr((int)w->p.fr.zoomf);
-			ft_putendl("\n");*/
-			w->p.fr.it_max += 50;//And add 50 incrementation
-			//after_zoom(w);
+			w->p.fr.it_max += 100;//And add 50 incrementation
 		}
 		else
 		{
 			w->p.fr.it_max += 1; // to incremtente details
-
-			// On récupere le déclage depuis le coin en haut à gauche
-			/*mem_x = w->img.width / 2;
-			mem_y = w->img.height / 2;
-			// On applique le decalage depuis le coin en haut à gauche
-			w->img.x -= mem_x;
-			w->img.y -= mem_y;*/
-
-			/*w->img.width *= 2;
-			w->img.height *= 2;*/
 		}
 	}
 	if (button == 5)
 	{
-		if (w->p.fr.zoom == 100)
-			set_mandelbrot(w);
+		if (w->p.view_mode == 2 || w->p.view_mode == 3)
+		{
+			w->p.fr.zoomf -= 10;
+			// Zoom out (0.9 value)
+			apply_zoom(&w->p.fr, mouseRe, mouseIm, 100/w->p.fr.zoomf);
+			printf("zoomf:%.2f\n", w->p.fr.zoomf);
+			w->p.fr.it_max -= 100;//And add 50 incrementation
+		}
 		else
 		{
-			//before_zoom(w);
-			/*w->p.fr.x1 = (w->p.fr.x1 * 2);
-			w->p.fr.y1 = (w->p.fr.y1 * 2);
-			w->p.fr.x2 = (w->p.fr.x2 * 2);
-			w->p.fr.y2 = (w->p.fr.y2 * 2);*/
-			w->p.fr.zoomf -= 0.1; //We need to multiply by two
-			//w->p.fr.zoomf -= w->p.fr.zoominit/w->p.fr.zoomfactor; //We need to multiply by two
-			printf("zoomf:%.2f\n", w->p.fr.zoomf);
-			/*ft_putendl("zoomf: ");
-			ft_putnbr((int)w->p.fr.zoomf);
-			ft_putendl("\n");*/
-			if (w->p.view_mode == 2 || w->p.view_mode == 3)
-				w->p.fr.it_max -= 50;//And add 50 incrementation
-			else
-			{
-				w->p.fr.it_max -= 1;//And add 50 incrementation
-				w->img.width /= 2;
-				w->img.height /= 2;
-			}
-			//after_zoom(w);
+			w->p.fr.it_max -= 1;//And add 50 incrementation
 		}
 	}
 	mlx_destroy_image(w->mlx, w->img.ptr_img);

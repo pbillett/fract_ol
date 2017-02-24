@@ -18,6 +18,8 @@ typedef struct		s_fractal
 	int				zoominit;
 	int				zoom;
 	float			zoomf;
+	double			intigralX;
+	double			intigralY;
 	float			zoomfactor;
 	float			step;
 	float			stepx;

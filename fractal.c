@@ -16,13 +16,13 @@ double interpolate(double start, double end, double interpolation)
     return start + ((end - start) * interpolation);
 }
 
-void applyZoom(t_fractal* e, double mouseRe, double mouseIm, double zoomFactor)
+void apply_zoom(t_fractal *fr, double mouseRe, double mouseIm, double zoomFactor)
 {
 	double interpolation = 1.0 / zoomFactor;
-	e->Re.min = interpolate(mouseRe, e->Re.min, interpolation);
-	e->Im.min = interpolate(mouseIm, e->Im.min, interpolation);
-	e->Re.max = interpolate(mouseRe, e->Re.max, interpolation);
-	e->Im.max = interpolate(mouseIm, e->Im.max, interpolation);
+	fr->x1 = interpolate(mouseRe, fr->x1, interpolation);
+	fr->y1 = interpolate(mouseIm, fr->y1, interpolation);
+	fr->x2 = interpolate(mouseRe, fr->x2, interpolation);
+	fr->y2 = interpolate(mouseIm, fr->y2, interpolation);
 }
 
 static void		set_nbrcomplexandz(t_wind *w)
@@ -39,20 +39,17 @@ static void		set_nbrcomplexandz(t_wind *w)
 		w->p.fr.c_r = ((float)w->p.fr.mouse_y/(float)w->p.fr.img_y) * 0.5; //Cx =  0.3 valeur max
 		w->p.fr.c_i = ((float)w->p.fr.mouse_x/(float)w->p.fr.img_x) * 0.02; // Cy = 0.02 valeur max
 		//w->p.fr.z_r = w->p.fr.x/w->p.fr.zoomf + (w->p.fr.x1 - (w->p.fr.zoomfactor * w->p.fr.img_x));
-		w->p.fr.z_r = w->p.fr.x/(w->p.fr.zoomf * 100) + w->p.fr.x1;
-		w->p.fr.z_i = w->p.fr.y/(w->p.fr.zoomf * 100) + w->p.fr.y1;
+		w->p.fr.z_r = w->p.fr.x/w->p.fr.zoomf + w->p.fr.x1;
+		w->p.fr.z_i = w->p.fr.y/w->p.fr.zoomf + w->p.fr.y1;
 	}
 	else if (ft_strcmp(w->p.fr.name, "mandelbrot") == 0)
 	{
-		//w->p.fr.c_r = w->p.fr.x/w->p.fr.zoomf + w->p.fr.x1 + w->p.fr.saveprevrange_x;
 		//http://stackoverflow.com/questions/41796832/smooth-zoom-with-mouse-in-mandelbrot-set-c?rq=1
 		//http://stackoverflow.com/questions/14097559/zooming-in-on-mandelbrot-set-fractal-in-java
-		w->p.fr.c_r = (w->p.fr.x / w->p.fr.zoomf) + w->p.fr.x1;
-		w->p.fr.c_i = (w->p.fr.y / w->p.fr.zoomf) + w->p.fr.y1;
+		//w->p.fr.c_r = (w->p.fr.x / w->p.fr.zoomf) + w->p.fr.x1;
+		//w->p.fr.c_i = (w->p.fr.y / w->p.fr.zoomf) + w->p.fr.y1;
 		w->p.fr.z_r = 0;
 		w->p.fr.z_i = 0;
-		/*printf("c_r: %f\n", w->p.fr.c_r);
-		printf("c_i: %f\n", w->p.fr.c_i);*/
 	}
 }
 
@@ -60,8 +57,6 @@ int			fractal(t_wind *w)
 {
 	float tmp;
 	float i;
-	double intigralX;
-	double intigralY;
 
 	// Set range and mouse position 
 	// in range coordonnates (x1-x2, y1-y2)
@@ -71,23 +66,24 @@ int			fractal(t_wind *w)
 	w->p.fr.range_y = w->p.fr.y2 - w->p.fr.y1;
 	w->p.fr.centerp_x = w->p.fr.x1 + (w->p.fr.range_x / 2);
 	w->p.fr.centerp_y = w->p.fr.y1 + (w->p.fr.range_y / 2);
-	//calc_imgsize(w);
-	//before_zoom(w);
 	printf("x1: %f\n", w->p.fr.x1);
 	printf("x2: %f\n", w->p.fr.x2);
 	printf("y1: %f\n", w->p.fr.y1);
 	printf("y2: %f\n", w->p.fr.y2);
-	intigralX = (w->p.fr.range_x / w->width);
-	intigralY = (w->p.fr.range_y / w->height);
-	printf("intigralY: %f\n", intigralY);
-	printf("intigralX: %f\n", intigralX);
+	printf("range_x: %f\n", w->p.fr.range_x);
+	printf("range_y: %f\n", w->p.fr.range_y);
+	w->p.fr.intigralX = (w->p.fr.range_x / w->width);
+	w->p.fr.intigralY = (w->p.fr.range_y / w->height);
+	printf("intigralY: %f\n", w->p.fr.intigralY);
+	printf("intigralX: %f\n", w->p.fr.intigralX);
 
-	w->p.fr.x = w->p.fr.x1; // set start to x min;
-	/*w->p.fr.stepx = 1;
-	w->p.fr.stepy = 1;*/
+	w->p.fr.c_r = w->p.fr.x1; // set start to x min;
+
+	w->p.fr.x = 0;
 	while (w->p.fr.x < w->width)
 	{
-		w->p.fr.y = w->p.fr.y1; // set start to y min;
+		w->p.fr.c_i = w->p.fr.y1; // set start to y min;
+		w->p.fr.y = 0; // set start to y min;
 		while (w->p.fr.y < w->height)
 		{
 			set_nbrcomplexandz(w);
@@ -103,11 +99,11 @@ int			fractal(t_wind *w)
 				draw_pointf(w, w->p.fr.x, w->p.fr.y, 0);
 			else
 				draw_pointf(w, w->p.fr.x, w->p.fr.y, i);
-			w->p.fr.y += (intigralY * 100);
-			//w->p.fr.y += w->p.fr.stepy;
+			w->p.fr.y++;
+			w->p.fr.c_i += w->p.fr.intigralY;
 		}
-		w->p.fr.x += (intigralX * 100);
-		//w->p.fr.x += w->p.fr.stepx;
+		w->p.fr.x++;
+		w->p.fr.c_r += w->p.fr.intigralX;
 	}
 	/*printf("pos x souris: %d\n", w->p.fr.mouse_x);
 	printf("pos y souris: %d\n", w->p.fr.mouse_y);

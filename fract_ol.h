@@ -41,5 +41,6 @@ t_line		set_parameters_tline(t_line v);
 t_line		convert_3ddot_to2dline(t_point p, t_point pd);
 t_rgbcolor	hexatorgb(char *hexcolor);
 void		ft_refresh_view(t_wind *w);
+void		apply_zoom(t_fractal *fr, double mouseRe, double mouseIm, double zoomFactor);
 
 #endif

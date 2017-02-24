@@ -12,6 +12,10 @@ void		set_mandelbrot(t_wind *w)
 	w->p.fr.x2 = 0.6;
 	w->p.fr.y1 = -1.2;
 	w->p.fr.y2 = 1.2;*/
+	/*w->p.fr.x1 = -2.7;
+	w->p.fr.x2 = 2.7;
+	w->p.fr.y1 = -2.4;
+	w->p.fr.y2 = 2.4;*/
 	w->p.fr.x1 = - (float)(w->img.width / 2) / 100;
 	w->p.fr.x2 = (float)(w->img.width / 2) / 100;
 	w->p.fr.y1 = - (float)(w->img.height / 2) / 100;
@@ -94,7 +98,7 @@ static void		set_fracparameters(t_wind *w)
 		//w->p.fr.zoomfactor = 1;//precision of Zoom (100 is really high, 1 is really low)
 		w->p.fr.zoomf = 100;//Zoom et nbr iteration
 		w->p.fr.zoom = 100;//Zoom et nbr iteration
-		w->p.fr.it_max = 50;//Define at startup
+		w->p.fr.it_max = 100;//Define at startup
 		w->p.fr.h = 0.1;//Define at startup
 		w->p.fr.stepx = 1;
 		w->p.fr.stepy = 1;
