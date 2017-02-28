@@ -53,36 +53,28 @@ static void		set_nbrcomplexandz(t_wind *w)
 	}
 }
 
-int			fractal(t_wind *w)
+int					fractal(t_wind *w)
 {
-	float tmp;
-	float i;
+	float			tmp;
+	float			i;
+	t_gradientcol	gradecolor;
+	t_rgbcolor		color;
 
-	// Set range and mouse position 
-	// in range coordonnates (x1-x2, y1-y2)
-	w->p.fr.mouse_xf = ((float)w->p.fr.mouse_x/100);
-	w->p.fr.mouse_yf = ((float)w->p.fr.mouse_y/100);
-	w->p.fr.range_x = w->p.fr.x2 - w->p.fr.x1;
-	w->p.fr.range_y = w->p.fr.y2 - w->p.fr.y1;
-	w->p.fr.centerp_x = w->p.fr.x1 + (w->p.fr.range_x / 2);
-	w->p.fr.centerp_y = w->p.fr.y1 + (w->p.fr.range_y / 2);
+	gradecolor = ultra_fractalgrade();
 	printf("x1: %f\n", w->p.fr.x1);
 	printf("x2: %f\n", w->p.fr.x2);
 	printf("y1: %f\n", w->p.fr.y1);
 	printf("y2: %f\n", w->p.fr.y2);
-	printf("range_x: %f\n", w->p.fr.range_x);
-	printf("range_y: %f\n", w->p.fr.range_y);
-	w->p.fr.intigralX = (w->p.fr.range_x / w->width);
-	w->p.fr.intigralY = (w->p.fr.range_y / w->height);
+	w->p.fr.intigralX = ((w->p.fr.x2 - w->p.fr.x1) / w->width);
+	w->p.fr.intigralY = ((w->p.fr.y2 - w->p.fr.y1) / w->height);
 	printf("intigralY: %f\n", w->p.fr.intigralY);
 	printf("intigralX: %f\n", w->p.fr.intigralX);
 
-	w->p.fr.c_r = w->p.fr.x1; // set start to x min;
-
+	w->p.fr.c_r = w->p.fr.x1 + w->p.fr.key_x; // set start to x min;
 	w->p.fr.x = 0;
 	while (w->p.fr.x < w->width)
 	{
-		w->p.fr.c_i = w->p.fr.y1; // set start to y min;
+		w->p.fr.c_i = w->p.fr.y1 + w->p.fr.key_y; // set start to y min;
 		w->p.fr.y = 0; // set start to y min;
 		while (w->p.fr.y < w->height)
 		{
@@ -98,7 +90,15 @@ int			fractal(t_wind *w)
 			if (i == w->p.fr.it_max)
 				draw_pointf(w, w->p.fr.x, w->p.fr.y, 0);
 			else
-				draw_pointf(w, w->p.fr.x, w->p.fr.y, i);
+			{
+				if (w->p.fr.colorset == 0) //first color mode (change with spacebar)
+					draw_pointf(w, w->p.fr.x, w->p.fr.y, i);
+				else
+				{
+					color = colorgrade(i/100, gradecolor);
+					draw_point(w, w->p.fr.x, w->p.fr.y, rgbtohexa(color));
+				}
+			}
 			w->p.fr.y++;
 			w->p.fr.c_i += w->p.fr.intigralY;
 		}

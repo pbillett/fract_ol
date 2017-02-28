@@ -5,30 +5,8 @@
 #define POINTERMOTIONMASK	(1L<<6)
 #define NOEVENTMASK			0L
 
-void		set_mandelbrot(t_wind *w)
+void		set_boundaries_imaginary(t_wind *w)
 {
-	w->p.fr.name = "mandelbrot";
-	/*w->p.fr.x1 = -2.1;
-	w->p.fr.x2 = 0.6;
-	w->p.fr.y1 = -1.2;
-	w->p.fr.y2 = 1.2;*/
-	/*w->p.fr.x1 = -2.7;
-	w->p.fr.x2 = 2.7;
-	w->p.fr.y1 = -2.4;
-	w->p.fr.y2 = 2.4;*/
-	w->p.fr.x1 = - (float)(w->img.width / 2) / 100;
-	w->p.fr.x2 = (float)(w->img.width / 2) / 100;
-	w->p.fr.y1 = - (float)(w->img.height / 2) / 100;
-	w->p.fr.y2 = (float)(w->img.height / 2) / 100;
-}
-
-void		set_julia(t_wind *w)
-{
-	w->p.fr.name = "julia";
-	/*w->p.fr.x1 = -1;
-	w->p.fr.x2 = 1;
-	w->p.fr.y1 = -1.2;
-	w->p.fr.y2 = 1.2;*/
 	w->p.fr.x1 = - (float)(w->img.width / 2) / 100;
 	w->p.fr.x2 = (float)(w->img.width / 2) / 100;
 	w->p.fr.y1 = - (float)(w->img.height / 2) / 100;
@@ -86,22 +64,26 @@ static int		set_parameters(t_wind *w)
 
 static void		set_fracparameters(t_wind *w)
 {
+	// To move with keyboard key in fractal
+	w->p.fr.key_x = 0;
+	w->p.fr.key_y = 0;
+
+	// Zoom speed (Fast: 70, Default:50, smooth Zoom: 10 (but harder for calcultation),)
+	w->p.fr.zoomspeed = 50;
+
+	//set color set default: 0
+	w->p.fr.colorset = 0;
+
+	// Quality of details of fractal (Default:50)
+	w->p.fr.quality_of_details = 70;
+
 	if (w->p.view_mode == 2 || w->p.view_mode == 3)
 	{
 		w->img.width = 540;
 		w->img.height = 480;
-		if (w->p.view_mode == 2)
-			set_mandelbrot(w);
-		else if (w->p.view_mode == 3)
-			set_julia(w);
-		//w->p.fr.zoominit = 100;// Base number of Zoom
-		//w->p.fr.zoomfactor = 1;//precision of Zoom (100 is really high, 1 is really low)
+		set_boundaries_imaginary(w);
 		w->p.fr.zoomf = 100;//Zoom et nbr iteration
-		w->p.fr.zoom = 100;//Zoom et nbr iteration
 		w->p.fr.it_max = 100;//Define at startup
-		w->p.fr.h = 0.1;//Define at startup
-		w->p.fr.stepx = 1;
-		w->p.fr.stepy = 1;
 		calc_imgsize(w);
 	}
 	else
@@ -116,7 +98,7 @@ static void		set_fracparameters(t_wind *w)
 static void			set_winsize(t_wind *w, char *fracname)
 {
 	// Mode para par défault (touche F2/F3/F4 pour changer)
-	if (ft_strcmp(fracname, "triangle sierpinski") == 0)
+	if (ft_strcmp(fracname, "triangle_sierpinski") == 0)
 	{
 		w->width = 758;
 		w->height = 655;
@@ -134,8 +116,12 @@ static void			set_mode(t_wind *w, char *fracname)
 		w->p.view_mode = 2;
 	else if (ft_strcmp(fracname, "julia") == 0)
 		w->p.view_mode = 3;
-	else if (ft_strcmp(fracname, "triangle sierpinski") == 0)
+	else if (ft_strcmp(fracname, "triangle_sierpinski") == 0)
+	{
+		ft_putstr("triangle sierpinski\n");
 		w->p.view_mode = 4;
+	}
+	w->p.fr.name = fracname;
 }
 
 int				fract_ol(char *fracname)
@@ -153,7 +139,6 @@ int				fract_ol(char *fracname)
 	mlx_mouse_hook(w.win, mouse_function, &w);
 	if (w.p.view_mode == 3)
 		mlx_hook(w.win, MOTIONNOTIFY, POINTERMOTIONMASK, mouse_motion_function, &w);
-	//mlx_loop_hook(w.mlx, mouse_motion_function, &w);
 	mlx_expose_hook(w.win, expose_hook, &w);
 	mlx_loop(w.mlx);
 	return (0);

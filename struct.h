@@ -9,6 +9,7 @@ typedef struct		s_fractal
 	float			y;
 	int				img_x;
 	int				img_y;
+	int				colorset;
 	float			x1;
 	float			x2;
 	float			y1;
@@ -18,9 +19,12 @@ typedef struct		s_fractal
 	int				zoominit;
 	int				zoom;
 	float			zoomf;
+	float			zoomspeed;
+	float			quality_of_details;
 	double			intigralX;
 	double			intigralY;
-	float			zoomfactor;
+	float			key_x; //To move in fractal with keyboard
+	float			key_y;
 	float			step;
 	float			stepx;
 	float			stepy;
@@ -47,6 +51,13 @@ typedef struct		s_rgbcolor
 	int				g;
 	int				b;
 }					t_rgbcolor;
+
+typedef struct		s_gradientcol
+{
+	int				nbofcolor;
+	float			*lstpos;
+	t_rgbcolor		*lstcol;
+}					t_gradientcol;
 
 typedef struct		s_colorpalette
 {

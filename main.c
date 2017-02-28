@@ -1,15 +1,36 @@
 #include "fract_ol.h"
 
+static int			check_fractal_name(char *fracname)
+{
+	if ((ft_strcmp(fracname, "mandelbrot") == 0)
+	|| (ft_strcmp(fracname, "julia") == 0)
+	|| (ft_strcmp(fracname, "triangle_sierpinski") == 0))
+		return (1);
+	return (0);
+}
+
 int					main(int argc, char **argv)
 {
-	if (argc != 2)
+	int				i;
+
+	i = 0;
+	while (i+1 < argc)
 	{
-		ft_putendl("mandelbrot");
-		ft_putendl("julia");
-		ft_putendl("triangle sierpinski");
-		ft_putendl("carre sierpinski");
+		ft_putnbr(i+1);
+		ft_putnbr(argc);
+		if (!argv[i+1] || !check_fractal_name(argv[i+1]) || argc < 2)
+		{
+			ft_putendl("mandelbrot");
+			ft_putendl("julia");
+			ft_putendl("triangle_sierpinski");
+			return (0);
+		}
+		else
+		{
+			fract_ol(argv[i+1]);
+			//return (0);
+		}
+		i++;
 	}
-	else
-		fract_ol(argv[1]);
 	return (0);
 }
