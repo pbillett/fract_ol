@@ -12,8 +12,10 @@ static int			check_fractal_name(char *fracname)
 int					main(int argc, char **argv)
 {
 	int				i;
+	t_wind			*listwin;
 
 	i = 0;
+	listwin = malloc (sizeof(t_wind) * (argc - 1));
 	while (i+1 < argc)
 	{
 		ft_putnbr(i+1);
@@ -25,12 +27,14 @@ int					main(int argc, char **argv)
 			ft_putendl("triangle_sierpinski");
 			return (0);
 		}
-		else
-		{
-			fract_ol(argv[i+1]);
-			//return (0);
-		}
 		i++;
 	}
+	i = 0;
+	while ((i+1) < argc)
+	{
+		listwin[i] = fract_ol(argv[i+1]);
+		i++;
+	}
+	start_hooks(listwin, argc - 1);
 	return (0);
 }
