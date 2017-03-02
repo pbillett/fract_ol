@@ -1,4 +1,4 @@
-#include "fract_ol.h"
+#include "fractol.h"
 
 int				get_bigger(int numb1, int numb2)
 {

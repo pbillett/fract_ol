@@ -8,7 +8,7 @@
 // Ref explication du triangle de sierpinski ici
 // https://fr.wikipedia.org/wiki/Triangle_de_Sierpi%C5%84ski
 
-#include "fract_ol.h"
+#include "fractol.h"
 #include <stdlib.h>
 #include <math.h>
 

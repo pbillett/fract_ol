@@ -1,4 +1,4 @@
-#include "fract_ol.h"
+#include "fractol.h"
 
 static int			check_fractal_name(char *fracname)
 {

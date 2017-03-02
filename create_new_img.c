@@ -1,4 +1,4 @@
-#include "fract_ol.h"
+#include "fractol.h"
 
 int		create_new_img(t_wind *w)
 {

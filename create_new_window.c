@@ -1,4 +1,4 @@
-#include "fract_ol.h"
+#include "fractol.h"
 
 t_wind			create_new_window(char *title, int width, int height)
 {

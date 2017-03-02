@@ -1,6 +1,6 @@
 
 
-#include "fract_ol.h"
+#include "fractol.h"
 
 t_rgbcolor			ft_inttorgb(unsigned int n)
 {

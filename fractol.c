@@ -1,4 +1,4 @@
-#include "fract_ol.h"
+#include "fractol.h"
 
 #define MOTIONNOTIFY		6
 #define BUTTONMOTIONMASK	(1L<<13)

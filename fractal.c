@@ -1,4 +1,4 @@
-#include "fract_ol.h"
+#include "fractol.h"
 
 // http://sdz.tdct.org/sdz/dessiner-la-fractale-de-mandelbrot.html
 // https://www.codeproject.com/Articles/7513/Mandelbrot-Set-for-C
