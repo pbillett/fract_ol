@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 12:11:15 by pbillett          #+#    #+#             */
-/*   Updated: 2017/01/23 12:56:42 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/03/02 16:15:47 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_sort_list(t_list *lst, int (*cmp)(int, int));
 float				ft_squared(float n);
 float				ft_pythagore(float a, float b);
+char				*ft_inttohex(unsigned int n);
 
 #endif

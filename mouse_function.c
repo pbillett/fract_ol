@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 15:31:52 by pbillett          #+#    #+#             */
-/*   Updated: 2017/01/24 16:18:43 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/03/02 14:47:56 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,17 +108,8 @@ void				ft_refresh_view(t_wind *w)
 
 int					mouse_motion_function(int x, int y, t_wind *w)
 {
-	static int		i;
-
-	if (!i)
-		i = 0;
-	if (i == 3) // Screen actualisation only each 3 times, to have faster response
-	{
-		w->p.fr.mouse_x = x;
-		w->p.fr.mouse_y = y;
-		ft_refresh_view(w);
-		i = 0;
-	}
-	i++;
+	w->p.fr.mouse_x = x;
+	w->p.fr.mouse_y = y;
+	ft_refresh_view(w);
 	return (0);
 }

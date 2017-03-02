@@ -1,11 +1,11 @@
 
 
 UNAME := $(shell uname)
-NAME=fract_ol
+NAME=fractol
 SRC=	main.c \
 		draw_point.c \
 		fractal.c \
-		fract_ol.c \
+		fractol.c \
 		create_new_window.c \
 		create_new_img.c \
 		key_function.c \

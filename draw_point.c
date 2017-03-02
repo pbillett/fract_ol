@@ -104,10 +104,10 @@ void			draw_point(t_wind *w, int x, int y, char *hexacolor)
 
 void			draw_pointf(t_wind *w, int x, int y, int z)
 {
-	t_rgbcolor	rgbcolor;
+	//t_rgbcolor	rgbcolor;
 
-	rgbcolor = hexatorgb(w->p.fr.hexa_bg);
-	*(w->img.pxl_ptr + (y * w->img.size_line) + (x * w->img.octet_per_pixel)) = (z*255)/w->p.fr.it_max;
-	*(w->img.pxl_ptr + (y * w->img.size_line) + (x * w->img.octet_per_pixel) + 1) = (z*255)/w->p.fr.it_max;
-	*(w->img.pxl_ptr + (y * w->img.size_line) + (x * w->img.octet_per_pixel) + 2) = rgbcolor.r;
+	//rgbcolor = hexatorgb(w->p.fr.hexa_bg);
+	*(w->img.pxl_ptr + (y * w->img.size_line) + (x * w->img.octet_per_pixel)) = (z & 0xFF);
+	*(w->img.pxl_ptr + (y * w->img.size_line) + (x * w->img.octet_per_pixel) + 1) = (z & 0x00FF) >> 8;
+	*(w->img.pxl_ptr + (y * w->img.size_line) + (x * w->img.octet_per_pixel) + 2) = (z & 0x0000FF) >> 16;
 }

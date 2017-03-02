@@ -6,13 +6,13 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 15:04:05 by pbillett          #+#    #+#             */
-/*   Updated: 2017/01/19 17:16:05 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/03/02 16:15:22 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minilibx.h"
 
-char			*ft_inttohex(int n)
+char			*ft_inttohex(unsigned int n)
 {
 	char		*hex;
 	int			i;

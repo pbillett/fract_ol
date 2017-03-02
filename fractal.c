@@ -27,6 +27,9 @@ void apply_zoom(t_fractal *fr, double mouseRe, double mouseIm, double zoomFactor
 
 static void		set_nbrcomplexandz(t_wind *w)
 {
+	int			mousecenter_x;
+	int			mousecenter_y;
+
 	if (ft_strcmp(w->p.fr.name, "julia") == 0)
 	{
 		//w->p.fr.c_r = 0.285;
@@ -36,14 +39,19 @@ static void		set_nbrcomplexandz(t_wind *w)
 		// http://maths.wikidot.com/mandelbrot-et-julia
 		// On fait varier la constante C de julia, en fonction de la position
 		// x, et y de notre souris sur l'écran :
-		w->p.fr.c_r = ((float)w->p.fr.mouse_y/(float)w->p.fr.img_y) * 0.5; //Cx =  0.3 valeur max
-		w->p.fr.c_i = ((float)w->p.fr.mouse_x/(float)w->p.fr.img_x) * 0.02; // Cy = 0.02 valeur max
+		// Je rset ma position de la souris avec un point 0,0,0 au centre de l'ecran
+		mousecenter_x = w->width/2 - w->p.fr.mouse_x;
+		mousecenter_y = w->height/2 - w->p.fr.mouse_y;
+
+		w->p.fr.c_r = ((float)mousecenter_y/(float)w->p.fr.img_y) * 2; //Cx =  0.3 valeur max
+		w->p.fr.c_i = ((float)mousecenter_x/(float)w->p.fr.img_x) * 2; // Cy = 0.02 valeur max
 		//w->p.fr.z_r = w->p.fr.x/w->p.fr.zoomf + (w->p.fr.x1 - (w->p.fr.zoomfactor * w->p.fr.img_x));
 		w->p.fr.z_r = w->p.fr.x/w->p.fr.zoomf + w->p.fr.x1;
 		w->p.fr.z_i = w->p.fr.y/w->p.fr.zoomf + w->p.fr.y1;
 	}
 	else if (ft_strcmp(w->p.fr.name, "mandelbrot") == 0)
 	{
+		//https://github.com/Remaii/Fractol
 		//http://stackoverflow.com/questions/41796832/smooth-zoom-with-mouse-in-mandelbrot-set-c?rq=1
 		//http://stackoverflow.com/questions/14097559/zooming-in-on-mandelbrot-set-fractal-in-java
 		//w->p.fr.c_r = (w->p.fr.x / w->p.fr.zoomf) + w->p.fr.x1;
@@ -88,11 +96,11 @@ int					fractal(t_wind *w)
 				i++;
 			}
 			if (i == w->p.fr.it_max)
-				draw_pointf(w, w->p.fr.x, w->p.fr.y, 0);
+				draw_pointf(w, w->p.fr.x, w->p.fr.y, 0x0000ff);
 			else
 			{
 				if (w->p.fr.colorset == 0) //first color mode (change with spacebar)
-					draw_pointf(w, w->p.fr.x, w->p.fr.y, i);
+					draw_pointf(w, w->p.fr.x, w->p.fr.y, mlx_get_color_value(w->mlx, i*255 / w->p.fr.it_max));
 				else
 				{
 					color = colorgrade(i/100, gradecolor);
@@ -105,9 +113,5 @@ int					fractal(t_wind *w)
 		w->p.fr.x++;
 		w->p.fr.c_r += w->p.fr.intigralX;
 	}
-	/*printf("pos x souris: %d\n", w->p.fr.mouse_x);
-	printf("pos y souris: %d\n", w->p.fr.mouse_y);
-	printf("Julia Cx(Ci): %f\n", (float)((float)w->p.fr.mouse_y/(float)w->p.fr.img_y) * 0.3); // Max value 0.3
-	printf("Julia Cy(Cr): %f\n", (float)((float)w->p.fr.mouse_x/(float)w->p.fr.img_x) * 0.02); // Max value 0.2*/
 	return (0);
 }

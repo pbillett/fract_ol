@@ -6,7 +6,7 @@
 #    By: pbillett <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/26 14:11:23 by pbillett          #+#    #+#              #
-#    Updated: 2017/02/07 13:57:46 by pbillett         ###   ########.fr        #
+#    Updated: 2017/03/02 16:13:29 by pbillett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,7 @@ SRC= src/ft_lstiter.c \
 	src/ft_strdup.c \
 	src/ft_strnew.c \
 	src/ft_squared.c \
+	src/ft_inttohex.c \
 	src/get_next_line.c
 CFLAGS= -Wall -Werror -Wextra
 SRCDIR= src

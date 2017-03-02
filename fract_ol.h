@@ -1,9 +1,9 @@
 
 
 
-#ifndef FRACT_OL
+#ifndef FRACT_OL_H
 
-# define FRACT_OL
+# define FRACT_OL_H
 #include "libft/inc/libft.h"
 #include "libft/inc/minilibx/mlx.h"
 //#include "libft/inc/minilibx_struct.h"
@@ -45,5 +45,6 @@ void			apply_zoom(t_fractal *fr, double mouseRe, double mouseIm, double zoomFact
 t_gradientcol	ultra_fractalgrade();
 t_rgbcolor		colorgrade(float percent, t_gradientcol mycolorgrade);
 char			*rgbtohexa(t_rgbcolor rgbcolor);
+t_rgbcolor		ft_inttorgb(unsigned int n);
 
 #endif

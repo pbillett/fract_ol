@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:25:32 by pbillett          #+#    #+#             */
-/*   Updated: 2017/02/07 13:57:02 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/03/02 16:17:06 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ double			ft_degree_to_radian(int degree);
 char			*ft_rgbtohexa(t_rgbcolor rgbcolor);
 t_rgbcolor		ft_hexatorgb(char *hexcolor);
 int				ft_hextoint(char *s);
-char			*ft_inttohex(int n);
+char			*ft_inttohex(unsigned int n);
 
 int				fdf(char *filename);
 void			def_all_preui(t_wind *w);
