@@ -30,6 +30,7 @@ static void		set_nbrcomplexandz(t_wind *w)
 	int			mousecenter_x;
 	int			mousecenter_y;
 
+	// https://deptinfo-ensip.univ-poitiers.fr/FILES/TPS/FRACTALES/zoom.php
 	if (ft_strcmp(w->p.fr.name, "julia") == 0)
 	{
 		//w->p.fr.c_r = 0.285;
@@ -42,10 +43,8 @@ static void		set_nbrcomplexandz(t_wind *w)
 		// Je rset ma position de la souris avec un point 0,0,0 au centre de l'ecran
 		mousecenter_x = w->width/2 - w->p.fr.mouse_x;
 		mousecenter_y = w->height/2 - w->p.fr.mouse_y;
-
 		w->p.fr.c_r = ((float)mousecenter_y/(float)w->p.fr.img_y) * 2; //Cx =  0.3 valeur max
 		w->p.fr.c_i = ((float)mousecenter_x/(float)w->p.fr.img_x) * 2; // Cy = 0.02 valeur max
-		//w->p.fr.z_r = w->p.fr.x/w->p.fr.zoomf + (w->p.fr.x1 - (w->p.fr.zoomfactor * w->p.fr.img_x));
 		w->p.fr.z_r = w->p.fr.x/w->p.fr.zoomf + w->p.fr.x1;
 		w->p.fr.z_i = w->p.fr.y/w->p.fr.zoomf + w->p.fr.y1;
 	}
@@ -54,8 +53,8 @@ static void		set_nbrcomplexandz(t_wind *w)
 		//https://github.com/Remaii/Fractol
 		//http://stackoverflow.com/questions/41796832/smooth-zoom-with-mouse-in-mandelbrot-set-c?rq=1
 		//http://stackoverflow.com/questions/14097559/zooming-in-on-mandelbrot-set-fractal-in-java
-		//w->p.fr.c_r = (w->p.fr.x / w->p.fr.zoomf) + w->p.fr.x1;
-		//w->p.fr.c_i = (w->p.fr.y / w->p.fr.zoomf) + w->p.fr.y1;
+		w->p.fr.c_r = w->p.fr.x / (w->p.fr.zoomf + w->p.fr.x1);
+		w->p.fr.c_i = w->p.fr.y / (w->p.fr.zoomf + w->p.fr.y1);
 		w->p.fr.z_r = 0;
 		w->p.fr.z_i = 0;
 	}
@@ -73,18 +72,18 @@ int					fractal(t_wind *w)
 	printf("x2: %f\n", w->p.fr.x2);
 	printf("y1: %f\n", w->p.fr.y1);
 	printf("y2: %f\n", w->p.fr.y2);
-	w->p.fr.intigralX = ((w->p.fr.x2 - w->p.fr.x1) / w->width);
-	w->p.fr.intigralY = ((w->p.fr.y2 - w->p.fr.y1) / w->height);
-	printf("intigralY: %f\n", w->p.fr.intigralY);
-	printf("intigralX: %f\n", w->p.fr.intigralX);
+	//w->p.fr.intigralX = ((w->p.fr.x2 - w->p.fr.x1) / w->width);
+	//w->p.fr.intigralY = ((w->p.fr.y2 - w->p.fr.y1) / w->height);
+	//printf("intigralY: %f\n", w->p.fr.intigralY);
+	//printf("intigralX: %f\n", w->p.fr.intigralX);
 
-	w->p.fr.c_r = w->p.fr.x1 + w->p.fr.key_x; // set start to x min;
+	//w->p.fr.c_r = w->p.fr.x1 + w->p.fr.key_x; // set start to x min;
 	w->p.fr.x = 0;
-	while (w->p.fr.x < w->width)
+	while (w->p.fr.x < w->p.fr.img_x)
 	{
-		w->p.fr.c_i = w->p.fr.y1 + w->p.fr.key_y; // set start to y min;
+		//w->p.fr.c_i = w->p.fr.y1 + w->p.fr.key_y; // set start to y min;
 		w->p.fr.y = 0; // set start to y min;
-		while (w->p.fr.y < w->height)
+		while (w->p.fr.y < w->p.fr.img_y)
 		{
 			set_nbrcomplexandz(w);
 			i = 0;
@@ -108,10 +107,12 @@ int					fractal(t_wind *w)
 				}
 			}
 			w->p.fr.y++;
-			w->p.fr.c_i += w->p.fr.intigralY;
+			//w->p.fr.img_y++;
+			//w->p.fr.c_i += w->p.fr.intigralY;
 		}
 		w->p.fr.x++;
-		w->p.fr.c_r += w->p.fr.intigralX;
+		//w->p.fr.img_y++;
+		//w->p.fr.c_r += w->p.fr.intigralX;
 	}
 	return (0);
 }
