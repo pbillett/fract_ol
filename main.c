@@ -1,5 +1,27 @@
 #include "fractol.h"
 
+void			start_hooks(t_wind *lstwin, int numbwind)
+{
+	int			i;
+
+	i = 0;
+	while (i < numbwind)
+	{
+		mlx_key_hook(lstwin[i].win, key_function, &(lstwin[i]));
+		mlx_mouse_hook(lstwin[i].win, mouse_function, &(lstwin[i]));
+		if ((lstwin[i]).p.view_mode == 3)
+			mlx_hook(lstwin[i].win, MOTIONNOTIFY, POINTERMOTIONMASK, mouse_motion_function, &(lstwin[i]));
+		mlx_expose_hook(lstwin[i].win, expose_hook, &(lstwin[i]));
+		i++;
+	}
+	i = 0;
+	while (i < numbwind)
+	{
+		mlx_loop((lstwin[i]).mlx);
+		i++;
+	}
+}
+
 static int			check_fractal_name(char *fracname)
 {
 	if ((ft_strcmp(fracname, "mandelbrot") == 0)

@@ -13,6 +13,8 @@ SRC=	main.c \
 		triangle_sierpinski.c \
 		draw_line.c \
 		rgbtohexa.c \
+		error.c \
+		put_info.c \
 		set_parameters_tline.c
 OBJ=${SRC:.c=.o}
 

@@ -15,8 +15,20 @@
 
 #include <stdio.h> // A supprimer !
 
+#define MOTIONNOTIFY		6
+#define BUTTONMOTIONMASK	(1L<<13)
+#define POINTERMOTIONMASK	(1L<<6)
+#define NOEVENTMASK			0L
+#define WIDTH 758
+#define HEIGHT 655
+#define ZOOMF 100
+#define ITMAX 100
+#define QUALDETAILS 70
+#define ZOOMSPEED 20
+#define COLORSET 0
+
+
 void			draw_pointf(t_wind *w, int x, int y, int z);
-void			set_boundaries_imaginary(t_wind *w);
 void			calc_imgsize(t_wind *w);
 int				fractal(t_wind *w);
 void			start_hooks(t_wind *lstwin, int numbwind);
@@ -41,10 +53,14 @@ t_line			set_parameters_tline(t_line v);
 t_line			convert_3ddot_to2dline(t_point p, t_point pd);
 t_rgbcolor		hexatorgb(char *hexcolor);
 void			ft_refresh_view(t_wind *w);
-void			apply_zoom(t_fractal *fr, double mouseRe, double mouseIm, double zoomFactor);
+void			apply_zoom(t_mandelbrot *fr, double mouseRe, double mouseIm, double zoomFactor);
 t_gradientcol	ultra_fractalgrade();
 t_rgbcolor		colorgrade(float percent, t_gradientcol mycolorgrade);
 char			*rgbtohexa(t_rgbcolor rgbcolor);
 t_rgbcolor		ft_inttorgb(unsigned int n);
+
+void			error_arg(void);
+void			error_malloc(void);
+void			put_info(t_wind *w);
 
 #endif

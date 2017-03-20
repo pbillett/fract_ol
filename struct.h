@@ -2,48 +2,54 @@
 # ifndef STRUCT_H
 # define STRUCT_H
 
-typedef struct		s_fractal
+typedef struct			s_fractal
 {
-	char			*name;
-	float			x;
-	float			y;
-	int				img_x;
-	int				img_y;
-	int				colorset;
+	char				*name;
+	struct s_mandelbrot *fra;
+	struct s_mandelbrot *mdb;
+	struct s_mandelbrot *jul;
+	float				x;
+	float				y;
+	int					img_x;
+	int					img_y;
+	int					colorset;
+	float				range_x;
+	float				range_y;
+	int					zoominit;
+	int					zoom;
+	float				zoomf;
+	float				zoomspeed;
+	float				quality_of_details;
+	float				key_x; //To move in fractal with keyboard
+	float				key_y;
+	float				step;
+	float				stepx;
+	float				stepy;
+	int					zoom_x;
+	int					zoom_y;
+	float				centerp_x;
+	float				centerp_y;
+	int					it_max;
+	char				*hexa_bg;//Color
+	float				h; //zoom inv
+	int					mouse_x;
+	int					mouse_y;
+	float				mouse_xf;
+	float				mouse_yf;
+}						t_fractal;
+
+typedef struct		s_mandelbrot
+{
 	float			x1;
 	float			x2;
 	float			y1;
 	float			y2;
-	float			range_x;
-	float			range_y;
-	int				zoominit;
-	int				zoom;
-	float			zoomf;
-	float			zoomspeed;
-	float			quality_of_details;
-	double			intigralX;
-	double			intigralY;
-	float			key_x; //To move in fractal with keyboard
-	float			key_y;
-	float			step;
-	float			stepx;
-	float			stepy;
-	int				zoom_x;
-	int				zoom_y;
-	float			centerp_x;
-	float			centerp_y;
-	int				it_max;
 	float			c_r; //Nbr complexe
 	float			c_i; //Nbr complexe
 	float			z_r; //Nbr z
 	float			z_i; //Nbr z
-	char			*hexa_bg;//Color
-	float			h; //zoom inv
-	int				mouse_x;
-	int				mouse_y;
-	float			mouse_xf;
-	float			mouse_yf;
-}					t_fractal;
+	float			tmp; //Nbr z
+}					t_mandelbrot;
 
 typedef struct		s_rgbcolor
 {
