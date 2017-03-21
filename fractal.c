@@ -30,7 +30,8 @@ static void		set_nbrcomplexandz(t_wind *w, int x, int y)
 	int			mousecenter_x;
 	int			mousecenter_y;
 
-	// https://deptinfo-ensip.univ-poitiers.fr/FILES/TPS/FRACTALES/zoom.php
+	mousecenter_x = w->width/2 - w->p.fr.mouse_x;
+	mousecenter_y = w->height/2 - w->p.fr.mouse_y;
 	if (ft_strcmp(w->p.fr.name, "julia") == 0)
 	{
 		//w->p.fr.c_r = 0.285;
@@ -40,8 +41,6 @@ static void		set_nbrcomplexandz(t_wind *w, int x, int y)
 		// On fait varier la constante C de julia, en fonction de la position
 		// x, et y de notre souris sur l'écran :
 		// Je rset ma position de la souris avec un point 0,0,0 au centre de l'ecran
-		mousecenter_x = w->width/2 - w->p.fr.mouse_x;
-		mousecenter_y = w->height/2 - w->p.fr.mouse_y;
 		w->p.fr.fra->c_r = ((float)mousecenter_y/(float)w->p.fr.img_y) * 2; //Cx =  0.3 valeur max
 		w->p.fr.fra->c_i = ((float)mousecenter_x/(float)w->p.fr.img_x) * 2; // Cy = 0.02 valeur max
 		w->p.fr.fra->z_r = x / w->p.fr.zoomf + w->p.fr.fra->x1;
@@ -49,21 +48,24 @@ static void		set_nbrcomplexandz(t_wind *w, int x, int y)
 	}
 	else if (ft_strcmp(w->p.fr.name, "mandelbrot") == 0)
 	{
+		// https://deptinfo-ensip.univ-poitiers.fr/FILES/TPS/FRACTALES/zoom.php
 		//https://github.com/Remaii/Fractol
 		//http://stackoverflow.com/questions/41796832/smooth-zoom-with-mouse-in-mandelbrot-set-c?rq=1
 		//http://stackoverflow.com/questions/14097559/zooming-in-on-mandelbrot-set-fractal-in-java
 		w->p.fr.fra->c_r = x / w->p.fr.zoomf + w->p.fr.fra->x1;
 		w->p.fr.fra->c_i = y / w->p.fr.zoomf + w->p.fr.fra->y1;
-		w->p.fr.fra->z_r = 0;
-		w->p.fr.fra->z_i = 0;
+		//w->p.fr.fra->z_r = 0;
+		//w->p.fr.fra->z_i = 0;
+		w->p.fr.fra->z_r = w->p.fr.fra->x1 + w->p.fr.mouse_x;
+		w->p.fr.fra->z_i = w->p.fr.fra->y1 + w->p.fr.mouse_y;
+		//w->p.fr.fra->z_r = 0 + ((w->p.fr.mouse_x - 500)/500);
+		//w->p.fr.fra->z_i = 0 + ((w->p.fr.mouse_y - 500)/500);
 	}
 }
 
 int					fractal(t_wind *w)
 {
 	float			i;
-	int				x;
-	int				y;
 	t_gradientcol	gradecolor;
 	t_rgbcolor		color;
 
@@ -73,14 +75,14 @@ int					fractal(t_wind *w)
 	printf("y2: %f\n", w->p.fr.fra->y2);*/
 	//w->p.fr.c_r = w->p.fr.x1 + w->p.fr.key_x; // set start to x min;
 	//printf("it_max:%d\n", w->p.fr.it_max);
-	x = w->p.fr.x;
-	while (x < w->img.width + w->p.fr.x)
+	w->p.fr.x = 0;
+	while (w->p.fr.x < w->img.width)
 	{
 		//w->p.fr.c_i = w->p.fr.y1 + w->p.fr.key_y; // set start to y min;
-		y = w->p.fr.y; // set start to y min;
-		while (y < w->img.height + w->p.fr.y)
+		w->p.fr.y = 0;
+		while (w->p.fr.y < w->img.height)
 		{
-			set_nbrcomplexandz(w, x, y);
+			set_nbrcomplexandz(w, w->p.fr.x, w->p.fr.y);
 			i = 0;
 			while ((ft_squared(w->p.fr.fra->z_r) + ft_squared(w->p.fr.fra->z_i)) < 4 && i < w->p.fr.it_max)
 			{
@@ -90,23 +92,23 @@ int					fractal(t_wind *w)
 				i++;
 			}
 			if (i == w->p.fr.it_max)
-				draw_pointf(w, x, y, 0x0000ff);
+				draw_pointf(w, w->p.fr.x, w->p.fr.y, 0x0000ff);
 			else
 			{
 				if (w->p.fr.colorset == 0) //first color mode (change with spacebar)
-					draw_pointf(w, x, y, mlx_get_color_value(w->mlx, i*255 / w->p.fr.it_max));
+					draw_pointf(w, w->p.fr.x, w->p.fr.y, mlx_get_color_value(w->mlx, i*255 / w->p.fr.it_max));
 				else
 				{
 					gradecolor = ultra_fractalgrade();
 					color = colorgrade(i/100, gradecolor);
-					draw_point(w, x - w->p.fr.x, y - w->p.fr.y, rgbtohexa(color));
+					draw_point(w, w->p.fr.x, w->p.fr.y, rgbtohexa(color));
 				}
 			}
-			y++;
+			w->p.fr.y++;
 		}
-		x++;
+		w->p.fr.x++;
 	}
-	put_info(w);
+	//put_info(w);
 	printf("the end\n");
 	return (0);
 }
