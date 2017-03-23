@@ -14,7 +14,7 @@ void				put_info(t_wind *w)
 	put_string("Y    :", 2, 0, w);
 	put_string(ft_itoa(w->p.fr.y), 2, 7, w);
 	put_string("Z    :", 3, 0, w);
-	put_string(ft_itoa(w->p.fr.zoomf), 3, 7, w);
+	put_string(ft_itoa(w->p.fr.zoom), 3, 7, w);
 	/*
 	put_string("OPT_X:", 4, 0, w);
 	put_string(ft_itoa(w->option_x), 4, 7, w);

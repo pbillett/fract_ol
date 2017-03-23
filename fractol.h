@@ -19,12 +19,13 @@
 #define BUTTONMOTIONMASK	(1L<<13)
 #define POINTERMOTIONMASK	(1L<<6)
 #define NOEVENTMASK			0L
-#define WIDTH 758
-#define HEIGHT 655
-#define ZOOMF 100
+#define WIDTH 800
+#define HEIGHT 800
+#define ZOOM 1
+#define COEFF 0.78
 #define ITMAX 100
 #define QUALDETAILS 70
-#define ZOOMSPEED 20
+#define ZOOMSPEED 0.1
 #define COLORSET 0
 
 

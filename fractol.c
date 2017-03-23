@@ -38,6 +38,14 @@ static t_mandelbrot			*init_julia(void)
 	return (j);
 }
 
+void						init_zoom(t_wind *w)
+{
+	w->p.fr.zoom_x = w->width / (w->p.fr.fra->x2 - w->p.fr.fra->x1);
+	w->p.fr.zoom_y = w->height / (w->p.fr.fra->y2 - w->p.fr.fra->y1);
+	printf("w.p.fr.zoom_x :%.2f\n", w->p.fr.zoom_x);
+	printf("w.p.fr.zoom_y :%.2f\n", w->p.fr.zoom_y);
+}
+
 static void					set_parameters(t_wind *w)
 {
 	w->p.graphic_mode = 2; // Mode filaire par défault (touche nombre pour changer)
@@ -55,7 +63,8 @@ static void					set_parameters(t_wind *w)
 	w->p.fr.quality_of_details = QUALDETAILS;// Quality of details of fractal (Default:50)
 	w->img.width = WIDTH;
 	w->img.height = HEIGHT;
-	w->p.fr.zoomf = ZOOMF;//Zoom et nbr iteration
+	w->p.fr.zoom = ZOOM;//Zoom et nbr iteration
+	w->p.fr.coeff = COEFF;
 	w->p.fr.it_max = ITMAX;//Define at startup
 }
 
@@ -85,8 +94,9 @@ t_wind			fract_ol(char *fracname)
 		w.p.fr.fra = w.p.fr.mdb;
 	if (ft_strcmp(w.p.fr.name, "julia") == 0)
 		w.p.fr.fra = w.p.fr.jul;
-	printf("w.p.fr.mdb.x2 start :%.2f\n", w.p.fr.mdb->x2);
-	printf("w.p.fr.fra.x2 start :%.2f\n", w.p.fr.fra->x2);
+	init_zoom(&w);
+	printf("w.p.fr.zoom_x :%.2f\n", w.p.fr.zoom_x);
+	printf("w.p.fr.zoom_y :%.2f\n", w.p.fr.zoom_y);
 	//calc_imgsize(&w);
 	create_new_img(&w);
 	mlx_put_image_to_window(w.mlx, w.win, w.img.ptr_img, w.img.x, w.img.y);

@@ -17,7 +17,7 @@ typedef struct			s_fractal
 	float				range_y;
 	int					zoominit;
 	int					zoom;
-	float				zoomf;
+	float				coeff;
 	float				zoomspeed;
 	float				quality_of_details;
 	float				key_x; //To move in fractal with keyboard
@@ -25,8 +25,8 @@ typedef struct			s_fractal
 	float				step;
 	float				stepx;
 	float				stepy;
-	int					zoom_x;
-	int					zoom_y;
+	double				zoom_x;
+	double				zoom_y;
 	float				centerp_x;
 	float				centerp_y;
 	int					it_max;
