@@ -67,7 +67,7 @@ t_gradientcol		ultra_fractalgrade()
 	// http://stackoverflow.com/questions/16500656/which-color-gradient-is-used-to-color-mandelbrot-in-wikipedia
 	t_gradientcol	gcolor;
 
-	printf("ultra_fractalgrade \n");
+	//printf("ultra_fractalgrade \n");
 	gcolor.nbofcolor = 5;
 	gcolor.lstpos = malloc (sizeof(float) * gcolor.nbofcolor);
 	gcolor.lstcol = malloc (sizeof(t_rgbcolor) * gcolor.nbofcolor);

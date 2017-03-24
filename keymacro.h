@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:44:56 by pbillett          #+#    #+#             */
-/*   Updated: 2017/01/10 15:33:20 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/03/24 20:58:42 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,17 @@
 # if MACROKEY == 1
 #  define EXIT 53
 #  define KEY_W 13
+#  define KEY_D 2
+#  define KEY_C 8
 #  define KEY_E 14
+#  define KEY_F 3
+#  define KEY_V 9
 #  define KEY_R 15
+#  define KEY_G 5
+#  define KEY_B 11
 #  define KEY_T 17
+#  define KEY_H 4
+#  define KEY_N 45
 #  define KEY_P 35
 #  define L_ARROW 123
 #  define R_ARROW 124
@@ -41,6 +49,7 @@
 #  define KEY_2 19
 #  define KEY_3 20
 #  define KEY_4 21
+#  define KEY_5 23
 #  define KEY_I 34
 #  define F1 23
 #  define F2 22
@@ -49,9 +58,17 @@
 # else
 #  define EXIT 65307
 #  define KEY_W 119
+#  define KEY_D 2
+#  define KEY_C 8
 #  define KEY_E 101
+#  define KEY_F 101
+#  define KEY_V 101
 #  define KEY_R 114
+#  define KEY_G 114
+#  define KEY_B 114
 #  define KEY_T 116
+#  define KEY_H 4
+#  define KEY_N 45
 #  define KEY_P 112
 #  define L_ARROW 65361
 #  define R_ARROW 65363
@@ -74,6 +91,7 @@
 #  define KEY_2 233
 #  define KEY_3 34
 #  define KEY_4 39
+#  define KEY_5 0
 #  define KEY_I 105
 #  define F1 65470
 #  define F2 65471

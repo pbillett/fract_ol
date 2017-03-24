@@ -26,10 +26,10 @@ static t_mandelbrot			*init_julia(void)
 	j = (t_mandelbrot *)malloc(sizeof(t_mandelbrot));
 	if (j == NULL)
 		error_malloc();
-	j->x1 = -2.1;
-	j->x2 = 0.6;
-	j->y1 = -1.2;
-	j->y2 = 1.2;
+	j->x1 = -2;
+	j->x2 = 2;
+	j->y1 = -2;
+	j->y2 = 2;
 	j->z_r = 0;
 	j->z_i = 0;
 	j->c_r = 0;
@@ -40,30 +40,28 @@ static t_mandelbrot			*init_julia(void)
 
 void						init_zoom(t_wind *w)
 {
-	w->p.fr.zoom_x = w->width / (w->p.fr.fra->x2 - w->p.fr.fra->x1);
-	w->p.fr.zoom_y = w->height / (w->p.fr.fra->y2 - w->p.fr.fra->y1);
-	printf("w.p.fr.zoom_x :%.2f\n", w->p.fr.zoom_x);
-	printf("w.p.fr.zoom_y :%.2f\n", w->p.fr.zoom_y);
+	FG(zoom_x) = w->width / (FF(x2) - FF(x1));
+	FG(zoom_y) = w->height / (FF(y2) - FF(y1));
 }
 
 static void					set_parameters(t_wind *w)
 {
-	w->p.graphic_mode = 2; // Mode filaire par défault (touche nombre pour changer)
-	w->p.fr.hexa_bg = "0x000000"; //Noir
-	w->img.x = 0; //Position of image in window
+	w->p.fr.hexa_bg = "0x000000";
+	w->img.x = 0;
 	w->img.y = 0;
 	w->p.fr.x = 0;
 	w->p.fr.y = 0;
-	w->p.fr.mouse_x = 0;
-	w->p.fr.mouse_y = 0;
-	w->p.fr.key_x = 0;// To move with keyboard key in fractal
-	w->p.fr.key_y = 0;
-	w->p.fr.zoomspeed = ZOOMSPEED;// Zoom speed (Fast:70, Default:50, smooth Zoom:10 (but harder for calcultation),)
+	FG(mouse_x) = 0;
+	FG(mouse_y) = 0;
+	w->p.fr.color.r = 2;
+	w->p.fr.color.g = 20;
+	w->p.fr.color.b = 210;
+	FG(zoomspeed) = ZOOMSPEED;// Zoom speed (Fast:70, Default:50, smooth Zoom:10 (but harder for calcultation),)
 	w->p.fr.colorset = COLORSET;//set color set default: 0 - spacebar for change
 	w->p.fr.quality_of_details = QUALDETAILS;// Quality of details of fractal (Default:50)
 	w->img.width = WIDTH;
 	w->img.height = HEIGHT;
-	w->p.fr.zoom = ZOOM;//Zoom et nbr iteration
+	FG(zoom) = ZOOM;//Zoom et nbr iteration
 	w->p.fr.coeff = COEFF;
 	w->p.fr.it_max = ITMAX;//Define at startup
 }
@@ -91,14 +89,18 @@ t_wind			fract_ol(char *fracname)
 	w.p.fr.jul = init_julia();
 	set_mode(&w, fracname);
 	if (ft_strcmp(w.p.fr.name, "mandelbrot") == 0)
+	{
+		w.p.fr.motion = 0; // Motion on julia
 		w.p.fr.fra = w.p.fr.mdb;
+	}
 	if (ft_strcmp(w.p.fr.name, "julia") == 0)
+	{
+		w.p.fr.motion = 1; // Motion on julia
 		w.p.fr.fra = w.p.fr.jul;
+	}
 	init_zoom(&w);
-	//printf("w.p.fr.zoom_x :%.2f\n", w.p.fr.zoom_x);
-	//printf("w.p.fr.zoom_y :%.2f\n", w.p.fr.zoom_y);
-	//calc_imgsize(&w);
 	create_new_img(&w);
+	put_info(&w);
 	mlx_put_image_to_window(w.mlx, w.win, w.img.ptr_img, w.img.x, w.img.y);
 	return (w);
 }

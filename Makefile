@@ -15,6 +15,7 @@ SRC=	main.c \
 		rgbtohexa.c \
 		error.c \
 		put_info.c \
+		set_julia.c \
 		set_parameters_tline.c
 OBJ=${SRC:.c=.o}
 

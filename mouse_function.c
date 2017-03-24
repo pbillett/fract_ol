@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 15:31:52 by pbillett          #+#    #+#             */
-/*   Updated: 2017/03/02 14:47:56 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/03/24 20:14:59 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,15 @@ void				ft_refresh_view(t_wind *w)
 
 int					mouse_motion_function(int x, int y, t_wind *w)
 {
-	w->p.fr.mouse_x = (double)x - (w->width/2) / (w->width/2);
-	w->p.fr.mouse_y = (double)y - (w->height/2) / (w->height/2);
 
+	if (w->p.fr.motion == 1)
+	{
+		w->p.fr.mouse_x = x;
+		w->p.fr.mouse_y = y;
+	}
+	ft_putstr("w->p.fr.mouse_x:");
+	ft_putnbr(w->p.fr.mouse_x);
+	ft_putstr("\n");
 	ft_refresh_view(w);
 	return (0);
 }

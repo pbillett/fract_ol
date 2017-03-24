@@ -13,6 +13,7 @@ int		create_new_img(t_wind *w)
 	{
 		//ft_putendl("julia or mandelbrot");
 		fractal(w);
+		put_info(w);
 	}
 	else if (w->p.view_mode == 4)
 	{
