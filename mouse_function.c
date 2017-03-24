@@ -108,8 +108,9 @@ void				ft_refresh_view(t_wind *w)
 
 int					mouse_motion_function(int x, int y, t_wind *w)
 {
-	w->p.fr.mouse_x = x;
-	w->p.fr.mouse_y = y;
+	w->p.fr.mouse_x = (double)x - (w->width/2) / (w->width/2);
+	w->p.fr.mouse_y = (double)y - (w->height/2) / (w->height/2);
+
 	ft_refresh_view(w);
 	return (0);
 }

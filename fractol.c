@@ -95,8 +95,8 @@ t_wind			fract_ol(char *fracname)
 	if (ft_strcmp(w.p.fr.name, "julia") == 0)
 		w.p.fr.fra = w.p.fr.jul;
 	init_zoom(&w);
-	printf("w.p.fr.zoom_x :%.2f\n", w.p.fr.zoom_x);
-	printf("w.p.fr.zoom_y :%.2f\n", w.p.fr.zoom_y);
+	//printf("w.p.fr.zoom_x :%.2f\n", w.p.fr.zoom_x);
+	//printf("w.p.fr.zoom_y :%.2f\n", w.p.fr.zoom_y);
 	//calc_imgsize(&w);
 	create_new_img(&w);
 	mlx_put_image_to_window(w.mlx, w.win, w.img.ptr_img, w.img.x, w.img.y);

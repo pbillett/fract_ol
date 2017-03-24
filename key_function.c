@@ -14,15 +14,26 @@ int		key_function(int keycode, t_wind *w)
 		w->p.view_mode = 2; // Mode iso par défault (touche F2/F3 pour changer)
 	else if (keycode == F3)//F3 Vue Parallèle
 		w->p.view_mode = 3; // Mode iso par défault (touche F2/F3 pour changer)
-	/*
-	   else if (keycode == L_ARROW)
-	   w->p.fr.key_x -= w->p.fr.intigralX*30; //We want move 30% of screen
-	   else if (keycode == R_ARROW)
-	   w->p.fr.key_x += w->p.fr.intigralX*30;
-	   else if (keycode == U_ARROW)
-	   w->p.fr.key_y -= w->p.fr.intigralY*30;
-	   else if (keycode == D_ARROW)
-	   w->p.fr.key_y += w->p.fr.intigralY*30;*/
+	else if (keycode == L_ARROW)
+	{
+		w->p.fr.fra->x1 -= 0.05/w->p.fr.zoom;
+		w->p.fr.fra->x2 -= 0.05/w->p.fr.zoom;
+	}
+	else if (keycode == R_ARROW)
+	{
+		w->p.fr.fra->x1 += 0.05/w->p.fr.zoom;
+		w->p.fr.fra->x2 += 0.05/w->p.fr.zoom;
+	}
+	else if (keycode == U_ARROW)
+	{
+		w->p.fr.fra->y1 -= 0.05/w->p.fr.zoom;
+		w->p.fr.fra->y2 -= 0.05/w->p.fr.zoom;
+	}
+	else if (keycode == D_ARROW)
+	{
+		w->p.fr.fra->y1 += 0.05/w->p.fr.zoom;
+		w->p.fr.fra->y2 += 0.05/w->p.fr.zoom;
+	}
 	else if (keycode == PAGE_U)
 	{
 		if (w->p.fr.zoomspeed <= 10)
@@ -49,9 +60,9 @@ int		key_function(int keycode, t_wind *w)
 			w->p.fr.colorset = 0;
 	}
 	else if (keycode == ZOOM_P)
-		w->p.fr.quality_of_details += 10;
+		w->p.fr.it_max += 10;
 	else if (keycode == ZOOM_M)
-		w->p.fr.quality_of_details -= 10;
+		w->p.fr.it_max -= 10;
 	mlx_destroy_image(w->mlx, w->img.ptr_img);
 	create_new_img(w);
 	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr_img, w->img.x, w->img.y);
@@ -69,7 +80,7 @@ void			zoomin(t_wind *w, int x, int y)
 	w->p.fr.fra->x2 = tx + w->p.fr.coeff;
 	w->p.fr.fra->y1 = ty - w->p.fr.coeff;
 	w->p.fr.fra->y2 = ty + w->p.fr.coeff;
-	w->p.fr.it_max -= 5;
+	w->p.fr.it_max -= 25;
 	w->p.fr.zoom_x = w->width / (w->p.fr.fra->x2 - w->p.fr.fra->x1);
 	w->p.fr.zoom_y = w->height / (w->p.fr.fra->y2 - w->p.fr.fra->y1);
 }
@@ -85,7 +96,7 @@ void			zoomout(t_wind *w, int x, int y)
 	w->p.fr.fra->x2 = tx + w->p.fr.coeff;
 	w->p.fr.fra->y1 = ty - w->p.fr.coeff;
 	w->p.fr.fra->y2 = ty + w->p.fr.coeff;
-	w->p.fr.it_max += 5;
+	w->p.fr.it_max += 25;
 	w->p.fr.zoom_x = w->width / (w->p.fr.fra->x2 - w->p.fr.fra->x1);
 	w->p.fr.zoom_y = w->height / (w->p.fr.fra->y2 - w->p.fr.fra->y1);
 }
@@ -94,8 +105,6 @@ void			zoomout(t_wind *w, int x, int y)
 int			mouse_function(int button, int x, int y, t_wind *w)
 {
 	//We set the mouse value to able to zoom from current mouse point position
-	w->p.fr.mouse_x = x;
-	w->p.fr.mouse_y = y;
 	/*
 	   printf("c_r: %f\n", w->p.fr.c_r);
 	   printf("c_i: %f\n", w->p.fr.c_i);
@@ -106,7 +115,7 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 	/*
 	   printf("mouseRe: %f\n", mouseRe);
 	   printf("mouseRe: %f\n", mouseIm);*/
-
+	
 	if (button == 4)//Zoom molette
 	{
 		if (w->p.view_mode == 2 || w->p.view_mode == 3)
@@ -116,7 +125,7 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 			zoomout(w, x, y);
 			// Zoom in(1.1 value)
 			//apply_zoom((w->p.fr.fra), mouseRe, mouseIm, w->p.fr.zoomf/100);
-			printf("zoomf:%d\n", w->p.fr.zoom);
+			printf("zoom:%d\n", w->p.fr.zoom);
 			printf("coeff:%.2f\n", w->p.fr.coeff);
 			printf("w.p.fr.zoom_x :%.2f\n", w->p.fr.zoom_x);
 			printf("w.p.fr.zoom_y :%.2f\n", w->p.fr.zoom_y);
@@ -137,7 +146,7 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 			zoomin(w, x, y);
 			// Zoom out (0.9 value)
 			//apply_zoom(w->p.fr.fra, mouseRe, mouseIm, 100/w->p.fr.zoomf);
-			printf("zoomf:%d\n", w->p.fr.zoom);
+			printf("zoom:%d\n", w->p.fr.zoom);
 			printf("coeff:%.2f\n", w->p.fr.coeff);
 			printf("w.p.fr.zoom_x :%.2f\n", w->p.fr.zoom_x);
 			printf("w.p.fr.zoom_y :%.2f\n", w->p.fr.zoom_y);
@@ -149,6 +158,7 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 				w->p.fr.it_max -= 1;//And add 50 incrementation
 		}
 	}
+	//ft_putnbr(button);
 	mlx_destroy_image(w->mlx, w->img.ptr_img);
 	create_new_img(w);
 	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr_img, w->img.x, w->img.y);
