@@ -67,6 +67,24 @@ int			draw_2dline(t_wind *w, t_point p, t_point pd, char *hexacolor)
 
 	v = convert_3ddot_to2dline(p, pd);
 	v = set_parameters_tline(v);
+	/*ft_putstr("rint(v.x):");
+	ft_putnbr(rint(v.x));
+	ft_putstr("\n");
+	ft_putstr("rint(v.xdest):");
+	ft_putnbr(rint(v.xdest));
+	ft_putstr("\n");
+	ft_putstr("rint(v.sign_x):");
+	ft_putnbr(rint(v.sign_x));
+	ft_putstr("\n");
+	ft_putstr("rint(v.y):");
+	ft_putnbr(rint(v.y));
+	ft_putstr("\n");
+	ft_putstr("rint(v.ydest):");
+	ft_putnbr(rint(v.ydest));
+	ft_putstr("\n");
+	ft_putstr("rint(v.sign_y):");
+	ft_putnbr(rint(v.sign_y));
+	ft_putstr("\n");*/
 	while (rint(v.x) != v.xdest || rint(v.y) != v.ydest)
 	{
 		if (v.x != v.xdest)
@@ -76,7 +94,18 @@ int			draw_2dline(t_wind *w, t_point p, t_point pd, char *hexacolor)
 		if (v.z != v.zdest)
 			v.z += (v.sign_z * (v.diff_z / v.bigdiff));
 		if (dot_in_window(w, rint(v.x), rint(v.y)) == 1)
+		{
+			/*ft_putstr("print rint(v.x):");
+			ft_putnbr(rint(v.x));
+			ft_putstr("\n");
+			ft_putstr("print rint(v.y):");
+			ft_putnbr(rint(v.y));
+			ft_putstr("\n");
+			ft_putstr("hexacolor:");
+			ft_putstr(hexacolor);
+			ft_putstr("\n");*/
 			draw_point(w, rint(v.x), rint(v.y), hexacolor);
+		}
 		//cond_getpoint_draw(w, v);
 	}
 	return (0);

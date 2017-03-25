@@ -92,14 +92,13 @@ t_gradientcol		ultra_fractalgrade()
 void			draw_point(t_wind *w, int x, int y, char *hexacolor)
 {
 	t_rgbcolor	rgbcolor;
+	int			index;
 
 	rgbcolor = hexatorgb(hexacolor);
-	*(w->img.pxl_ptr + (y * w->img.size_line) +
-	(x * w->img.octet_per_pixel)) = rgbcolor.r;
-	*(w->img.pxl_ptr + (y * w->img.size_line) +
-	(x * w->img.octet_per_pixel) + 1) = rgbcolor.g;
-	*(w->img.pxl_ptr + (y * w->img.size_line) +
-	(x * w->img.octet_per_pixel) + 2) = rgbcolor.b;
+	index = (x * w->img.bits_per_pixel / 8) + (y * w->img.size_line);
+	w->img.pxl_ptr[index] = rgbcolor.r;
+	w->img.pxl_ptr[index + 1] = rgbcolor.g;
+	w->img.pxl_ptr[index + 2] = rgbcolor.b;
 }
 
 void			draw_pointf(t_wind *w, int x, int y, int z)

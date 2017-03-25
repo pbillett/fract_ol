@@ -53,9 +53,9 @@ static void					set_parameters(t_wind *w)
 	w->p.fr.y = 0;
 	FG(mouse_x) = 0;
 	FG(mouse_y) = 0;
-	w->p.fr.color.r = 2;
-	w->p.fr.color.g = 20;
-	w->p.fr.color.b = 210;
+	FG(color.r) = 2;
+	FG(color.g) = 20;
+	FG(color.b) = 210;
 	FG(zoomspeed) = ZOOMSPEED;// Zoom speed (Fast:70, Default:50, smooth Zoom:10 (but harder for calcultation),)
 	w->p.fr.colorset = COLORSET;//set color set default: 0 - spacebar for change
 	w->p.fr.quality_of_details = QUALDETAILS;// Quality of details of fractal (Default:50)
@@ -97,6 +97,10 @@ t_wind			fract_ol(char *fracname)
 	{
 		w.p.fr.motion = 1; // Motion on julia
 		w.p.fr.fra = w.p.fr.jul;
+	}
+	if (ft_strcmp(w.p.fr.name, "triangle_sierpinski") == 0)
+	{
+		w.p.fr.it_max = 1;
 	}
 	init_zoom(&w);
 	create_new_img(&w);

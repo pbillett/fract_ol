@@ -19,8 +19,8 @@
 #define BUTTONMOTIONMASK	(1L<<13)
 #define POINTERMOTIONMASK	(1L<<6)
 #define NOEVENTMASK			0L
-#define WIDTH 1000
-#define HEIGHT 1000
+#define WIDTH 250
+#define HEIGHT 250
 #define ZOOM 1
 #define COEFF 0.78
 #define ITMAX 100

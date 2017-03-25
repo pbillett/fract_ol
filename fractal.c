@@ -4,8 +4,8 @@ static void		set_nbrcomplexandz(t_wind *w, int x, int y)
 {
 	if (ft_strcmp(w->p.fr.name, "julia") == 0)
 	{
-		FF(c_r) = ((float)(w->height/2 - FG(mouse_y))/(float)w->width) * 2;
-		FF(c_i) = ((float)(w->width/2 - FG(mouse_x))/(float)w->height) * 2;
+		FF(c_r) = FG(mouse_xjul);
+		FF(c_i) = FG(mouse_yjul);
 		FF(z_r) = x / FG(zoom_x) + FF(x1);
 		FF(z_i) = y / FG(zoom_y) + FF(y1);
 	}
@@ -42,13 +42,13 @@ int					fractal(t_wind *w)
 	int				i;
 	t_gradientcol	gradecolor;
 
-	printf("true zoom: %d\n", FG(zoom));
+	/*printf("true zoom: %d\n", FG(zoom));
 	printf("color: r:%d, g:%d, b: %d\n", FG(color.r), FG(color.g), FG(color.b));
 	printf("it_max: %d\n", w->p.fr.it_max);
 	printf("x1: %f\n", FF(x1));
 	printf("x2: %f\n", FF(x2));
 	printf("y1: %f\n", FF(y1));
-	printf("y2: %f\n", FF(y2));
+	printf("y2: %f\n", FF(y2));*/
 	FG(x) = 0;
 	while (FG(x) < w->width)
 	{
@@ -63,19 +63,19 @@ int					fractal(t_wind *w)
 				FF(z_r) = (ft_squared(FF(z_r)) - ft_squared(FF(z_i))) + FF(c_r);
 				FF(z_i) = 2 * FF(tmp) * FF(z_i) + FF(c_i);
 				i++;
-				if (w->p.fr.colorset == 0) //first color mode (change with spacebar)
+				if (w->p.fr.colorset == 0)
 					mydraw(w, FG(x), FG(y), FG(color), i);
-				else
-				{
-					gradecolor = ultra_fractalgrade();
-					w->p.fr.color = colorgrade(i/100, gradecolor);
-					draw_point(w, FG(x), FG(y), rgbtohexa(w->p.fr.color));
-				}
+			}
+			if (w->p.fr.colorset == 1)
+			{
+				gradecolor = ultra_fractalgrade();
+				w->p.fr.color = colorgrade(i/100, gradecolor);
+				draw_point(w, FG(x), FG(y), rgbtohexa(w->p.fr.color));
 			}
 			FG(y)++;
 		}
 		FG(x)++;
 	}
-	printf("the end\n");
+	//ft_putstr("render");
 	return (0);
 }

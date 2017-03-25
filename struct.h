@@ -23,7 +23,7 @@ typedef struct			s_fractal
 	float				range_y;
 	int					zoom;
 	float				coeff;
-	float				zoomspeed;
+	double				zoomspeed;
 	float				quality_of_details;
 	double				zoom_x;
 	double				zoom_y;
@@ -34,6 +34,8 @@ typedef struct			s_fractal
 	int					motion;
 	double				mouse_x;
 	double				mouse_y;
+	double				mouse_xjul;
+	double				mouse_yjul;
 }						t_fractal;
 
 typedef struct		s_mandelbrot

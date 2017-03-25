@@ -16,8 +16,8 @@
 // https://commons.wikimedia.org/wiki/File:Julia-Teppich.png?uselang=fr
 void		set_julia(t_wind *w, double c, double i)
 {
-	FG(mouse_x) = c;
-	FG(mouse_y) = i;
+	FG(mouse_xjul) = c;
+	FG(mouse_yjul) = i;
 	init_zoom(w);
 }
 

@@ -75,15 +75,20 @@ int		key_function(int keycode, t_wind *w)
 	julia_presetkeys(keycode, w);
 	if (keycode == PAGE_U)
 	{
-		if (FG(zoomspeed) <= 10)
-			FG(zoomspeed) += 1;
-		printf("zoomspeed: %2.f\n", FG(zoomspeed));
+		if (FG(zoomspeed) >= 0)
+			FG(zoomspeed) -= 0.1;
+		printf("zoomspeed: %.3f\n", FG(zoomspeed));
 	}
 	else if (keycode == PAGE_D)
 	{
-		if (FG(zoomspeed) >= 0)
-			FG(zoomspeed) -= 1;
-		printf("zoomspeed: %2.f\n", FG(zoomspeed));
+		if (FG(zoomspeed) < 1.00)
+		{
+			if (FG(zoomspeed) < 0.8)
+				FG(zoomspeed) += 0.1;
+			else
+				FG(zoomspeed) += 0.01;
+		}
+		printf("zoomspeed: %.3f\n", FG(zoomspeed));
 	}
 	else if (keycode == SPACE)
 	{
@@ -99,9 +104,7 @@ int		key_function(int keycode, t_wind *w)
 		if(w->p.fr.it_max > 0)
 			w->p.fr.it_max -= 10;
 	}
-	mlx_destroy_image(w->mlx, w->img.ptr_img);
-	create_new_img(w);
-	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr_img, w->img.x, w->img.y);
+	ft_refresh_view(w);
 	return (0);
 }
 

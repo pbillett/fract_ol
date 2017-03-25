@@ -113,10 +113,12 @@ int					mouse_motion_function(int x, int y, t_wind *w)
 	{
 		w->p.fr.mouse_x = x;
 		w->p.fr.mouse_y = y;
+		FG(mouse_xjul) = (double)(w->height/2 - FG(mouse_y)) / ((double)w->width * 2);
+		FG(mouse_yjul) = (double)(w->width/2 - FG(mouse_x)) / ((double)w->height * 2);
 	}
-	ft_putstr("w->p.fr.mouse_x:");
+	/*ft_putstr("w->p.fr.mouse_x:");
 	ft_putnbr(w->p.fr.mouse_x);
-	ft_putstr("\n");
+	ft_putstr("\n");*/
 	ft_refresh_view(w);
 	return (0);
 }

@@ -14,15 +14,31 @@
 
 #define OX 5
 #define OY 5
-#define TX 758
-#define TY 655
 
 void				draw_trianglef(t_wind *w, t_triangle t, char *hexcolor)
 {
+	//ft_putendl("before draw_2dline");
 	draw_2dline(w, t.dl, t.dr, hexcolor); // On dessine les tours du triangle:
+	/*ft_putendl("before1 draw_2dline");
+	ft_putstr(" t.dr x:");
+	ft_putnbr(t.dr.x);
+	ft_putstr(" t.dr y:");
+	ft_putnbr(t.dr.y);
+	ft_putstr(" t.dr z:");
+	ft_putnbr(t.dr.z);
+	ft_putstr(" t.dr x:");
+	ft_putnbr(t.dt.x);
+	ft_putstr(" t.dr y:");
+	ft_putnbr(t.dt.y);
+	ft_putstr(" t.dr z:");
+	ft_putnbr(t.dt.z);
+	ft_putstr("\n");*/
 	draw_2dline(w, t.dr, t.dt, hexcolor);
+	//ft_putendl("before2 draw_2dline");
 	draw_2dline(w, t.dt, t.dl, hexcolor);
+	//ft_putendl("before3 draw_2dline");
 	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr_img, w->img.x, w->img.y);
+	//ft_putendl("after draw_2dline");
 }
 
 /* fonction récursive, qui a pour paramètres :
@@ -32,9 +48,9 @@ void				draw_trianglef(t_wind *w, t_triangle t, char *hexcolor)
 
 static void			triangle_sierpinski(t_wind *w, double x, double y, double a, int n)
 {
-	double		b;
-	t_triangle	t;
-	t_triangle	t2;
+	double			b;
+	t_triangle		t;
+	t_triangle		t2;
 
 	b = -a*sqrt(3.0)/2;
 	/* négatif à cause de l'orientation 
@@ -70,11 +86,11 @@ static void			triangle_sierpinski(t_wind *w, double x, double y, double a, int n
 	}
 }
 
-int triangle_sierpinski_main(t_wind *w)
+int				triangle_sierpinski_main(t_wind *w)
 {
 	unsigned long n;
 	//n = 5; // level of detail
-	ft_putstr("w->p.fr.zoom:");
+	/*ft_putstr("w->p.fr.zoom:");
 	ft_putnbr(w->p.fr.zoom);
 	ft_putstr("\n");
 	ft_putstr("w->p.fr.it_max:");
@@ -85,10 +101,11 @@ int triangle_sierpinski_main(t_wind *w)
 	ft_putstr("\n");
 	ft_putstr("w->img.height:");
 	ft_putnbr(w->img.height);
-	ft_putstr("\n");
+	ft_putstr("\n");*/
+	//w->p.fr.it_max = 1;
 	n = w->p.fr.it_max;
 	//ft_putendl("before triangle_sierpinski");
-	triangle_sierpinski(w, OX, OY + w->img.height, w->img.width, (int)n);
+	triangle_sierpinski(w, OX, OY + w->height, w->width, (int)n);
 	//ft_putendl("after triangle_sierpinski");
 	return 0;
 }
