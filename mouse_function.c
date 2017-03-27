@@ -99,6 +99,13 @@ static void	fc_bt1_mousemove(int x, int y, t_wind *w)
 }
 i*/
 
+
+void						init_zoom(t_wind *w)
+{
+	FG(zoom_x) = w->width / (FF(x2) - FF(x1));
+	FG(zoom_y) = w->height / (FF(y2) - FF(y1));
+}
+
 void				ft_refresh_view(t_wind *w)
 {
 	mlx_destroy_image(w->mlx, w->img.ptr_img);
@@ -108,7 +115,6 @@ void				ft_refresh_view(t_wind *w)
 
 int					mouse_motion_function(int x, int y, t_wind *w)
 {
-
 	if (w->p.fr.motion == 1)
 	{
 		w->p.fr.mouse_x = x;

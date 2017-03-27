@@ -47,22 +47,25 @@ int				mouse_function(int button, int x, int y, t_wind *w);
 int				mouse_motion_function(int x, int y, t_wind *w);
 int				expose_hook(t_wind *w);
 void			color_line(int num1, int num2, size_t *color);
-void			draw_point(t_wind *w, int x, int y, char *hexacolor);
+void			draw_point(t_wind *w, int x, int y, t_rgbcolor color);
 t_rgbcolor		hexatorgb(char *hexcolor);
 void			ft_refresh_view(t_wind *w);
-void			apply_zoom(t_mandelbrot *fr, double mouseRe, double mouseIm, double zoomFactor);
+void			init_zoom(t_wind *w);
+
 t_gradientcol	ultra_fractalgrade();
 t_rgbcolor		colorgrade(float percent, t_gradientcol mycolorgrade);
 char			*rgbtohexa(t_rgbcolor rgbcolor);
 t_rgbcolor		ft_inttorgb(unsigned int n);
-void			init_zoom(t_wind *w);
 
 void			julia_presetkeys(int keycode, t_wind *w);
 
-int				triangle_sierpinski_main(t_wind *w);
-int				draw_2dline(t_wind *w, t_point p, t_point pd, char *hexacolor);
+int				triangle_sierpinski_main(t_wind *w, t_tri_sierp *d);
+void			printlst_trisierp(t_wind *w);
+
+int				draw_2dline(t_wind *w, t_point p, t_point pd, t_rgbcolor color);
 t_line			set_parameters_tline(t_line v);
 t_line			convert_3ddot_to2dline(t_point p, t_point pd);
+void				ft_randcolorrgb(t_wind *w);
 
 void			error_arg(void);
 void			error_malloc(void);

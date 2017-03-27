@@ -61,7 +61,7 @@ static void	cond_getpoint_draw(t_wind *w, t_line v)
 }
 */
 
-int			draw_2dline(t_wind *w, t_point p, t_point pd, char *hexacolor)
+int			draw_2dline(t_wind *w, t_point p, t_point pd, t_rgbcolor color)
 {
 	t_line	v;
 
@@ -104,7 +104,8 @@ int			draw_2dline(t_wind *w, t_point p, t_point pd, char *hexacolor)
 			ft_putstr("hexacolor:");
 			ft_putstr(hexacolor);
 			ft_putstr("\n");*/
-			draw_point(w, rint(v.x), rint(v.y), hexacolor);
+			// On crée le dégradé en fonction de la hauteur dans l'écran
+			draw_point(w, rint(v.x), rint(v.y), color);
 		}
 		//cond_getpoint_draw(w, v);
 	}

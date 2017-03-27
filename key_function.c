@@ -6,6 +6,13 @@ int		expose_hook(t_wind *w)
 	return (0);
 }
 
+void				ft_randcolorrgb(t_wind *w)
+{
+	FG(color.b) = rand() * 255;
+	FG(color.g) = rand() * 255;
+	FG(color.r) = rand() * 255;
+}
+
 void				ft_colorkey(int keycode, t_wind *w)
 {
 	if (keycode == KEY_R)
@@ -32,6 +39,8 @@ void				ft_colorkey(int keycode, t_wind *w)
 		FG(color.g) = 255;
 	else if (keycode == KEY_N)
 		FG(color.b) = 255;
+	else if (keycode == KEY_TAB)
+		ft_randcolorrgb(w);
 }
 
 void	ft_arrowkeys(int keycode, t_wind *w)
@@ -108,7 +117,7 @@ int		key_function(int keycode, t_wind *w)
 	return (0);
 }
 
-void			zoomin(t_wind *w, int x, int y)
+void			zoom(t_wind *w, int x, int y, int zoominbool)
 {
 	double		tx;
 	double		ty;
@@ -119,27 +128,12 @@ void			zoomin(t_wind *w, int x, int y)
 	FF(x2) = tx + w->p.fr.coeff;
 	FF(y1) = ty - w->p.fr.coeff;
 	FF(y2) = ty + w->p.fr.coeff;
-	w->p.fr.it_max -= 5;
-	FG(zoom_x) = w->width / (FF(x2) - FF(x1));
-	FG(zoom_y) = w->height / (FF(y2) - FF(y1));
+	if (zoominbool)
+		w->p.fr.it_max += 1;
+	else
+		w->p.fr.it_max -= 1;
+	init_zoom(w);
 }
-
-void			zoomout(t_wind *w, int x, int y)
-{
-	double		tx;
-	double		ty;
-
-	tx = x / FG(zoom_x) + FF(x1);
-	ty = y / FG(zoom_y) + FF(y1);
-	FF(x1) = tx - w->p.fr.coeff;
-	FF(x2) = tx + w->p.fr.coeff;
-	FF(y1) = ty - w->p.fr.coeff;
-	FF(y2) = ty + w->p.fr.coeff;
-	w->p.fr.it_max += 5;
-	FG(zoom_x) = w->width / (FF(x2) - FF(x1));
-	FG(zoom_y) = w->height / (FF(y2) - FF(y1));
-}
-
 
 int			mouse_function(int button, int x, int y, t_wind *w)
 {
@@ -156,7 +150,7 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 		{
 			FG(zoom)++;
 			w->p.fr.coeff *= FG(zoomspeed);
-			zoomout(w, x, y);
+			zoom(w, x, y, 1);
 			// Zoom in(1.1 value)
 			//apply_zoom((w->p.fr.fra), mouseRe, mouseIm, FG(zoom)f/100);
 			printf("zoom:%d\n", FG(zoom));
@@ -167,8 +161,23 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 		}
 		else
 		{
-			if (w->p.fr.it_max != 6)
-				w->p.fr.it_max += 1; // to incremtente details
+			//if (w->p.fr.it_max != 6)
+			//{
+			/*
+			if (w->p.fr.zoom == 64)
+			{
+				w->p.fr.lsttrisierp->data->zoom = 0;
+				w->p.fr.lsttrisierp->data->triwidth = w->width / 50;
+				w->p.fr.lsttrisierp->data->triheight = w->height / 50;
+			}
+			else
+			{
+				w->p.fr.lsttrisierp->data->zoom++;
+				//w->p.fr.coeff *= FG(zoomspeed);
+				//w->p.fr.it_max += 1; // to incremtente details
+				w->p.fr.lsttrisierp->data->triwidth *= 1.1;
+				w->p.fr.lsttrisierp->data->triheight *= 1.1;
+			}*/
 		}
 	}
 	if (button == 5)
@@ -177,7 +186,7 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 		{
 			FG(zoom)--;
 			w->p.fr.coeff /= FG(zoomspeed);
-			zoomin(w, x, y);
+			zoom(w, x, y, 0);
 			// Zoom out (0.9 value)
 			//apply_zoom(w->p.fr.fra, mouseRe, mouseIm, 100/FG(zoom)f);
 			printf("zoom:%d\n", FG(zoom));
@@ -188,8 +197,29 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 		}
 		else
 		{
-			if (w->p.fr.it_max > 0)
-				w->p.fr.it_max -= 1;//And add 50 incrementation
+			//if (w->p.fr.it_max > 0)
+			//{
+			/*
+			if (w->p.fr.zoom == 0)
+			{
+				w->p.fr.lsttrisierp->data->zoom = 64;
+				w->p.fr.lsttrisierp->data->triwidth = w->width * 8;
+				w->p.fr.lsttrisierp->data->triheight = w->height * 8;
+			}
+			else if (w->p.fr.zoom == 20)
+			{
+				//triangle_sierpinski_main(zoom, it_max, triwidth, triheight);
+			}
+			else
+			{
+				//triangle_sierpinski_main(zoom, it_max, triwidth, triheight);
+				FG(zoom)--;
+				//w->p.fr.coeff /= FG(zoomspeed);
+				//w->p.fr.it_max -= 1;//And add 50 incrementation
+				//w->p.fr.ptriwidth = - w->width/1.1;
+				w->p.fr.triwidth /= 1.1;
+				w->p.fr.triheight /= 1.1;
+			}*/
 		}
 	}
 	//ft_putnbr(button);

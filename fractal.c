@@ -68,9 +68,14 @@ int					fractal(t_wind *w)
 			}
 			if (w->p.fr.colorset == 1)
 			{
-				gradecolor = ultra_fractalgrade();
-				w->p.fr.color = colorgrade(i/100, gradecolor);
-				draw_point(w, FG(x), FG(y), rgbtohexa(w->p.fr.color));
+				if (i == FG(it_max))
+					w->p.fr.color = (t_rgbcolor){0, 0, 0};
+				else
+				{
+					gradecolor = ultra_fractalgrade();
+					w->p.fr.color = colorgrade(i/100, gradecolor);
+				}
+				draw_point(w, FG(x), FG(y), w->p.fr.color);
 			}
 			FG(y)++;
 		}

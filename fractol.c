@@ -38,12 +38,6 @@ static t_mandelbrot			*init_julia(void)
 	return (j);
 }
 
-void						init_zoom(t_wind *w)
-{
-	FG(zoom_x) = w->width / (FF(x2) - FF(x1));
-	FG(zoom_y) = w->height / (FF(y2) - FF(y1));
-}
-
 static void					set_parameters(t_wind *w)
 {
 	w->p.fr.hexa_bg = "0x000000";
@@ -53,9 +47,7 @@ static void					set_parameters(t_wind *w)
 	w->p.fr.y = 0;
 	FG(mouse_x) = 0;
 	FG(mouse_y) = 0;
-	FG(color.r) = 2;
-	FG(color.g) = 20;
-	FG(color.b) = 210;
+	FG(color) = (t_rgbcolor){2, 20, 210};
 	FG(zoomspeed) = ZOOMSPEED;// Zoom speed (Fast:70, Default:50, smooth Zoom:10 (but harder for calcultation),)
 	w->p.fr.colorset = COLORSET;//set color set default: 0 - spacebar for change
 	w->p.fr.quality_of_details = QUALDETAILS;// Quality of details of fractal (Default:50)
@@ -75,6 +67,42 @@ static void			set_mode(t_wind *w, char *fracname)
 	else if (ft_strcmp(fracname, "triangle_sierpinski") == 0)
 		w->p.view_mode = 4;
 	w->p.fr.name = fracname;
+}
+
+int					initlst_trisierp(t_wind *w, int nbrelem)
+{
+	int				i;
+	t_lsttrisierp	*beginlst;
+
+	i = 0;
+	w->p.fr.lsttrisierp = malloc(sizeof(t_lsttrisierp) * nbrelem);
+	beginlst = w->p.fr.lsttrisierp;
+	while (i < nbrelem)
+	{
+		w->p.fr.lsttrisierp->data = malloc(sizeof(t_tri_sierp));
+		i++;
+		ft_putendl("init");
+		w->p.fr.lsttrisierp = w->p.fr.lsttrisierp->next;
+	}
+	w->p.fr.lsttrisierp->data = NULL;
+	w->p.fr.lsttrisierp = beginlst;
+	ft_putendl("init end");
+	return (0);
+}
+
+void				printlst_trisierp(t_wind *w)
+{
+	t_lsttrisierp	*beginlst;
+	t_tri_sierp		*d;
+
+	beginlst = w->p.fr.lsttrisierp;
+	while (w->p.fr.lsttrisierp->next != NULL)
+	{
+		d = w->p.fr.lsttrisierp->data;
+		triangle_sierpinski_main(w, d);
+		w->p.fr.lsttrisierp = w->p.fr.lsttrisierp->next;
+	}
+	w->p.fr.lsttrisierp = beginlst;
 }
 
 t_wind			fract_ol(char *fracname)
@@ -100,7 +128,14 @@ t_wind			fract_ol(char *fracname)
 	}
 	if (ft_strcmp(w.p.fr.name, "triangle_sierpinski") == 0)
 	{
-		w.p.fr.it_max = 1;
+		initlst_trisierp(&w, 1);
+		(*w.p.fr.lsttrisierp->data) = (t_tri_sierp){w.width/50, w.height/50, 1, 0};
+		//w.p.fr.lsttrisierp = w.p.fr.lsttrisierp->next;
+		//(*w.p.fr.lsttrisierp->data) = (t_tri_sierp){w.width/50, w.height/50, 1, 20};
+		//w.p.fr.lsttrisierp = w.p.fr.lsttrisierp->next;
+		/*w.p.fr.it_max = 1;
+		w.p.fr.triwidth = w.width / 50; // 50 level of unzoom
+		w.p.fr.triheight = w.height / 50;*/
 	}
 	init_zoom(&w);
 	create_new_img(&w);
