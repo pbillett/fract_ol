@@ -50,7 +50,6 @@ static void					set_parameters(t_wind *w)
 	FG(color) = (t_rgbcolor){2, 20, 210};
 	FG(zoomspeed) = ZOOMSPEED;// Zoom speed (Fast:70, Default:50, smooth Zoom:10 (but harder for calcultation),)
 	w->p.fr.colorset = COLORSET;//set color set default: 0 - spacebar for change
-	w->p.fr.quality_of_details = QUALDETAILS;// Quality of details of fractal (Default:50)
 	w->img.width = WIDTH;
 	w->img.height = HEIGHT;
 	FG(zoom) = ZOOM;//Zoom et nbr iteration

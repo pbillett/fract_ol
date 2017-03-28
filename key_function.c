@@ -107,11 +107,11 @@ int		key_function(int keycode, t_wind *w)
 			w->p.fr.colorset = 0;
 	}
 	else if (keycode == ZOOM_P)
-		w->p.fr.it_max += 10;
+		w->p.fr.it_max += 5;
 	else if (keycode == ZOOM_M)
 	{
 		if(w->p.fr.it_max > 0)
-			w->p.fr.it_max -= 10;
+			w->p.fr.it_max -= 5;
 	}
 	ft_refresh_view(w);
 	return (0);
@@ -129,7 +129,10 @@ void			zoom(t_wind *w, int x, int y, int zoominbool)
 	FF(y1) = ty - w->p.fr.coeff;
 	FF(y2) = ty + w->p.fr.coeff;
 	if (zoominbool)
+	{
 		w->p.fr.it_max += 1;
+		ft_putendl("it_maxx++");
+	}
 	else
 		w->p.fr.it_max -= 1;
 	init_zoom(w);
@@ -157,7 +160,7 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 			printf("coeff:%.2f\n", w->p.fr.coeff);
 			printf("w.p.fr.zoom_x :%.2f\n", FG(zoom_x));
 			printf("w.p.fr.zoom_y :%.2f\n", FG(zoom_y));
-			//w->p.fr.it_max += w->p.fr.quality_of_details;//And add 50 incrementation
+			//w->p.fr.it_max += 5;
 		}
 		else
 		{
@@ -193,7 +196,7 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 			printf("coeff:%.2f\n", w->p.fr.coeff);
 			printf("w.p.fr.zoom_x :%.2f\n", FG(zoom_x));
 			printf("w.p.fr.zoom_y :%.2f\n", FG(zoom_y));
-			//w->p.fr.it_max -= w->p.fr.quality_of_details;
+			w->p.fr.it_max -= w->p.fr.quality_of_details;
 		}
 		else
 		{
