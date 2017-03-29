@@ -45,6 +45,7 @@ static void					set_parameters(t_wind *w)
 	w->img.y = 0;
 	w->p.fr.x = 0;
 	w->p.fr.y = 0;
+	w->p.fr.colshuffle = 0;
 	FG(mouse_x) = 0;
 	FG(mouse_y) = 0;
 	FG(color) = (t_rgbcolor){2, 20, 210};
@@ -127,14 +128,14 @@ t_wind			fract_ol(char *fracname)
 	}
 	if (ft_strcmp(w.p.fr.name, "triangle_sierpinski") == 0)
 	{
-		initlst_trisierp(&w, 1);
-		(*w.p.fr.lsttrisierp->data) = (t_tri_sierp){w.width/50, w.height/50, 1, 0};
+		//initlst_trisierp(&w, 1);
+		//(*w.p.fr.lsttrisierp->data) = (t_tri_sierp){w.width/50, w.height/50, 1, 0};
 		//w.p.fr.lsttrisierp = w.p.fr.lsttrisierp->next;
 		//(*w.p.fr.lsttrisierp->data) = (t_tri_sierp){w.width/50, w.height/50, 1, 20};
 		//w.p.fr.lsttrisierp = w.p.fr.lsttrisierp->next;
-		/*w.p.fr.it_max = 1;
+		w.p.fr.it_max = 1;
 		w.p.fr.triwidth = w.width / 50; // 50 level of unzoom
-		w.p.fr.triheight = w.height / 50;*/
+		w.p.fr.triheight = w.height / 50;
 	}
 	init_zoom(&w);
 	create_new_img(&w);

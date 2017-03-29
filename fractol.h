@@ -24,7 +24,7 @@
 #define ZOOM 1
 #define COEFF 0.78
 #define ITMAX 30
-#define ZOOMSPEED 0.9
+#define ZOOMSPEED 0.5
 #define COLORSET 0
 #define FF(x) w->p.fr.fra->x
 #define FG(x) w->p.fr.x

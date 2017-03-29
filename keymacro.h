@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:44:56 by pbillett          #+#    #+#             */
-/*   Updated: 2017/03/24 20:58:42 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/03/29 15:46:13 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 #  define KEY_H 4
 #  define KEY_N 45
 #  define KEY_P 35
-#  define KEY_TAB 65289
+#  define KEY_TAB 48
+#  define KEY_TILD 50
 #  define L_ARROW 123
 #  define R_ARROW 124
 #  define U_ARROW 126
@@ -72,6 +73,7 @@
 #  define KEY_N 110
 #  define KEY_P 112
 #  define KEY_TAB 65289
+#  define KEY_TILD 48
 #  define L_ARROW 65361
 #  define R_ARROW 65363
 #  define U_ARROW 65362

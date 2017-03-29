@@ -37,6 +37,9 @@ typedef struct			s_fractal
 	double				mouse_xjul;
 	double				mouse_yjul;
 	struct s_lsttrisierp		*lsttrisierp;
+	int					colshuffle;
+	double				triwidth;
+	double				triheight;
 }						t_fractal;
 
 typedef struct		s_mandelbrot
