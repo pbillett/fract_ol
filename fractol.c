@@ -69,42 +69,6 @@ static void			set_mode(t_wind *w, char *fracname)
 	w->p.fr.name = fracname;
 }
 
-int					initlst_trisierp(t_wind *w, int nbrelem)
-{
-	int				i;
-	t_lsttrisierp	*beginlst;
-
-	i = 0;
-	w->p.fr.lsttrisierp = malloc(sizeof(t_lsttrisierp) * nbrelem);
-	beginlst = w->p.fr.lsttrisierp;
-	while (i < nbrelem)
-	{
-		w->p.fr.lsttrisierp->data = malloc(sizeof(t_tri_sierp));
-		i++;
-		ft_putendl("init");
-		w->p.fr.lsttrisierp = w->p.fr.lsttrisierp->next;
-	}
-	w->p.fr.lsttrisierp->data = NULL;
-	w->p.fr.lsttrisierp = beginlst;
-	ft_putendl("init end");
-	return (0);
-}
-
-void				printlst_trisierp(t_wind *w)
-{
-	t_lsttrisierp	*beginlst;
-	t_tri_sierp		*d;
-
-	beginlst = w->p.fr.lsttrisierp;
-	while (w->p.fr.lsttrisierp->next != NULL)
-	{
-		d = w->p.fr.lsttrisierp->data;
-		triangle_sierpinski_main(w, d);
-		w->p.fr.lsttrisierp = w->p.fr.lsttrisierp->next;
-	}
-	w->p.fr.lsttrisierp = beginlst;
-}
-
 t_wind			fract_ol(char *fracname)
 {
 	t_wind		w;
@@ -128,11 +92,7 @@ t_wind			fract_ol(char *fracname)
 	}
 	if (ft_strcmp(w.p.fr.name, "triangle_sierpinski") == 0)
 	{
-		//initlst_trisierp(&w, 1);
-		//(*w.p.fr.lsttrisierp->data) = (t_tri_sierp){w.width/50, w.height/50, 1, 0};
-		//w.p.fr.lsttrisierp = w.p.fr.lsttrisierp->next;
-		//(*w.p.fr.lsttrisierp->data) = (t_tri_sierp){w.width/50, w.height/50, 1, 20};
-		//w.p.fr.lsttrisierp = w.p.fr.lsttrisierp->next;
+		w.p.fr.motion = 0; // Motion on julia
 		w.p.fr.it_max = 1;
 		w.p.fr.triwidth = w.width / 50; // 50 level of unzoom
 		w.p.fr.triheight = w.height / 50;

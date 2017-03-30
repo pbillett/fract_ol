@@ -9,8 +9,8 @@ void			start_hooks(t_wind *lstwin, int numbwind)
 	{
 		mlx_hook(lstwin[i].win, 2, 1, key_function, &(lstwin[i]));
 		mlx_mouse_hook(lstwin[i].win, mouse_function, &(lstwin[i]));
-		if ((lstwin[i]).p.view_mode == 3)
-			mlx_hook(lstwin[i].win, MOTIONNOTIFY, POINTERMOTIONMASK, mouse_motion_function, &(lstwin[i]));
+		//if ((lstwin[i]).p.view_mode == 3)
+		mlx_hook(lstwin[i].win, MOTIONNOTIFY, POINTERMOTIONMASK, mouse_motion_function, &(lstwin[i]));
 		mlx_expose_hook(lstwin[i].win, expose_hook, &(lstwin[i]));
 		i++;
 	}

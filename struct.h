@@ -54,21 +54,13 @@ typedef struct		s_mandelbrot
 	float			z_i; //Nbr z
 	float			tmp; //Nbr z
 }					t_mandelbrot;
-
-typedef struct		s_tri_sierp
-{
-	double				triwidth;
-	double				triheight;
-	int					it_max;
-	int					zoom;
-}					t_tri_sierp;
-
+/*
 typedef struct		s_lsttrisierp
 {
 	t_tri_sierp		*data;
 	struct s_lsttrisierp	*next;
 }					t_lsttrisierp;
-
+*/
 typedef struct		s_gradientcol
 {
 	int				nbofcolor;

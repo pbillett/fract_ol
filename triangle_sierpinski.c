@@ -19,7 +19,7 @@ void				draw_trianglef(t_wind *w, t_triangle t, t_rgbcolor color)
 {
 	//ft_putendl("before draw_2dline");
 
-	ft_randcolorrgb(w);
+	//ft_randcolorrgb(w);
 	draw_2dline(w, t.dl, t.dr, color); // On dessine les tours du triangle:
 	/*ft_putendl("before1 draw_2dline");
 	ft_putstr(" t.dr x:");
@@ -35,10 +35,10 @@ void				draw_trianglef(t_wind *w, t_triangle t, t_rgbcolor color)
 	ft_putstr(" t.dr z:");
 	ft_putnbr(t.dt.z);
 	ft_putstr("\n");*/
-	ft_randcolorrgb(w);
+	//ft_randcolorrgb(w);
 	draw_2dline(w, t.dr, t.dt, color);
 	//ft_putendl("before2 draw_2dline");
-	ft_randcolorrgb(w);
+	//ft_randcolorrgb(w);
 	draw_2dline(w, t.dt, t.dl, color);
 	//ft_putendl("before3 draw_2dline");
 	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr_img, w->img.x, w->img.y);
@@ -90,12 +90,12 @@ static void			triangle_sierpinski(t_wind *w, double x, double y, double a, int n
 	}
 }
 
-int					triangle_sierpinski_main(t_wind *w, t_tri_sierp *d)
+int					triangle_sierpinski_main(t_wind *w)
 {
 	unsigned long	n;
 	//n = 5; // level of detail
-	printf("w->p.fr.coeff: %.3f\n", w->p.fr.coeff);
-	printf("w->p.fr.triwidth: %.3f\n", d->triwidth);
+	//printf("w->p.fr.coeff: %.3f\n", w->p.fr.coeff);
+	//printf("w->p.fr.triwidth: %.3f\n", d->triwidth);
 	ft_putstr("w->p.fr.zoom:");
 	ft_putnbr(w->p.fr.zoom);
 	ft_putstr("\n");
@@ -114,7 +114,7 @@ int					triangle_sierpinski_main(t_wind *w, t_tri_sierp *d)
 	/*else
 		ptriwidth = w->width/10;*/
 	//ft_putendl("before triangle_sierpinski");
-	triangle_sierpinski(w, (w->width/2) - (d->triwidth/2), d->triheight, d->triwidth, (int)n);
+	triangle_sierpinski(w, (w->width/2) - (w->p.fr.triwidth/2) + FG(mouse_x), w->p.fr.triheight, w->p.fr.triwidth, (int)n);
 	//ft_putendl("after triangle_sierpinski");
 	return 0;
 }

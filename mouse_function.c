@@ -124,7 +124,8 @@ int					mouse_motion_function(int x, int y, t_wind *w)
 	}
 	/*ft_putstr("w->p.fr.mouse_x:");
 	ft_putnbr(w->p.fr.mouse_x);
-	ft_putstr("\n");*/
+	ft_putstr("\n");
+	printf("%.3f\n", FG(mouse_xjul));*/
 	ft_refresh_view(w);
 	return (0);
 }

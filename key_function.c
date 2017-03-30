@@ -153,34 +153,31 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 		{
 			FG(zoom)++;
 			w->p.fr.coeff *= FG(zoomspeed);
-			zoom(w, x, y, 1);
-			// Zoom in(1.1 value)
-			//apply_zoom((w->p.fr.fra), mouseRe, mouseIm, FG(zoom)f/100);
+			zoom(w, x, y, 1); // Zoom in(1.1 value)
 			printf("zoom:%d\n", FG(zoom));
 			printf("coeff:%.2f\n", w->p.fr.coeff);
 			printf("w.p.fr.zoom_x :%.2f\n", FG(zoom_x));
 			printf("w.p.fr.zoom_y :%.2f\n", FG(zoom_y));
-			//w->p.fr.it_max += 5;
 		}
 		else
 		{
 			//if (w->p.fr.it_max != 6)
 			//{
-			/*
+			
 			if (w->p.fr.zoom == 64)
 			{
-				w->p.fr.lsttrisierp->data->zoom = 0;
-				w->p.fr.lsttrisierp->data->triwidth = w->width / 50;
-				w->p.fr.lsttrisierp->data->triheight = w->height / 50;
+				w->p.fr.zoom = 0;
+				w->p.fr.triwidth = w->width / 50;
+				w->p.fr.triheight = w->height / 50;
 			}
 			else
 			{
-				w->p.fr.lsttrisierp->data->zoom++;
+				w->p.fr.zoom++;
 				//w->p.fr.coeff *= FG(zoomspeed);
-				//w->p.fr.it_max += 1; // to incremtente details
-				w->p.fr.lsttrisierp->data->triwidth *= 1.1;
-				w->p.fr.lsttrisierp->data->triheight *= 1.1;
-			}*/
+				w->p.fr.it_max = FG(zoom)/10; // to incremtente details
+				w->p.fr.triwidth *= 1.1;
+				w->p.fr.triheight *= 1.1;
+			}
 		}
 	}
 	if (button == 5)
@@ -202,12 +199,12 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 		{
 			//if (w->p.fr.it_max > 0)
 			//{
-			/*
+			
 			if (w->p.fr.zoom == 0)
 			{
-				w->p.fr.lsttrisierp->data->zoom = 64;
-				w->p.fr.lsttrisierp->data->triwidth = w->width * 8;
-				w->p.fr.lsttrisierp->data->triheight = w->height * 8;
+				w->p.fr.zoom = 64;
+				w->p.fr.triwidth = w->width * 8;
+				w->p.fr.triheight = w->height * 8;
 			}
 			else if (w->p.fr.zoom == 20)
 			{
@@ -218,11 +215,11 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 				//triangle_sierpinski_main(zoom, it_max, triwidth, triheight);
 				FG(zoom)--;
 				//w->p.fr.coeff /= FG(zoomspeed);
-				//w->p.fr.it_max -= 1;//And add 50 incrementation
+				w->p.fr.it_max = FG(zoom)/10;//And add 50 incrementation
 				//w->p.fr.ptriwidth = - w->width/1.1;
 				w->p.fr.triwidth /= 1.1;
 				w->p.fr.triheight /= 1.1;
-			}*/
+			}
 		}
 	}
 	//ft_putnbr(button);

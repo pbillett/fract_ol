@@ -58,7 +58,7 @@ t_rgbcolor		ft_inttorgb(unsigned int n);
 
 void			julia_presetkeys(int keycode, t_wind *w);
 
-int				triangle_sierpinski_main(t_wind *w, t_tri_sierp *d);
+int				triangle_sierpinski_main(t_wind *w);
 void			printlst_trisierp(t_wind *w);
 
 int				draw_2dline(t_wind *w, t_point p, t_point pd, t_rgbcolor color);

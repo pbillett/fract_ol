@@ -18,7 +18,8 @@ int		create_new_img(t_wind *w)
 	else if (w->p.view_mode == 4)
 	{
 		//ft_putendl("triangle_sierpinski_main");
-		printlst_trisierp(w);
+		triangle_sierpinski_main(w);
+		//printlst_trisierp(w);
 	}
 	return (0);
 }
