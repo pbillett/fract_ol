@@ -94,8 +94,8 @@ t_wind			fract_ol(char *fracname)
 	{
 		w.p.fr.motion = 0; // Motion on julia
 		w.p.fr.it_max = 1;
-		w.p.fr.triwidth = w.width / 50; // 50 level of unzoom
-		w.p.fr.triheight = w.height / 50;
+		w.p.fr.triwidth = w.width; // 50 level of unzoom
+		w.p.fr.triheight = w.height;
 	}
 	init_zoom(&w);
 	create_new_img(&w);

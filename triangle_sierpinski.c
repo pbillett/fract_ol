@@ -101,20 +101,20 @@ int					triangle_sierpinski_main(t_wind *w)
 	ft_putstr("\n");
 	ft_putstr("w->p.fr.it_max:");
 	ft_putnbr(w->p.fr.it_max);
-	ft_putstr("\n");
+	ft_putstr("\n");/*
 	ft_putstr("w->width:");
 	ft_putnbr(w->width);
 	ft_putstr("\n");
 	ft_putstr("w->height:");
 	ft_putnbr(w->height);
-	ft_putstr("\n");
+	ft_putstr("\n");*/
 	n = w->p.fr.it_max;
 	//if(!w->p.fr.ptriwidth)
 		//w->p.fr.ptriwidth = 0;
 	/*else
 		ptriwidth = w->width/10;*/
 	//ft_putendl("before triangle_sierpinski");
-	triangle_sierpinski(w, (w->width/2) - (w->p.fr.triwidth/2) + FG(mouse_x), w->p.fr.triheight, w->p.fr.triwidth, (int)n);
+	triangle_sierpinski(w, (w->width/2) - (w->p.fr.triwidth/2), OY + w->p.fr.triheight, w->p.fr.triwidth, (int)n);
 	//ft_putendl("after triangle_sierpinski");
 	return 0;
 }

@@ -174,9 +174,9 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 			{
 				w->p.fr.zoom++;
 				//w->p.fr.coeff *= FG(zoomspeed);
-				w->p.fr.it_max = FG(zoom)/10; // to incremtente details
+				w->p.fr.it_max++; // to incremtente details
 				w->p.fr.triwidth *= 1.1;
-				w->p.fr.triheight *= 1.1;
+				//w->p.fr.triheight *= 1.1;
 			}
 		}
 	}
@@ -215,10 +215,10 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 				//triangle_sierpinski_main(zoom, it_max, triwidth, triheight);
 				FG(zoom)--;
 				//w->p.fr.coeff /= FG(zoomspeed);
-				w->p.fr.it_max = FG(zoom)/10;//And add 50 incrementation
+				w->p.fr.it_max--;//And add 50 incrementation
 				//w->p.fr.ptriwidth = - w->width/1.1;
 				w->p.fr.triwidth /= 1.1;
-				w->p.fr.triheight /= 1.1;
+				//w->p.fr.triheight /= 1.1;
 			}
 		}
 	}
