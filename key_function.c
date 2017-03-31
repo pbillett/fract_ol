@@ -149,8 +149,8 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 	}
 	if (button == 4)//Zoom molette
 	{
-		if (w->p.view_mode == 2 || w->p.view_mode == 3)
-		{
+		//if (w->p.view_mode == 2 || w->p.view_mode == 3)
+		//{
 			FG(zoom)++;
 			w->p.fr.coeff *= FG(zoomspeed);
 			zoom(w, x, y, 1); // Zoom in(1.1 value)
@@ -158,32 +158,32 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 			printf("coeff:%.2f\n", w->p.fr.coeff);
 			printf("w.p.fr.zoom_x :%.2f\n", FG(zoom_x));
 			printf("w.p.fr.zoom_y :%.2f\n", FG(zoom_y));
-		}
-		else
-		{
+		//}
+		//else
+		//{
 			//if (w->p.fr.it_max != 6)
 			//{
 			
-			if (w->p.fr.zoom == 64)
+			/*if (w->p.fr.zoom == 64)
 			{
 				w->p.fr.zoom = 0;
 				w->p.fr.triwidth = w->width / 50;
 				w->p.fr.triheight = w->height / 50;
 			}
 			else
-			{
-				w->p.fr.zoom++;
+			{*/
+				//w->p.fr.zoom++;
 				//w->p.fr.coeff *= FG(zoomspeed);
-				w->p.fr.it_max++; // to incremtente details
-				w->p.fr.triwidth *= 1.1;
+				//w->p.fr.it_max++; // to incremtente details
+				w->p.fr.triwidth *= 1.1; // For triangle_sierpinski
 				//w->p.fr.triheight *= 1.1;
-			}
-		}
+			//}
+		//}
 	}
 	if (button == 5)
 	{
-		if (w->p.view_mode == 2 || w->p.view_mode == 3)
-		{
+		/*if (w->p.view_mode == 2 || w->p.view_mode == 3)
+		{*/
 			FG(zoom)--;
 			w->p.fr.coeff /= FG(zoomspeed);
 			zoom(w, x, y, 0);
@@ -193,8 +193,8 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 			printf("coeff:%.2f\n", w->p.fr.coeff);
 			printf("w.p.fr.zoom_x :%.2f\n", FG(zoom_x));
 			printf("w.p.fr.zoom_y :%.2f\n", FG(zoom_y));
-			w->p.fr.it_max -= w->p.fr.quality_of_details;
-		}
+			//w->p.fr.it_max -= w->p.fr.quality_of_details;
+		/*}
 		else
 		{
 			//if (w->p.fr.it_max > 0)
@@ -216,11 +216,11 @@ int			mouse_function(int button, int x, int y, t_wind *w)
 				FG(zoom)--;
 				//w->p.fr.coeff /= FG(zoomspeed);
 				w->p.fr.it_max--;//And add 50 incrementation
-				//w->p.fr.ptriwidth = - w->width/1.1;
+				//w->p.fr.ptriwidth = - w->width/1.1;*/
 				w->p.fr.triwidth /= 1.1;
 				//w->p.fr.triheight /= 1.1;
-			}
-		}
+			//}
+		//}
 	}
 	//ft_putnbr(button);
 	mlx_destroy_image(w->mlx, w->img.ptr_img);

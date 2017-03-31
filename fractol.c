@@ -93,7 +93,7 @@ t_wind			fract_ol(char *fracname)
 	if (ft_strcmp(w.p.fr.name, "triangle_sierpinski") == 0)
 	{
 		w.p.fr.motion = 0; // Motion on julia
-		w.p.fr.it_max = 1;
+		w.p.fr.it_max = 4; // increment details every 5 zoom
 		w.p.fr.triwidth = w.width; // 50 level of unzoom
 		w.p.fr.triheight = w.height;
 	}
