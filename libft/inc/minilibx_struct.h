@@ -6,12 +6,12 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:45:54 by pbillett          #+#    #+#             */
-/*   Updated: 2017/01/10 15:48:42 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/04/03 19:16:04 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#ifndef MINILIBX_STRUCT_H
+# define MINILIBX_STRUCT_H
 
 typedef struct				s_rgbcolor
 {

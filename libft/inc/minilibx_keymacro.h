@@ -6,12 +6,12 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:44:56 by pbillett          #+#    #+#             */
-/*   Updated: 2017/01/10 15:33:20 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/04/03 19:16:29 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEYMACRO_H
-# define KEYMACRO_H
+#ifndef MINILIBX_KEYMACRO_H
+# define MINILIBX_KEYMACRO_H
 
 # if MACROKEY == 1
 #  define EXIT 53
