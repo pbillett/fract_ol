@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   struct.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/03 15:42:01 by pbillett          #+#    #+#             */
+/*   Updated: 2017/04/03 16:33:54 by pbillett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# ifndef STRUCT_H
+#ifndef STRUCT_H
 # define STRUCT_H
 
 typedef struct			s_rgbcolor
@@ -11,6 +22,7 @@ typedef struct			s_rgbcolor
 
 typedef struct			s_fractal
 {
+	int					i;
 	char				*name;
 	struct s_mandelbrot *fra;
 	struct s_mandelbrot *mdb;
@@ -52,6 +64,15 @@ typedef struct			s_mandelbrot
 	float				z_i;
 	float				tmp;
 }						t_mandelbrot;
+
+typedef struct			s_trisierp
+{
+	double				x;
+	double				y;
+	double				a;
+	double				b;
+	unsigned long		n;
+}						t_trisierp;
 
 typedef struct			s_gradientcol
 {
@@ -152,4 +173,3 @@ typedef struct			s_wind
 }						t_wind;
 
 #endif
-

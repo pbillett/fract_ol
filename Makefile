@@ -14,6 +14,7 @@ SRC=	main.c \
 		draw_point.c \
 		rgbtohexa.c \
 		key_function.c \
+		ft_randcolorrgb.c \
 		mouse_function.c \
 		put_info.c \
 		error.c

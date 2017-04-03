@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractal.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/03 15:13:07 by pbillett          #+#    #+#             */
+/*   Updated: 2017/04/03 15:24:48 by pbillett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
-static void		set_nbrcomplexandz(t_wind *w, int x, int y)
+static void			set_nbrcomplexandz(t_wind *w, int x, int y)
 {
 	if (ft_strcmp(w->p.fr.name, "julia") == 0)
 	{
@@ -18,12 +30,12 @@ static void		set_nbrcomplexandz(t_wind *w, int x, int y)
 	}
 }
 
-void mydraw(t_wind *w, int x, int y, t_rgbcolor color, int i)
+void				mydraw(t_wind *w, int x, int y, t_rgbcolor color)
 {
-	int index;
+	int				index;
 
 	index = x * (w->img.bits_per_pixel / 8) + (y * w->img.size_line);
-	if (i == w->p.fr.it_max)
+	if (FG(i) == w->p.fr.it_max)
 	{
 		w->img.pxl_ptr[index] = 0;
 		w->img.pxl_ptr[index + 1] = 0;
@@ -31,17 +43,23 @@ void mydraw(t_wind *w, int x, int y, t_rgbcolor color, int i)
 	}
 	else
 	{
-		w->img.pxl_ptr[index] = i * color.b;
-		w->img.pxl_ptr[index + 1] = i * color.g;
-		w->img.pxl_ptr[index + 2] = i * color.r;
+		w->img.pxl_ptr[index] = FG(i) * color.b;
+		w->img.pxl_ptr[index + 1] = FG(i) * color.g;
+		w->img.pxl_ptr[index + 2] = FG(i) * color.r;
 	}
+}
+
+static void			draw_fspacemode(t_wind *w)
+{
+	if (FG(i) == FG(it_max))
+		w->p.fr.color = (t_rgbcolor){0, 0, 0};
+	else
+		ultra_fractalgrade(w);
+	draw_point(w, FG(x), FG(y), w->p.fr.color);
 }
 
 int					fractal(t_wind *w)
 {
-	int				i;
-	t_gradientcol	gradecolor;
-
 	FG(x) = 0;
 	while (FG(x) < w->width)
 	{
@@ -49,27 +67,19 @@ int					fractal(t_wind *w)
 		while (FG(y) < w->height)
 		{
 			set_nbrcomplexandz(w, FG(x), FG(y));
-			i = 0;
-			while ((ft_squared(FF(z_r)) + ft_squared(FF(z_i))) < 4 && i < FG(it_max))
+			FG(i) = 0;
+			while ((ft_squared(FF(z_r)) + ft_squared(FF(z_i))) < 4 &&
+					FG(i) < FG(it_max))
 			{
 				FF(tmp) = FF(z_r);
 				FF(z_r) = (ft_squared(FF(z_r)) - ft_squared(FF(z_i))) + FF(c_r);
 				FF(z_i) = 2 * FF(tmp) * FF(z_i) + FF(c_i);
-				i++;
+				FG(i)++;
 				if (w->p.fr.colorset == 0)
-					mydraw(w, FG(x), FG(y), FG(color), i);
+					mydraw(w, FG(x), FG(y), FG(color));
 			}
 			if (w->p.fr.colorset == 1)
-			{
-				if (i == FG(it_max))
-					w->p.fr.color = (t_rgbcolor){0, 0, 0};
-				else
-				{
-					gradecolor = ultra_fractalgrade();
-					w->p.fr.color = colorgrade(i/100, gradecolor);
-				}
-				draw_point(w, FG(x), FG(y), w->p.fr.color);
-			}
+				draw_fspacemode(w);
 			FG(y)++;
 		}
 		FG(x)++;

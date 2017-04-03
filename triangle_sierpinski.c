@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   triangle_sierpinski.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/03 14:56:15 by pbillett          #+#    #+#             */
+/*   Updated: 2017/04/03 16:54:31 by pbillett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 #include <stdlib.h>
 #include <math.h>
@@ -13,62 +25,76 @@ static void			draw_trianglef(t_wind *w, t_triangle t, t_rgbcolor color)
 	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr_img, w->img.x, w->img.y);
 }
 
-static void			triangle_sierp_outside(t_wind *w, double x, double y, double a)
+static void			triangle_sierp_outside(t_wind *w, t_trisierp t)
 {
-	double			b;
-	t_triangle		t;
+	t_triangle		t1;
 
-	b = -a*sqrt(3.0)/2;
-	t.dl.x = x;
-	t.dl.y = y;
-	t.dl.z = 0;
-	t.dr.x = x + a;
-	t.dr.y = y;
-	t.dr.z = 0;
-	t.dt.x = x + (a / 2);
-	t.dt.y = (y + b);
-	t.dt.z = 0;
-	draw_trianglef(w, t, FG(color));
+	t1.dl.x = t.x;
+	t1.dl.y = t.y;
+	t1.dl.z = 0;
+	t1.dr.x = t.x + t.a;
+	t1.dr.y = t.y;
+	t1.dr.z = 0;
+	t1.dt.x = t.x + (t.a / 2);
+	t1.dt.y = (t.y + t.b);
+	t1.dt.z = 0;
+	draw_trianglef(w, t1, FG(color));
 }
 
-static void			triangle_sierp_inside(t_wind *w, double x, double y, double a)
+static void			triangle_sierp_inside(t_wind *w, t_trisierp t)
 {
-	double			b;
 	t_triangle		t2;
 
-	b = -a*sqrt(3.0)/2;
-	t2.dl.x = x + (a / 2);
-	t2.dl.y = y;
-	t2.dr.x = x + 3 * a / 4;
-	t2.dr.y = y + b / 2;
-	t2.dt.x = x + (a / 4);
-	t2.dt.y = (y + b / 2);
+	t2.dl.x = t.x + (t.a / 2);
+	t2.dl.y = t.y;
+	t2.dr.x = t.x + 3 * t.a / 4;
+	t2.dr.y = t.y + t.b / 2;
+	t2.dt.x = t.x + (t.a / 4);
+	t2.dt.y = (t.y + t.b / 2);
 	draw_trianglef(w, t2, FG(color));
 }
 
-static void			triangle_sierpinski(t_wind *w, double x, double y, double a, int n)
+static void			triangle_sierpinski(t_wind *w, t_trisierp t)
 {
-	double			b;
+	t_trisierp		t1;
+	t_trisierp		t2;
+	t_trisierp		t3;
 
-	b = -a*sqrt(3.0)/2;
-	if (n>0)
+	t.b = -t.a * sqrt(3.0) / 2;
+	if (t.n > 0)
 	{
-		triangle_sierp_outside(w, x, y, a);
-		triangle_sierp_inside(w, x, y, a);
-		triangle_sierpinski(w, x, y, a/2, n-1);
-		triangle_sierpinski(w, x+a/2, y, a/2, n-1);
-		triangle_sierpinski(w, x+a/4, y+b/2, a/2, n-1);
+		triangle_sierp_outside(w, t);
+		triangle_sierp_inside(w, t);
+		t1 = t;
+		t1.a = t.a / 2;
+		t1.n = t.n - 1;
+		triangle_sierpinski(w, t1);
+		t2 = t;
+		t2.x = t.x + t.a / 2;
+		t2.a = t.a / 2;
+		t2.n = t.n - 1;
+		triangle_sierpinski(w, t2);
+		t3 = t;
+		t3.a = t.a / 2;
+		t3.x = t.x + t.a / 4;
+		t3.y = t.y + t.b / 2;
+		t3.n = t.n - 1;
+		triangle_sierpinski(w, t3);
 	}
 }
 
 int					triangle_sierpinski_main(t_wind *w)
 {
-	unsigned long	n;
+	t_trisierp		t;
 
 	if (w->p.fr.it_max >= 4)
-		n = w->p.fr.it_max / 4;
+		t.n = w->p.fr.it_max / 4;
 	else
-		n = 1;
-	triangle_sierpinski(w, 0, OY + w->p.fr.triheight, w->p.fr.triwidth, (int)n);
+		t.n = 1;
+	t.x = 0;
+	t.y = OY + w->p.fr.triheight;
+	t.a = w->p.fr.triwidth;
+	t.x = 0;
+	triangle_sierpinski(w, t);
 	return (0);
 }

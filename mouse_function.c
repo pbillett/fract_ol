@@ -6,19 +6,19 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 15:31:52 by pbillett          #+#    #+#             */
-/*   Updated: 2017/03/24 20:14:59 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/04/03 15:11:05 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void						init_zoom(t_wind *w)
+void			init_zoom(t_wind *w)
 {
 	FG(zoom_x) = w->width / (FF(x2) - FF(x1));
 	FG(zoom_y) = w->height / (FF(y2) - FF(y1));
 }
 
-void				ft_refresh_view(t_wind *w)
+void			ft_refresh_view(t_wind *w)
 {
 	mlx_destroy_image(w->mlx, w->img.ptr_img);
 	create_new_img(w);
@@ -26,14 +26,16 @@ void				ft_refresh_view(t_wind *w)
 	put_info(w);
 }
 
-int					mouse_motion_function(int x, int y, t_wind *w)
+int				mouse_motion_function(int x, int y, t_wind *w)
 {
 	if (w->p.fr.motion == 1)
 	{
 		w->p.fr.mouse_x = x;
 		w->p.fr.mouse_y = y;
-		FG(mouse_xjul) = (double)(w->height/2 - FG(mouse_y)) / ((double)w->width * 2);
-		FG(mouse_yjul) = (double)(w->width/2 - FG(mouse_x)) / ((double)w->height * 2);
+		FG(mouse_xjul) = (double)(w->height / 2 - FG(mouse_y)) /
+			((double)w->width * 2);
+		FG(mouse_yjul) = (double)(w->width / 2 - FG(mouse_x)) /
+			((double)w->height * 2);
 	}
 	ft_refresh_view(w);
 	return (0);
@@ -57,7 +59,7 @@ void			zoom(t_wind *w, int x, int y, int zoominbool)
 	init_zoom(w);
 }
 
-int			mouse_function(int button, int x, int y, t_wind *w)
+int				mouse_function(int button, int x, int y, t_wind *w)
 {
 	if (button == 1)
 	{

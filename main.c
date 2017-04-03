@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/03 15:11:27 by pbillett          #+#    #+#             */
+/*   Updated: 2017/04/03 15:12:48 by pbillett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
-void			start_hooks(t_wind *lstwin, int numbwind)
+void				start_hooks(t_wind *lstwin, int numbwind)
 {
-	int			i;
+	int				i;
 
 	i = 0;
 	while (i < numbwind)
@@ -10,7 +22,8 @@ void			start_hooks(t_wind *lstwin, int numbwind)
 		mlx_hook(lstwin[i].win, 2, 1, key_function, &(lstwin[i]));
 		mlx_mouse_hook(lstwin[i].win, mouse_function, &(lstwin[i]));
 		if ((lstwin[i]).p.view_mode == 3)
-			mlx_hook(lstwin[i].win, MOTIONNOTIFY, POINTERMOTIONMASK, mouse_motion_function, &(lstwin[i]));
+			mlx_hook(lstwin[i].win, MOTIONNOTIFY, POINTERMOTIONMASK,
+					mouse_motion_function, &(lstwin[i]));
 		mlx_expose_hook(lstwin[i].win, expose_hook, &(lstwin[i]));
 		i++;
 	}
@@ -37,10 +50,10 @@ int					main(int argc, char **argv)
 	t_wind			*listwin;
 
 	i = 0;
-	listwin = malloc (sizeof(t_wind) * (argc - 1));
-	while (i+1 < argc)
+	listwin = malloc(sizeof(t_wind) * (argc - 1));
+	while (i + 1 < argc)
 	{
-		if (!argv[i+1] || !check_fractal_name(argv[i+1]) || argc < 2)
+		if (!argv[i + 1] || !check_fractal_name(argv[i + 1]) || argc < 2)
 		{
 			ft_putendl("mandelbrot");
 			ft_putendl("julia");
@@ -50,9 +63,9 @@ int					main(int argc, char **argv)
 		i++;
 	}
 	i = 0;
-	while ((i+1) < argc)
+	while ((i + 1) < argc)
 	{
-		listwin[i] = fract_ol(argv[i+1]);
+		listwin[i] = fract_ol(argv[i + 1]);
 		i++;
 	}
 	start_hooks(listwin, argc - 1);

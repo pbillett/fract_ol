@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/03 15:25:26 by pbillett          #+#    #+#             */
+/*   Updated: 2017/04/03 15:27:48 by pbillett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
-t_mandelbrot				*init_mandelbrot()
+t_mandelbrot				*init_mandelbrot(void)
 {
 	t_mandelbrot			*m;
 
@@ -61,7 +73,7 @@ static void					set_parameters(t_wind *w)
 	w->p.fr.triheight = w->height;
 }
 
-static void			set_mode(t_wind *w, char *fracname)
+static void					set_mode(t_wind *w, char *fracname)
 {
 	w->p.fr.mdb = init_mandelbrot();
 	w->p.fr.jul = init_julia();
@@ -86,9 +98,9 @@ static void			set_mode(t_wind *w, char *fracname)
 	w->p.fr.name = fracname;
 }
 
-t_wind			fract_ol(char *fracname)
+t_wind						fract_ol(char *fracname)
 {
-	t_wind		w;
+	t_wind					w;
 
 	w = create_new_window(fracname, WIDTH, HEIGHT);
 	set_parameters(&w);
