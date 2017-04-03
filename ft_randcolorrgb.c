@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:04:30 by pbillett          #+#    #+#             */
-/*   Updated: 2017/04/03 15:04:41 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/04/03 19:01:12 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void				ft_randcolorrgb(t_wind *w)
 {
-	FG(color.b) = rand() * 255;
-	FG(color.g) = rand() * 255;
-	FG(color.r) = rand() * 255;
+	FG(color.b) = rand() % 255;
+	FG(color.g) = rand() % 255;
+	FG(color.r) = rand() % 255;
 }

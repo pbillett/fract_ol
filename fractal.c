@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:13:07 by pbillett          #+#    #+#             */
-/*   Updated: 2017/04/03 15:24:48 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/04/03 18:38:02 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@ void				mydraw(t_wind *w, int x, int y, t_rgbcolor color)
 		w->img.pxl_ptr[index + 1] = FG(i) * color.g;
 		w->img.pxl_ptr[index + 2] = FG(i) * color.r;
 	}
+}
+
+void				reinit_fractal(t_wind *w, char *fracname)
+{
+	set_parameters(w);
+	set_mode(w, fracname);
+	init_zoom(w);
 }
 
 static void			draw_fspacemode(t_wind *w)

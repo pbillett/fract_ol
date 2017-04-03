@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 15:31:52 by pbillett          #+#    #+#             */
-/*   Updated: 2017/04/03 15:11:05 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/04/03 18:39:36 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int				mouse_motion_function(int x, int y, t_wind *w)
 		w->p.fr.mouse_x = x;
 		w->p.fr.mouse_y = y;
 		FG(mouse_xjul) = (double)(w->height / 2 - FG(mouse_y)) /
-			((double)w->width * 2);
+			((double)w->width / 4);
 		FG(mouse_yjul) = (double)(w->width / 2 - FG(mouse_x)) /
-			((double)w->height * 2);
+			((double)w->height / 4);
 	}
 	ft_refresh_view(w);
 	return (0);
@@ -68,6 +68,8 @@ int				mouse_function(int button, int x, int y, t_wind *w)
 		else
 			w->p.fr.motion = 0;
 	}
+	if (button == 2)
+		reinit_fractal(w, w->p.fr.name);
 	if (button == 4)
 	{
 		FG(zoom)++;

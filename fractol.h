@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:40:00 by pbillett          #+#    #+#             */
-/*   Updated: 2017/04/03 15:41:44 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/04/03 18:49:57 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,8 @@ void			put_info(t_wind *w);
 void			error_malloc(void);
 t_mandelbrot	*init_mandelbrot(void);
 t_mandelbrot	*init_julia(void);
+void			set_mode(t_wind *w, char *fracname);
+void			set_parameters(t_wind *w);
+void			reinit_fractal(t_wind *w, char *fracname);
 
 #endif

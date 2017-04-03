@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:25:26 by pbillett          #+#    #+#             */
-/*   Updated: 2017/04/03 15:27:48 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/04/03 19:03:18 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_mandelbrot				*init_julia(void)
 	return (j);
 }
 
-static void					set_parameters(t_wind *w)
+void						set_parameters(t_wind *w)
 {
 	w->width = WIDTH;
 	w->height = HEIGHT;
@@ -73,21 +73,24 @@ static void					set_parameters(t_wind *w)
 	w->p.fr.triheight = w->height;
 }
 
-static void					set_mode(t_wind *w, char *fracname)
+void						set_mode(t_wind *w, char *fracname)
 {
 	w->p.fr.mdb = init_mandelbrot();
 	w->p.fr.jul = init_julia();
+	w->p.fr.fra = w->p.fr.mdb;
 	if (ft_strcmp(fracname, "mandelbrot") == 0)
 	{
 		w->p.view_mode = 2;
 		w->p.fr.motion = 0;
 		w->p.fr.fra = w->p.fr.mdb;
+		(FG(it_max) == 4) ? (FG(it_max) = ITMAX) : 0;
 	}
 	else if (ft_strcmp(fracname, "julia") == 0)
 	{
 		w->p.view_mode = 3;
 		w->p.fr.motion = 1;
 		w->p.fr.fra = w->p.fr.jul;
+		(FG(it_max) == 4) ? (FG(it_max) = ITMAX) : 0;
 	}
 	else if (ft_strcmp(fracname, "triangle_sierpinski") == 0)
 	{
@@ -103,9 +106,7 @@ t_wind						fract_ol(char *fracname)
 	t_wind					w;
 
 	w = create_new_window(fracname, WIDTH, HEIGHT);
-	set_parameters(&w);
-	set_mode(&w, fracname);
-	init_zoom(&w);
+	reinit_fractal(&w, fracname);
 	create_new_img(&w);
 	mlx_put_image_to_window(w.mlx, w.win, w.img.ptr_img, w.img.x, w.img.y);
 	put_info(&w);

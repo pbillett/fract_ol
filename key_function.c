@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:06:44 by pbillett          #+#    #+#             */
-/*   Updated: 2017/04/03 15:09:56 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/04/03 18:04:56 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,23 @@ static void			ft_arrowkeys(int keycode, t_wind *w)
 {
 	if (keycode == L_ARROW)
 	{
-		FF(x1) -= FG(range_x) / 50;
-		FF(x2) -= FG(range_x) / 50;
+		FF(x1) -= FG(range_x) / 25;
+		FF(x2) -= FG(range_x) / 25;
 	}
 	else if (keycode == R_ARROW)
 	{
-		FF(x1) += FG(range_x) / 50;
-		FF(x2) += FG(range_x) / 50;
+		FF(x1) += FG(range_x) / 25;
+		FF(x2) += FG(range_x) / 25;
 	}
 	else if (keycode == U_ARROW)
 	{
-		FF(y1) -= FG(range_y) / 50;
-		FF(y2) -= FG(range_y) / 50;
+		FF(y1) -= FG(range_y) / 25;
+		FF(y2) -= FG(range_y) / 25;
 	}
 	else if (keycode == D_ARROW)
 	{
-		FF(y1) += FG(range_y) / 50;
-		FF(y2) += FG(range_y) / 50;
+		FF(y1) += FG(range_y) / 25;
+		FF(y2) += FG(range_y) / 25;
 	}
 }
 
@@ -96,25 +96,11 @@ static void			ft_page_space_zoom_keys(int keycode, t_wind *w)
 static void			ft_setmode_fractal(int keycode, t_wind *w)
 {
 	if (keycode == F2)
-	{
-		w->p.fr.name = "mandelbrot";
-		w->p.view_mode = 2;
-		w->p.fr.fra = init_mandelbrot();
-		w->p.fr.motion = 0;
-	}
+		set_mode(w, "mandelbrot");
 	else if (keycode == F3)
-	{
-		w->p.fr.name = "julia";
-		w->p.view_mode = 3;
-		w->p.fr.fra = init_julia();
-		w->p.fr.motion = 1;
-	}
+		set_mode(w, "julia");
 	else if (keycode == F4)
-	{
-		w->p.view_mode = 4;
-		w->p.fr.name = "triangle_sierpinski";
-		w->p.fr.motion = 0;
-	}
+		set_mode(w, "triangle_sierpinski");
 }
 
 int					key_function(int keycode, t_wind *w)
