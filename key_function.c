@@ -103,17 +103,20 @@ int					key_function(int keycode, t_wind *w)
 		w->p.fr.name = "mandelbrot";
 		w->p.view_mode = 2; // Mode iso par défault (touche F2/F3 pour changer)
 		w->p.fr.fra = init_mandelbrot();
+		w->p.fr.motion = 0;
 	}
 	else if (keycode == F3)
 	{
 		w->p.fr.name = "julia";
 		w->p.view_mode = 3; // Mode iso par défault (touche F2/F3 pour changer)
 		w->p.fr.fra = init_julia();
+		w->p.fr.motion = 1;
 	}
 	else if (keycode == F4)
 	{
 		w->p.view_mode = 4; // Mode iso par défault (touche F2/F3 pour changer)
 		w->p.fr.name = "triangle_sierpinski";
+		w->p.fr.motion = 0;
 	}
 	FG(range_x) = FF(x2) - FF(x1);
 	FG(range_y) = FF(y2) - FF(y1);

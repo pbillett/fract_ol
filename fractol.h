@@ -5,7 +5,6 @@
 
 # define FRACT_OL_H
 #include "libft/inc/libft.h"
-//#include "libft/inc/minilibx.h"
 #include "libft/inc/minilibx/mlx.h"
 #include "struct.h"
 #include "keymacro.h"
@@ -17,11 +16,11 @@
 #define BUTTONMOTIONMASK	(1L<<13)
 #define POINTERMOTIONMASK	(1L<<6)
 #define NOEVENTMASK			0L
-#define WIDTH 540
-#define HEIGHT 480
+#define WIDTH 1000
+#define HEIGHT 1000
 #define ZOOM 1
 #define COEFF 0.78
-#define ITMAX 10
+#define ITMAX 20
 #define ZOOMSPEED 0.5
 #define COLORSET 0
 #define FF(x) w->p.fr.fra->x
