@@ -3,20 +3,20 @@
 UNAME := $(shell uname)
 NAME=fractol
 SRC=	main.c \
-		draw_point.c \
-		fractal.c \
 		fractol.c \
-		create_new_window.c \
-		create_new_img.c \
-		key_function.c \
-		mouse_function.c \
+		fractal.c \
+		set_julia.c \
 		triangle_sierpinski.c \
 		draw_line.c \
+		set_parameters_tline.c \
+		create_new_window.c \
+		create_new_img.c \
+		draw_point.c \
 		rgbtohexa.c \
-		error.c \
+		key_function.c \
+		mouse_function.c \
 		put_info.c \
-		set_julia.c \
-		set_parameters_tline.c
+		error.c
 OBJ=${SRC:.c=.o}
 
 ifeq ($(UNAME), Darwin) # MAC

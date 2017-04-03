@@ -56,6 +56,7 @@
 #  define F1 23
 #  define F2 22
 #  define F3 26
+#  define F4 26
 #  define SPACE 49
 # else
 #  define EXIT 65307
@@ -100,6 +101,7 @@
 #  define F1 65470
 #  define F2 65471
 #  define F3 65472
+#  define F4 65473
 #  define SPACE 32
 # endif
 #endif

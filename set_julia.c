@@ -12,8 +12,6 @@
 
 #include "fractol.h"
 
-// Voir image ensemble de julia wikipedia ici:
-// https://commons.wikimedia.org/wiki/File:Julia-Teppich.png?uselang=fr
 void		set_julia(t_wind *w, double c, double i)
 {
 	FG(mouse_xjul) = c;

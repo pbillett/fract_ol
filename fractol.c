@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-static	t_mandelbrot		*init_mandelbrot()
+t_mandelbrot				*init_mandelbrot()
 {
 	t_mandelbrot			*m;
 
@@ -19,7 +19,7 @@ static	t_mandelbrot		*init_mandelbrot()
 	return (m);
 }
 
-static t_mandelbrot			*init_julia(void)
+t_mandelbrot				*init_julia(void)
 {
 	t_mandelbrot			*j;
 
@@ -40,32 +40,49 @@ static t_mandelbrot			*init_julia(void)
 
 static void					set_parameters(t_wind *w)
 {
+	w->width = WIDTH;
+	w->height = HEIGHT;
 	w->p.fr.hexa_bg = "0x000000";
 	w->img.x = 0;
 	w->img.y = 0;
 	w->p.fr.x = 0;
 	w->p.fr.y = 0;
-	w->p.fr.colshuffle = 0;
 	FG(mouse_x) = 0;
 	FG(mouse_y) = 0;
 	FG(color) = (t_rgbcolor){2, 20, 210};
-	FG(zoomspeed) = ZOOMSPEED;// Zoom speed (Fast:70, Default:50, smooth Zoom:10 (but harder for calcultation),)
-	w->p.fr.colorset = COLORSET;//set color set default: 0 - spacebar for change
+	FG(zoomspeed) = ZOOMSPEED;
+	w->p.fr.colorset = COLORSET;
 	w->img.width = WIDTH;
 	w->img.height = HEIGHT;
-	FG(zoom) = ZOOM;//Zoom et nbr iteration
+	FG(zoom) = ZOOM;
 	w->p.fr.coeff = COEFF;
-	w->p.fr.it_max = ITMAX;//Define at startup
+	w->p.fr.it_max = ITMAX;
+	w->p.fr.triwidth = w->width;
+	w->p.fr.triheight = w->height;
 }
 
 static void			set_mode(t_wind *w, char *fracname)
 {
+	w->p.fr.mdb = init_mandelbrot();
+	w->p.fr.jul = init_julia();
 	if (ft_strcmp(fracname, "mandelbrot") == 0)
+	{
 		w->p.view_mode = 2;
+		w->p.fr.motion = 0;
+		w->p.fr.fra = w->p.fr.mdb;
+	}
 	else if (ft_strcmp(fracname, "julia") == 0)
+	{
 		w->p.view_mode = 3;
+		w->p.fr.motion = 1;
+		w->p.fr.fra = w->p.fr.jul;
+	}
 	else if (ft_strcmp(fracname, "triangle_sierpinski") == 0)
+	{
 		w->p.view_mode = 4;
+		w->p.fr.motion = 0;
+		w->p.fr.it_max = 4;
+	}
 	w->p.fr.name = fracname;
 }
 
@@ -73,33 +90,12 @@ t_wind			fract_ol(char *fracname)
 {
 	t_wind		w;
 
-	w.width = WIDTH;
-	w.height = HEIGHT;
 	w = create_new_window(fracname, WIDTH, HEIGHT);
 	set_parameters(&w);
-	w.p.fr.mdb = init_mandelbrot();
-	w.p.fr.jul = init_julia();
 	set_mode(&w, fracname);
-	if (ft_strcmp(w.p.fr.name, "mandelbrot") == 0)
-	{
-		w.p.fr.motion = 0; // Motion on julia
-		w.p.fr.fra = w.p.fr.mdb;
-	}
-	if (ft_strcmp(w.p.fr.name, "julia") == 0)
-	{
-		w.p.fr.motion = 1; // Motion on julia
-		w.p.fr.fra = w.p.fr.jul;
-	}
-	if (ft_strcmp(w.p.fr.name, "triangle_sierpinski") == 0)
-	{
-		w.p.fr.motion = 0; // Motion on julia
-		w.p.fr.it_max = 4; // increment details every 5 zoom
-		w.p.fr.triwidth = w.width; // 50 level of unzoom
-		w.p.fr.triheight = w.height;
-	}
 	init_zoom(&w);
 	create_new_img(&w);
-	put_info(&w);
 	mlx_put_image_to_window(w.mlx, w.win, w.img.ptr_img, w.img.x, w.img.y);
+	put_info(&w);
 	return (w);
 }

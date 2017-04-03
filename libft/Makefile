@@ -72,6 +72,7 @@ SRC= src/ft_lstiter.c \
 	src/ft_strnew.c \
 	src/ft_squared.c \
 	src/ft_inttohex.c \
+	src/ft_hexatorgb.c \
 	src/get_next_line.c
 CFLAGS= -Wall -Werror -Wextra
 SRCDIR= src

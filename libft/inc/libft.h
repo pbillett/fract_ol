@@ -90,6 +90,9 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_sort_list(t_list *lst, int (*cmp)(int, int));
 float				ft_squared(float n);
 float				ft_pythagore(float a, float b);
+
 char				*ft_inttohex(unsigned int n);
+int					ft_hextoint(char *s);
+double				ft_degree_to_radian(int degree);
 
 #endif

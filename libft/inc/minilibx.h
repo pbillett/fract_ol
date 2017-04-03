@@ -20,12 +20,6 @@
 # include <math.h>
 # include <stdlib.h>
 
-double			ft_degree_to_radian(int degree);
-char			*ft_rgbtohexa(t_rgbcolor rgbcolor);
-t_rgbcolor		ft_hexatorgb(char *hexcolor);
-int				ft_hextoint(char *s);
-char			*ft_inttohex(unsigned int n);
-
 int				fdf(char *filename);
 void			def_all_preui(t_wind *w);
 t_wind			create_new_window(char *title, int width, int height);

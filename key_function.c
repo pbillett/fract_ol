@@ -1,11 +1,5 @@
 #include "fractol.h"
 
-int		expose_hook(t_wind *w)
-{
-	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr_img, w->img.x, w->img.y);
-	return (0);
-}
-
 void				ft_randcolorrgb(t_wind *w)
 {
 	FG(color.b) = rand() * 255;
@@ -13,7 +7,7 @@ void				ft_randcolorrgb(t_wind *w)
 	FG(color.r) = rand() * 255;
 }
 
-void				ft_colorkey(int keycode, t_wind *w)
+static void			ft_colorkey(int keycode, t_wind *w)
 {
 	if (keycode == KEY_R)
 		(FG(color.r) < 255) ? (FG(color.r)++) : 0;
@@ -43,7 +37,7 @@ void				ft_colorkey(int keycode, t_wind *w)
 		ft_randcolorrgb(w);
 }
 
-void	ft_arrowkeys(int keycode, t_wind *w)
+static void			ft_arrowkeys(int keycode, t_wind *w)
 {
 	if (keycode == L_ARROW)
 	{
@@ -67,26 +61,12 @@ void	ft_arrowkeys(int keycode, t_wind *w)
 	}
 }
 
-int		key_function(int keycode, t_wind *w)
+static void			ft_page_space_zoom_keys(int keycode, t_wind *w)
 {
-	ft_putnbr(keycode);
-
-	if (keycode == EXIT)
-		exit(0);
-	if (keycode == F2)//F2 Vue Isometrique
-		w->p.view_mode = 2; // Mode iso par défault (touche F2/F3 pour changer)
-	else if (keycode == F3)//F3 Vue Parallèle
-		w->p.view_mode = 3; // Mode iso par défault (touche F2/F3 pour changer)
-	FG(range_x) = FF(x2) - FF(x1);
-	FG(range_y) = FF(y2) - FF(y1);
-	ft_colorkey(keycode, w);
-	ft_arrowkeys(keycode, w);
-	julia_presetkeys(keycode, w);
 	if (keycode == PAGE_U)
 	{
 		if (FG(zoomspeed) >= 0)
 			FG(zoomspeed) -= 0.1;
-		printf("zoomspeed: %.3f\n", FG(zoomspeed));
 	}
 	else if (keycode == PAGE_D)
 	{
@@ -97,7 +77,6 @@ int		key_function(int keycode, t_wind *w)
 			else
 				FG(zoomspeed) += 0.01;
 		}
-		printf("zoomspeed: %.3f\n", FG(zoomspeed));
 	}
 	else if (keycode == SPACE)
 	{
@@ -113,118 +92,35 @@ int		key_function(int keycode, t_wind *w)
 		if(w->p.fr.it_max > 0)
 			w->p.fr.it_max -= 5;
 	}
+}
+
+int					key_function(int keycode, t_wind *w)
+{
+	if (keycode == EXIT)
+		exit(0);
+	if (keycode == F2)
+	{
+		w->p.fr.name = "mandelbrot";
+		w->p.view_mode = 2; // Mode iso par défault (touche F2/F3 pour changer)
+		w->p.fr.fra = init_mandelbrot();
+	}
+	else if (keycode == F3)
+	{
+		w->p.fr.name = "julia";
+		w->p.view_mode = 3; // Mode iso par défault (touche F2/F3 pour changer)
+		w->p.fr.fra = init_julia();
+	}
+	else if (keycode == F4)
+	{
+		w->p.view_mode = 4; // Mode iso par défault (touche F2/F3 pour changer)
+		w->p.fr.name = "triangle_sierpinski";
+	}
+	FG(range_x) = FF(x2) - FF(x1);
+	FG(range_y) = FF(y2) - FF(y1);
+	ft_colorkey(keycode, w);
+	ft_arrowkeys(keycode, w);
+	julia_presetkeys(keycode, w);
+	ft_page_space_zoom_keys(keycode, w);
 	ft_refresh_view(w);
-	return (0);
-}
-
-void			zoom(t_wind *w, int x, int y, int zoominbool)
-{
-	double		tx;
-	double		ty;
-
-	tx = x / FG(zoom_x) + FF(x1);
-	ty = y / FG(zoom_y) + FF(y1);
-	FF(x1) = tx - w->p.fr.coeff;
-	FF(x2) = tx + w->p.fr.coeff;
-	FF(y1) = ty - w->p.fr.coeff;
-	FF(y2) = ty + w->p.fr.coeff;
-	if (zoominbool)
-	{
-		w->p.fr.it_max += 1;
-		ft_putendl("it_maxx++");
-	}
-	else
-		w->p.fr.it_max -= 1;
-	init_zoom(w);
-}
-
-int			mouse_function(int button, int x, int y, t_wind *w)
-{
-	if (button == 1) // Si click gauche
-	{
-		if (w->p.fr.motion == 0) // We set mouse_x active to activate mouse for julia
-			w->p.fr.motion = 1;
-		else
-			w->p.fr.motion = 0;
-	}
-	if (button == 4)//Zoom molette
-	{
-		//if (w->p.view_mode == 2 || w->p.view_mode == 3)
-		//{
-			FG(zoom)++;
-			w->p.fr.coeff *= FG(zoomspeed);
-			zoom(w, x, y, 1); // Zoom in(1.1 value)
-			printf("zoom:%d\n", FG(zoom));
-			printf("coeff:%.2f\n", w->p.fr.coeff);
-			printf("w.p.fr.zoom_x :%.2f\n", FG(zoom_x));
-			printf("w.p.fr.zoom_y :%.2f\n", FG(zoom_y));
-		//}
-		//else
-		//{
-			//if (w->p.fr.it_max != 6)
-			//{
-			
-			/*if (w->p.fr.zoom == 64)
-			{
-				w->p.fr.zoom = 0;
-				w->p.fr.triwidth = w->width / 50;
-				w->p.fr.triheight = w->height / 50;
-			}
-			else
-			{*/
-				//w->p.fr.zoom++;
-				//w->p.fr.coeff *= FG(zoomspeed);
-				//w->p.fr.it_max++; // to incremtente details
-				w->p.fr.triwidth *= 1.1; // For triangle_sierpinski
-				//w->p.fr.triheight *= 1.1;
-			//}
-		//}
-	}
-	if (button == 5)
-	{
-		/*if (w->p.view_mode == 2 || w->p.view_mode == 3)
-		{*/
-			FG(zoom)--;
-			w->p.fr.coeff /= FG(zoomspeed);
-			zoom(w, x, y, 0);
-			// Zoom out (0.9 value)
-			//apply_zoom(w->p.fr.fra, mouseRe, mouseIm, 100/FG(zoom)f);
-			printf("zoom:%d\n", FG(zoom));
-			printf("coeff:%.2f\n", w->p.fr.coeff);
-			printf("w.p.fr.zoom_x :%.2f\n", FG(zoom_x));
-			printf("w.p.fr.zoom_y :%.2f\n", FG(zoom_y));
-			//w->p.fr.it_max -= w->p.fr.quality_of_details;
-		/*}
-		else
-		{
-			//if (w->p.fr.it_max > 0)
-			//{
-			
-			if (w->p.fr.zoom == 0)
-			{
-				w->p.fr.zoom = 64;
-				w->p.fr.triwidth = w->width * 8;
-				w->p.fr.triheight = w->height * 8;
-			}
-			else if (w->p.fr.zoom == 20)
-			{
-				//triangle_sierpinski_main(zoom, it_max, triwidth, triheight);
-			}
-			else
-			{
-				//triangle_sierpinski_main(zoom, it_max, triwidth, triheight);
-				FG(zoom)--;
-				//w->p.fr.coeff /= FG(zoomspeed);
-				w->p.fr.it_max--;//And add 50 incrementation
-				//w->p.fr.ptriwidth = - w->width/1.1;*/
-				w->p.fr.triwidth /= 1.1;
-				//w->p.fr.triheight /= 1.1;
-			//}
-		//}
-	}
-	//ft_putnbr(button);
-	mlx_destroy_image(w->mlx, w->img.ptr_img);
-	create_new_img(w);
-	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr_img, w->img.x, w->img.y);
 	return (0);
 }

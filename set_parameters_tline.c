@@ -43,20 +43,10 @@ t_line		convert_3ddot_to2dline(t_point p, t_point pd)
 
 	v.x = p.x;
 	v.xdest = pd.x;
-	/*if (w->obj.f.bolfill == 0)
-	{
-		v.y = point.y - point.z;
-		v.z = w->p.color.z;
-		v.ydest = pointd.y - pointd.z;
-		v.zdest = w->p.color.zd;
-	}
-	else
-	{*/
-		v.y = p.y;
-		v.z = p.z;
-		v.ydest = pd.y;
-		v.zdest = pd.z;
-	//}
+	v.y = p.y;
+	v.z = p.z;
+	v.ydest = pd.y;
+	v.zdest = pd.z;
 	return (v);
 }
 

@@ -18,48 +18,6 @@ int			dot_in_window(t_wind *w, int x, int y)
 		return (1);
 	return (0);
 }
-/*
-t_point		move_to(t_wind *w, t_point p, int param)
-{
-	int		pyx;
-	int		pxy;
-
-	pyx = w->obj.gizt.p_y.x + w->obj.gizt.t.x;
-	pxy = w->obj.gizt.p_x.y + w->obj.gizt.t.y;
-	if (param == 0)
-	{
-		p.x = p.x - pyx;
-		p.y = p.y - pxy;
-		p.z = p.z;
-	}
-	else
-	{
-		p.x = p.x + pyx;
-		p.y = p.y + pxy;
-		p.z = p.z;
-	}
-	return (p);
-}
-*/
-/*
-static void	cond_getpoint_draw(t_wind *w, t_line v)
-{
-	char	*col;
-
-	if ((w->p.dot == 1) && ((rint(v.x) == v.midx) && (rint(v.y) == v.midy)))
-		draw_point(w, rint(v.x), rint(v.y), get_color(w, rint(v.z)));
-	else if (w->obj.f.bolfill == 0 && w->p.graphic_mode == 4)
-		draw_point(w, rint(v.x), rint(v.y), w->p.color.hexa_top);
-	else if (w->p.color.hexa_bool)
-		draw_point(w, rint(v.x), rint(v.y), w->p.color.hexa_default);
-	else
-	{
-		col = get_color(w, rint(v.z));
-		draw_point(w, rint(v.x), rint(v.y), col);
-		ft_strdel(&col);
-	}
-}
-*/
 
 int			draw_2dline(t_wind *w, t_point p, t_point pd, t_rgbcolor color)
 {
@@ -67,24 +25,6 @@ int			draw_2dline(t_wind *w, t_point p, t_point pd, t_rgbcolor color)
 
 	v = convert_3ddot_to2dline(p, pd);
 	v = set_parameters_tline(v);
-	/*ft_putstr("rint(v.x):");
-	ft_putnbr(rint(v.x));
-	ft_putstr("\n");
-	ft_putstr("rint(v.xdest):");
-	ft_putnbr(rint(v.xdest));
-	ft_putstr("\n");
-	ft_putstr("rint(v.sign_x):");
-	ft_putnbr(rint(v.sign_x));
-	ft_putstr("\n");
-	ft_putstr("rint(v.y):");
-	ft_putnbr(rint(v.y));
-	ft_putstr("\n");
-	ft_putstr("rint(v.ydest):");
-	ft_putnbr(rint(v.ydest));
-	ft_putstr("\n");
-	ft_putstr("rint(v.sign_y):");
-	ft_putnbr(rint(v.sign_y));
-	ft_putstr("\n");*/
 	while (rint(v.x) != v.xdest || rint(v.y) != v.ydest)
 	{
 		if (v.x != v.xdest)
@@ -94,34 +34,7 @@ int			draw_2dline(t_wind *w, t_point p, t_point pd, t_rgbcolor color)
 		if (v.z != v.zdest)
 			v.z += (v.sign_z * (v.diff_z / v.bigdiff));
 		if (dot_in_window(w, rint(v.x), rint(v.y)) == 1)
-		{
-			/*ft_putstr("print rint(v.x):");
-			ft_putnbr(rint(v.x));
-			ft_putstr("\n");
-			ft_putstr("print rint(v.y):");
-			ft_putnbr(rint(v.y));
-			ft_putstr("\n");
-			ft_putstr("hexacolor:");
-			ft_putstr(hexacolor);
-			ft_putstr("\n");*/
-			// On crée le dégradé en fonction de la hauteur dans l'écran
 			draw_point(w, rint(v.x), rint(v.y), color);
-		}
-		//cond_getpoint_draw(w, v);
 	}
 	return (0);
 }
-/*
-int			draw_line(t_wind *w, t_point point, t_point pointd)
-{
-	w->p.rot.x += 45;
-	point = move_to(w, point, 0);
-	pointd = move_to(w, pointd, 0);
-	point = matrice_rotation(point, w->p.rot, w->p.r_rot, w);
-	pointd = matrice_rotation(pointd, w->p.rot, w->p.r_rot, w);
-	point = move_to(w, point, 1);
-	pointd = move_to(w, pointd, 1);
-	w->p.rot.x -= 45;
-	get_pointinbetween(point, pointd, w);
-	return (0);
-}*/

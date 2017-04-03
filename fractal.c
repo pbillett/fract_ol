@@ -42,15 +42,6 @@ int					fractal(t_wind *w)
 	int				i;
 	t_gradientcol	gradecolor;
 
-	printf("true zoom: %d\n", FG(zoom));
-	printf("color: r:%d, g:%d, b: %d\n", FG(color.r), FG(color.g), FG(color.b));
-	printf("it_max: %d\n", w->p.fr.it_max);
-	printf("x1: %f\n", FF(x1));
-	printf("x2: %f\n", FF(x2));
-	printf("y1: %f\n", FF(y1));
-	printf("y2: %f\n", FF(y2));
-	printf("w->width: %d\n", w->width);
-	printf("w->height: %d\n", w->height);
 	FG(x) = 0;
 	while (FG(x) < w->width)
 	{
@@ -83,6 +74,5 @@ int					fractal(t_wind *w)
 		}
 		FG(x)++;
 	}
-	//ft_putstr("render");
 	return (0);
 }

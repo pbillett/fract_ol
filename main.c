@@ -40,8 +40,6 @@ int					main(int argc, char **argv)
 	listwin = malloc (sizeof(t_wind) * (argc - 1));
 	while (i+1 < argc)
 	{
-		ft_putnbr(i+1);
-		ft_putnbr(argc);
 		if (!argv[i+1] || !check_fractal_name(argv[i+1]) || argc < 2)
 		{
 			ft_putendl("mandelbrot");
