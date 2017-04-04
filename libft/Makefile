@@ -6,7 +6,7 @@
 #    By: pbillett <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/26 14:11:23 by pbillett          #+#    #+#              #
-#    Updated: 2017/03/02 16:13:29 by pbillett         ###   ########.fr        #
+#    Updated: 2017/04/04 12:25:20 by pbillett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,12 +72,11 @@ SRC= src/ft_lstiter.c \
 	src/ft_strnew.c \
 	src/ft_squared.c \
 	src/ft_inttohex.c \
-	src/ft_hexatorgb.c \
+	src/ft_pythagore.c \
 	src/get_next_line.c
 CFLAGS= -Wall -Werror -Wextra
 SRCDIR= src
 OBJDIR= obj
-#BINDIR= bin
 OBJ := $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 CC= gcc
 
@@ -86,7 +85,6 @@ all:	$(NAME)
 $(OBJ): $(OBJDIR)/%.o : $(SRCDIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-#$(BINDIR)/$(NAME): $(OBJ)
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)

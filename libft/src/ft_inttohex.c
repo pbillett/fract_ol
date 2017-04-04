@@ -6,11 +6,11 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 15:04:05 by pbillett          #+#    #+#             */
-/*   Updated: 2017/03/02 16:15:22 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/04/04 12:17:20 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minilibx.h"
+#include "../inc/libft.h"
 
 char			*ft_inttohex(unsigned int n)
 {

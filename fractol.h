@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:40:00 by pbillett          #+#    #+#             */
-/*   Updated: 2017/04/03 18:49:57 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/04/04 12:06:46 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 # define FRACTOL_H
 # include "libft/inc/libft.h"
-# include "libft/inc/minilibx/mlx.h"
+# include "mlx.h"
 # include "struct.h"
 # include "keymacro.h"
 # include <math.h>
