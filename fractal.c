@@ -97,7 +97,7 @@ int					fractal(t_wind *w)
 					FF(z_i) = 2 * FF(tmp) * FF(z_i) + FF(c_i);
 				}
 				FG(i)++;
-				if (w->p.fr.colorset == 0 && (ft_strcmp(w->p.fr.name, "burningship") != 0))
+				if (w->p.fr.colorset == 0 && !(ft_strcmp(w->p.fr.name, "burningship") == 0))
 					mydraw(w, FG(x), FG(y), FG(color));
 			}
 			if (w->p.fr.colorset == 1)

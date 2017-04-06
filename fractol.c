@@ -12,25 +12,6 @@
 
 #include "fractol.h"
 
-t_mandelbrot				*init_burning(void)
-{
-	t_mandelbrot			*b;
-
-	b = (t_mandelbrot *)malloc(sizeof(t_mandelbrot));
-	if (b == NULL)
-		error_malloc();
-	b->x1 = -2.1;
-	b->x2 = -2.5;
-	b->y1 = 0.39;
-	b->y2 = 0.5;
-	b->z_r = 0;
-	b->z_i = 0;
-	b->c_r = 0;
-	b->c_i = 0;
-	b->tmp = 0;
-	return (b);
-}
-
 t_mandelbrot				*init_mandelbrot(void)
 {
 	t_mandelbrot			*m;
@@ -93,36 +74,29 @@ void						set_parameters(t_wind *w)
 
 void						set_mode(t_wind *w, char *fracname)
 {
-	w->p.fr.mdb = init_mandelbrot();
-	w->p.fr.jul = init_julia();
-	w->p.fr.bur = init_burning();
-	w->p.fr.fra = w->p.fr.mdb;
+	w->p.fr.fra = init_mandelbrot();
+	w->p.fr.motion = 0;
+	(FG(it_max) == 4) ? (FG(it_max) = ITMAX) : 0;
 	if (ft_strcmp(fracname, "mandelbrot") == 0)
 	{
 		w->p.view_mode = 2;
-		w->p.fr.motion = 0;
-		w->p.fr.fra = w->p.fr.mdb;
-		(FG(it_max) == 4) ? (FG(it_max) = ITMAX) : 0;
+		w->p.fr.fra = init_mandelbrot();
 	}
 	else if (ft_strcmp(fracname, "julia") == 0)
 	{
 		w->p.view_mode = 3;
 		w->p.fr.motion = 1;
-		w->p.fr.fra = w->p.fr.jul;
-		(FG(it_max) == 4) ? (FG(it_max) = ITMAX) : 0;
+		w->p.fr.fra = init_julia();
 	}
 	else if (ft_strcmp(fracname, "triangle_sierpinski") == 0)
 	{
 		w->p.view_mode = 4;
-		w->p.fr.motion = 0;
 		w->p.fr.it_max = 4;
 	}
 	else if (ft_strcmp(fracname, "burningship") == 0)
 	{
 		w->p.view_mode = 5;
-		w->p.fr.motion = 0;
-		w->p.fr.fra = w->p.fr.bur;
-		(FG(it_max) == 4) ? (FG(it_max) = ITMAX) : 0;
+		w->p.fr.fra = init_burning();
 	}
 	w->p.fr.name = fracname;
 }

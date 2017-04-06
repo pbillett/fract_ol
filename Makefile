@@ -4,6 +4,7 @@ SRC=	main.c \
 		fractol.c \
 		fractal.c \
 		set_julia.c \
+		burningship.c \
 		triangle_sierpinski.c \
 		draw_line.c \
 		set_parameters_tline.c \

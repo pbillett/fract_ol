@@ -36,8 +36,8 @@ int				mouse_motion_function(int x, int y, t_wind *w)
 			((double)w->width / 4);
 		FG(mouse_yjul) = (double)(w->width / 2 - FG(mouse_x)) /
 			((double)w->height / 4);
+		ft_refresh_view(w);
 	}
-	ft_refresh_view(w);
 	return (0);
 }
 

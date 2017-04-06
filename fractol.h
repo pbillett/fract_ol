@@ -69,6 +69,7 @@ void			put_info(t_wind *w);
 void			error_malloc(void);
 t_mandelbrot	*init_mandelbrot(void);
 t_mandelbrot	*init_julia(void);
+t_mandelbrot	*init_burning(void);
 void			set_mode(t_wind *w, char *fracname);
 void			set_parameters(t_wind *w);
 void			reinit_fractal(t_wind *w, char *fracname);
