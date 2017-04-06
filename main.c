@@ -38,7 +38,8 @@ static int			check_fractal_name(char *fracname)
 {
 	if ((ft_strcmp(fracname, "mandelbrot") == 0)
 	|| (ft_strcmp(fracname, "julia") == 0)
-	|| (ft_strcmp(fracname, "triangle_sierpinski") == 0))
+	|| (ft_strcmp(fracname, "triangle_sierpinski") == 0)
+	|| (ft_strcmp(fracname, "burningship") == 0))
 		return (1);
 	return (0);
 }
@@ -57,6 +58,7 @@ int					main(int argc, char **argv)
 			ft_putendl("mandelbrot");
 			ft_putendl("julia");
 			ft_putendl("triangle_sierpinski");
+			ft_putendl("burningship");
 			return (0);
 		}
 		i++;

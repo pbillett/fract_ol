@@ -12,6 +12,25 @@
 
 #include "fractol.h"
 
+t_mandelbrot				*init_burning(void)
+{
+	t_mandelbrot			*b;
+
+	b = (t_mandelbrot *)malloc(sizeof(t_mandelbrot));
+	if (b == NULL)
+		error_malloc();
+	b->x1 = -2.1;
+	b->x2 = -2.5;
+	b->y1 = 0.39;
+	b->y2 = 0.5;
+	b->z_r = 0;
+	b->z_i = 0;
+	b->c_r = 0;
+	b->c_i = 0;
+	b->tmp = 0;
+	return (b);
+}
+
 t_mandelbrot				*init_mandelbrot(void)
 {
 	t_mandelbrot			*m;
@@ -76,6 +95,7 @@ void						set_mode(t_wind *w, char *fracname)
 {
 	w->p.fr.mdb = init_mandelbrot();
 	w->p.fr.jul = init_julia();
+	w->p.fr.bur = init_burning();
 	w->p.fr.fra = w->p.fr.mdb;
 	if (ft_strcmp(fracname, "mandelbrot") == 0)
 	{
@@ -96,6 +116,13 @@ void						set_mode(t_wind *w, char *fracname)
 		w->p.view_mode = 4;
 		w->p.fr.motion = 0;
 		w->p.fr.it_max = 4;
+	}
+	else if (ft_strcmp(fracname, "burningship") == 0)
+	{
+		w->p.view_mode = 5;
+		w->p.fr.motion = 0;
+		w->p.fr.fra = w->p.fr.bur;
+		(FG(it_max) == 4) ? (FG(it_max) = ITMAX) : 0;
 	}
 	w->p.fr.name = fracname;
 }

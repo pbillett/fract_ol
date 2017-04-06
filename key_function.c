@@ -101,6 +101,8 @@ static void			ft_setmode_fractal(int keycode, t_wind *w)
 		set_mode(w, "julia");
 	else if (keycode == NUM_3)
 		set_mode(w, "triangle_sierpinski");
+	else if (keycode == NUM_4)
+		set_mode(w, "burningship");
 }
 
 int					key_function(int keycode, t_wind *w)

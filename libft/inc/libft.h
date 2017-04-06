@@ -94,5 +94,6 @@ float				ft_pythagore(float a, float b);
 char				*ft_inttohex(unsigned int n);
 int					ft_hextoint(char *s);
 double				ft_degree_to_radian(int degree);
+double				ft_fabs(double x);
 
 #endif

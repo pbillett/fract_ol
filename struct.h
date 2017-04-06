@@ -27,6 +27,7 @@ typedef struct			s_fractal
 	struct s_mandelbrot *fra;
 	struct s_mandelbrot *mdb;
 	struct s_mandelbrot *jul;
+	struct s_mandelbrot *bur;
 	float				x;
 	float				y;
 	int					colorset;

@@ -74,6 +74,7 @@ SRC= src/ft_lstiter.c \
 	src/ft_squared.c \
 	src/ft_inttohex.c \
 	src/ft_pythagore.c \
+	src/ft_fabs.c \
 	src/get_next_line.c
 CFLAGS= -Wall -Werror -Wextra
 SRCDIR= src

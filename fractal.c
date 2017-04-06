@@ -28,6 +28,13 @@ static void			set_nbrcomplexandz(t_wind *w, int x, int y)
 		FF(z_r) = 0 + FG(mouse_x);
 		FF(z_i) = 0 + FG(mouse_y);
 	}
+	else if (ft_strcmp(w->p.fr.name, "burningship") == 0)
+	{
+		FF(c_r) = x / FG(zoom_x) + FF(x1);
+		FF(c_i) = y / FG(zoom_y) + FF(y1);
+		FF(z_r) = 0;
+		FF(z_i) = 0;
+	}
 }
 
 void				mydraw(t_wind *w, int x, int y, t_rgbcolor color)
@@ -79,14 +86,24 @@ int					fractal(t_wind *w)
 					FG(i) < FG(it_max))
 			{
 				FF(tmp) = FF(z_r);
-				FF(z_r) = (ft_squared(FF(z_r)) - ft_squared(FF(z_i))) + FF(c_r);
-				FF(z_i) = 2 * FF(tmp) * FF(z_i) + FF(c_i);
+				if (ft_strcmp(w->p.fr.name, "burningship") == 0)
+				{
+					FF(z_r) = ft_fabs(ft_squared(FF(z_r)) - ft_squared(FF(z_i))) + FF(c_r);
+					FF(z_i) = ft_fabs(2 * FF(tmp) * FF(z_i)) + FF(c_i);
+				}
+				else
+				{
+					FF(z_r) = ft_squared(FF(z_r)) - ft_squared(FF(z_i)) + FF(c_r);
+					FF(z_i) = 2 * FF(tmp) * FF(z_i) + FF(c_i);
+				}
 				FG(i)++;
-				if (w->p.fr.colorset == 0)
+				if (w->p.fr.colorset == 0 && (ft_strcmp(w->p.fr.name, "burningship") != 0))
 					mydraw(w, FG(x), FG(y), FG(color));
 			}
 			if (w->p.fr.colorset == 1)
 				draw_fspacemode(w);
+			if (ft_strcmp(w->p.fr.name, "burningship") == 0)
+				mydraw(w, FG(x), FG(y), FG(color));
 			FG(y)++;
 		}
 		FG(x)++;
