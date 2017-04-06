@@ -68,8 +68,13 @@ int				mouse_function(int button, int x, int y, t_wind *w)
 		else
 			w->p.fr.motion = 0;
 	}
+	# if MACROKEY == 1
 	if (button == 2)
 		reinit_fractal(w, w->p.fr.name);
+	# else
+	if (button == 3)
+		reinit_fractal(w, w->p.fr.name);
+	# endif
 	if (button == 4)
 	{
 		FG(zoom)++;

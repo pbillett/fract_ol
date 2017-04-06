@@ -19,6 +19,7 @@ SRC= src/ft_lstiter.c \
 	src/ft_putendl_fd.c \
 	src/ft_striter.c \
 	src/ft_strrchr.c \
+	src/ft_strrev.c \
 	src/ft_atoi.c \
 	src/ft_lstnew.c \
 	src/ft_putnbr.c \

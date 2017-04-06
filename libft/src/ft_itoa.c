@@ -14,14 +14,22 @@
 
 static int			ft_nbrlen(int n)
 {
-	int nbr;
+	int				i;
 
-	nbr = 1;
-	while (n /= 10)
+	i = 0;
+	if (n == 0)
+		i++;
+	else if (n < 0)
+		i++;
+	else
 	{
-		nbr++;
+		while (n > 0)
+		{
+			i++;
+			n /= 10;
+		}
 	}
-	return (nbr);
+	return (i);
 }
 
 char				*ft_itoa(int n)
@@ -38,6 +46,9 @@ char				*ft_itoa(int n)
 	str = ft_strnew(len);
 	if (str == NULL)
 		return (NULL);
+	if (n == 0)
+		str[0] = '0';
+	str[len] = '\0';
 	while (len > 0)
 	{
 		str[len - 1] = (tmp % 10) + '0';

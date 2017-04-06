@@ -61,7 +61,6 @@ void						set_parameters(t_wind *w)
 	w->p.fr.y = 0;
 	FG(mouse_x) = 0;
 	FG(mouse_y) = 0;
-	FG(color) = (t_rgbcolor){2, 20, 210};
 	FG(zoomspeed) = ZOOMSPEED;
 	w->p.fr.colorset = COLORSET;
 	w->img.width = WIDTH;
@@ -107,6 +106,7 @@ t_wind						fract_ol(char *fracname)
 
 	w = create_new_window(fracname, WIDTH, HEIGHT);
 	reinit_fractal(&w, fracname);
+	ft_randcolorrgb(&w);
 	create_new_img(&w);
 	mlx_put_image_to_window(w.mlx, w.win, w.img.ptr_img, w.img.x, w.img.y);
 	put_info(&w);

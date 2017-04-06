@@ -95,11 +95,11 @@ static void			ft_page_space_zoom_keys(int keycode, t_wind *w)
 
 static void			ft_setmode_fractal(int keycode, t_wind *w)
 {
-	if (keycode == F2)
+	if (keycode == NUM_1)
 		set_mode(w, "mandelbrot");
-	else if (keycode == F3)
+	else if (keycode == NUM_2)
 		set_mode(w, "julia");
-	else if (keycode == F4)
+	else if (keycode == NUM_3)
 		set_mode(w, "triangle_sierpinski");
 }
 

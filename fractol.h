@@ -14,7 +14,11 @@
 
 # define FRACTOL_H
 # include "libft/inc/libft.h"
-# include "mlx.h"
+# if MACROKEY == 1
+# include "minilibx_macos/mlx.h"
+# else
+# include "minilibx/mlx.h"
+# endif
 # include "struct.h"
 # include "keymacro.h"
 # include <math.h>
@@ -25,8 +29,8 @@
 # define BUTTONMOTIONMASK	(1L<<13)
 # define POINTERMOTIONMASK	(1L<<6)
 # define NOEVENTMASK			0L
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 200
+# define HEIGHT 200
 # define ZOOM 1
 # define COEFF 0.78
 # define ITMAX 20
