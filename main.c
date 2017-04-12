@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:11:27 by pbillett          #+#    #+#             */
-/*   Updated: 2017/04/03 18:11:45 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/04/12 13:03:10 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,15 @@ static int			check_fractal_name(char *fracname)
 	return (0);
 }
 
+static void			print_fractal_name(void)
+{
+	ft_putendl("mandelbrot");
+	ft_putendl("julia");
+	ft_putendl("triangle_sierpinski");
+	ft_putendl("burningship");
+	exit(0);
+}
+
 int					main(int argc, char **argv)
 {
 	int				i;
@@ -51,16 +60,12 @@ int					main(int argc, char **argv)
 
 	i = 0;
 	listwin = malloc(sizeof(t_wind) * (argc - 1));
+	if (argc == 1)
+		print_fractal_name();
 	while (i + 1 < argc)
 	{
 		if (!argv[i + 1] || !check_fractal_name(argv[i + 1]) || argc < 2)
-		{
-			ft_putendl("mandelbrot");
-			ft_putendl("julia");
-			ft_putendl("triangle_sierpinski");
-			ft_putendl("burningship");
-			return (0);
-		}
+			print_fractal_name();
 		i++;
 	}
 	i = 0;
