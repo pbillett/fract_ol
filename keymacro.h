@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:44:56 by pbillett          #+#    #+#             */
-/*   Updated: 2017/04/03 13:53:36 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/04/12 11:57:35 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 #  define NUM_1 83
 #  define NUM_2 84
 #  define NUM_3 85
-#  define NUM_4 85
+#  define NUM_4 86
 #  define ZOOM_P 69
 #  define ZOOM_M 78
 #  define PAGE_U 116
@@ -60,6 +60,7 @@
 #  define F3 84
 #  define F4 85
 #  define SPACE 49
+#  define MOUSE_R 2
 # else
 #  define EXIT 65307
 #  define KEY_W 122
@@ -107,5 +108,6 @@
 #  define F3 65472
 #  define F4 65473
 #  define SPACE 32
+#  define MOUSE_R 3
 # endif
 #endif

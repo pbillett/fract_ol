@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:40:00 by pbillett          #+#    #+#             */
-/*   Updated: 2017/04/04 12:06:46 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/04/12 12:14:30 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 # define FRACTOL_H
 # include "libft/inc/libft.h"
 # if MACROKEY == 1
-# include "minilibx_macos/mlx.h"
+#  include "minilibx_macos/mlx.h"
 # else
-# include "minilibx/mlx.h"
+#  include "minilibx/mlx.h"
 # endif
 # include "struct.h"
 # include "keymacro.h"
@@ -29,8 +29,8 @@
 # define BUTTONMOTIONMASK	(1L<<13)
 # define POINTERMOTIONMASK	(1L<<6)
 # define NOEVENTMASK			0L
-# define WIDTH 500
-# define HEIGHT 500
+# define WIDTH 1000
+# define HEIGHT 1000
 # define ZOOM 1
 # define COEFF 0.78
 # define ITMAX 20
@@ -73,5 +73,6 @@ t_mandelbrot	*init_burning(void);
 void			set_mode(t_wind *w, char *fracname);
 void			set_parameters(t_wind *w);
 void			reinit_fractal(t_wind *w, char *fracname);
+void			set_zr_zi(t_wind *w);
 
 #endif

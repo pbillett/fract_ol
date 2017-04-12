@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:13:07 by pbillett          #+#    #+#             */
-/*   Updated: 2017/04/03 18:38:02 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/04/12 12:10:59 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,16 @@ void				reinit_fractal(t_wind *w, char *fracname)
 
 static void			draw_fspacemode(t_wind *w)
 {
-	if (FG(i) == FG(it_max))
-		w->p.fr.color = (t_rgbcolor){0, 0, 0};
-	else
-		ultra_fractalgrade(w);
-	draw_point(w, FG(x), FG(y), w->p.fr.color);
+	if (w->p.fr.colorset == 1)
+	{
+		if (FG(i) == FG(it_max))
+			w->p.fr.color = (t_rgbcolor){0, 0, 0};
+		else
+			ultra_fractalgrade(w);
+		draw_point(w, FG(x), FG(y), w->p.fr.color);
+	}
+	else if (ft_strcmp(w->p.fr.name, "burningship") == 0)
+		mydraw(w, FG(x), FG(y), FG(color));
 }
 
 int					fractal(t_wind *w)
@@ -86,24 +91,13 @@ int					fractal(t_wind *w)
 					FG(i) < FG(it_max))
 			{
 				FF(tmp) = FF(z_r);
-				if (ft_strcmp(w->p.fr.name, "burningship") == 0)
-				{
-					FF(z_r) = ft_fabs(ft_squared(FF(z_r)) - ft_squared(FF(z_i))) + FF(c_r);
-					FF(z_i) = ft_fabs(2 * FF(tmp) * FF(z_i)) + FF(c_i);
-				}
-				else
-				{
-					FF(z_r) = ft_squared(FF(z_r)) - ft_squared(FF(z_i)) + FF(c_r);
-					FF(z_i) = 2 * FF(tmp) * FF(z_i) + FF(c_i);
-				}
+				set_zr_zi(w);
 				FG(i)++;
-				if (w->p.fr.colorset == 0 && !(ft_strcmp(w->p.fr.name, "burningship") == 0))
+				if (w->p.fr.colorset == 0 && !(ft_strcmp(w->p.fr.name,
+								"burningship") == 0))
 					mydraw(w, FG(x), FG(y), FG(color));
 			}
-			if (w->p.fr.colorset == 1)
-				draw_fspacemode(w);
-			if (ft_strcmp(w->p.fr.name, "burningship") == 0)
-				mydraw(w, FG(x), FG(y), FG(color));
+			draw_fspacemode(w);
 			FG(y)++;
 		}
 		FG(x)++;

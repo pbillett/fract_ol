@@ -6,7 +6,7 @@
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 15:31:52 by pbillett          #+#    #+#             */
-/*   Updated: 2017/04/03 18:39:36 by pbillett         ###   ########.fr       */
+/*   Updated: 2017/04/12 11:57:09 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,8 @@ int				mouse_function(int button, int x, int y, t_wind *w)
 		else
 			w->p.fr.motion = 0;
 	}
-	# if MACROKEY == 1
-	if (button == 2)
+	if (button == MOUSE_R)
 		reinit_fractal(w, w->p.fr.name);
-	# else
-	if (button == 3)
-		reinit_fractal(w, w->p.fr.name);
-	# endif
 	if (button == 4)
 	{
 		FG(zoom)++;
