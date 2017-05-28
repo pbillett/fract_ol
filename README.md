@@ -7,7 +7,17 @@ Compile both on Mac and Linux without any problem. (with X11)
 # How to launch :
 
 - git clone http://github.com/pbillett/fractol.git && cd fractol
-- make re && ./fractol [with name of fractal: mandelbrot, julia, burningship, triangle_sierpinski]
+- make re && ./fractol [with name of fractal: mandelbrot, julia, triangle_sierpinski, burningship]
+<code>
+
+      example : ./fractol mandelbrot -> launch Mandelbrot
+      
+                ./fractol julia -> launch Julia
+                
+                ./fractol triangle_sierpinski -> launch Triangle Sierpinski
+                
+                ./fractol burningship -> launch Burningship  
+</code>
 
 # Shortcut :
 
@@ -31,6 +41,7 @@ Compile both on Mac and Linux without any problem. (with X11)
   - B:  c/v/b/n
 - Escape: Quit
 
-Ps: Warning, this project are not currently using openCL to accelerate rendering.
-On some processors(ex: on linux config), a good way to accelate the rendering is simply to 
-reduce the size from 1000x1000 to 540x480 in fractol.h and recompile with make re.
+
+<i>Ps: Warning, this project are not currently using openCL to accelerate rendering.
+On some processors(ex: linux), a good way to accelate the rendering is to reduce the
+windows size from 1000x1000 to 540x480 in fractol.h and recompile with make re.</i>
