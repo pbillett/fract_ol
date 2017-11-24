@@ -1,22 +1,22 @@
 UNAME := $(shell uname)
 NAME=fractol
-SRC=	main.c \
-		fractol.c \
-		fractal.c \
-		set_julia.c \
-		burningship.c \
-		triangle_sierpinski.c \
-		draw_line.c \
-		set_parameters_tline.c \
-		create_new_window.c \
-		create_new_img.c \
-		draw_point.c \
-		rgbtohexa.c \
-		key_function.c \
-		ft_randcolorrgb.c \
-		mouse_function.c \
-		put_info.c \
-		error.c
+SRC=	src/main.c \
+		src/fractol.c \
+		src/fractal.c \
+		src/set_julia.c \
+		src/burningship.c \
+		src/triangle_sierpinski.c \
+		src/draw_line.c \
+		src/set_parameters_tline.c \
+		src/create_new_window.c \
+		src/create_new_img.c \
+		src/draw_point.c \
+		src/rgbtohexa.c \
+		src/key_function.c \
+		src/ft_randcolorrgb.c \
+		src/mouse_function.c \
+		src/put_info.c \
+		src/error.c
 OBJ=${SRC:.c=.o}
 
 ifeq ($(UNAME), Darwin) # MAC

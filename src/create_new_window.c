@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_randcolorrgb.c                                  :+:      :+:    :+:   */
+/*   create_new_window.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbillett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/03 15:04:30 by pbillett          #+#    #+#             */
-/*   Updated: 2017/04/03 19:01:12 by pbillett         ###   ########.fr       */
+/*   Created: 2017/04/03 15:32:18 by pbillett          #+#    #+#             */
+/*   Updated: 2017/04/03 15:32:25 by pbillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../includes/fractol.h"
 
-void				ft_randcolorrgb(t_wind *w)
+t_wind			create_new_window(char *title, int width, int height)
 {
-	FG(color.b) = rand() % 255;
-	FG(color.g) = rand() % 255;
-	FG(color.r) = rand() % 255;
+	t_wind			w;
+
+	w.mlx = mlx_init();
+	w.width = width;
+	w.height = height;
+	w.title = title;
+	w.win = mlx_new_window(w.mlx, w.width, w.height, w.title);
+	return (w);
 }
